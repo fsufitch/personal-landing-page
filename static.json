@@ -1,4 +1,5 @@
 {
     "root": "tmp-static/",
-    "https_only": true
+    "https_only": true,
+    "canonical_host": "filip.sufitchi.name"
 }
