@@ -1,0 +1,4 @@
+{
+    "root": "tmp-static/",
+    "https_only": true
+}
