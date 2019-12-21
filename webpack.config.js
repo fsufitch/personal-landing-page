@@ -23,6 +23,7 @@ if (process.env.HEROKU_SLUG_COMMIT || process.env.HEROKU_RELEASE_VERSION || proc
         createdAt: process.env.HEROKU_RELEASE_CREATED_AT,
     };
 } 
+console.log("Version data: ", JSON.stringify(versionData));
 
 let htmlLoader = { loader: 'html-loader' };
 let sassLoader = { loader: 'sass-loader', options: {sourceMap: true}};
