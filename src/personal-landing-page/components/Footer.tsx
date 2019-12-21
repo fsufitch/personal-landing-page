@@ -22,8 +22,9 @@ export class Footer extends Component {
         }
         return (<div className={styles.footer}>
             <span>&copy; {new Date().getFullYear()} Filip Sufitchi.</span>
+            {' '}
             <a href={GITHUB_URL}>
-                Check me out on Github!
+                Check me out on Github <Octicon icon={MarkGithub} />
             </a>
         </div>);
 

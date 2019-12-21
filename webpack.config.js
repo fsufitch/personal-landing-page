@@ -28,11 +28,16 @@ console.log("Version data: ", JSON.stringify(versionData));
 let htmlLoader = { loader: 'html-loader' };
 let sassLoader = { loader: 'sass-loader', options: {sourceMap: true}};
 let cssLoader = { loader: 'css-loader', options: { sourceMap: true, modules: {
-    localIdentName: "[hash:base64]__[local]", // XXX: make this opaque for prod?
+    localIdentName: "[hash:base64]--[local]", // XXX: make this opaque for prod?
 } } };
 let cssModulesTyescriptLoader = { loader: 'css-modules-typescript-loader' };
 let miniCssExtractLoader = { loader: MiniCssExtractPlugin.loader };
 let styleLoader = { loader: 'style-loader' };
+let fileLoader = { loader: 'file-loader', options: { name: '[name]--[contenthash].[ext]' } };
+let urlLoader = { loader: 'url-loader', options: {
+    limit: 4096, 
+    fallback: fileLoader,
+}};
 
 module.exports = {
     devtool: "source-map",
@@ -49,9 +54,10 @@ module.exports = {
     },
     module: {
         rules: [
-            { test: /\.tsx?$/, use: [babelLoader, tsLoader] },
-            { test: /\.html$/, use: [htmlLoader] },
-            { test: /\.s[ac]ss/, use: [miniCssExtractLoader, cssLoader, sassLoader] },
+            { test: /\.tsx?$/i, use: [babelLoader, tsLoader] },
+            { test: /\.html$/i, use: [htmlLoader] },
+            { test: /\.s[ac]ss/i, use: [miniCssExtractLoader, cssLoader, sassLoader] },
+            { test: /\.(png|jpe?g|gif)$/i, use: [urlLoader]},
         ]
     },
     plugins: [

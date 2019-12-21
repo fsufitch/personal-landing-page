@@ -3,13 +3,15 @@ import {
     HashRouter as Router,
     Switch,
     Route,
-    Link,
     Redirect
 } from "react-router-dom";
 
 import styles from 'personal-landing-page/styles';
 import { Home } from "./Home";
 import { Footer } from "./Footer";
+import { Profile } from "./Profile";
+import { Projects } from "./Projects";
+import { Skills } from "./Skills";
 
 export class Root extends Component {
 
@@ -17,15 +19,19 @@ export class Root extends Component {
         return (<div className={styles.container}>
             <Router>
                 <Switch>
-                    <Route path="/about">
-                        About
-                    </Route>
-                    <Route path="/users">
-                        Users
-                    </Route>
                     <Route path="/home">
-                        <Home></Home>
+                        <Home />
                     </Route>
+                    <Route path="/profile">
+                        <Profile />
+                    </Route>
+                    <Route path="/skills">
+                        <Skills />
+                    </Route>
+                    <Route path="/projects">
+                        <Projects />
+                    </Route>
+                   
                     <Route exact path="/">
                         <Redirect to="/home" />
                     </Route>

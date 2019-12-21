@@ -1,0 +1,30 @@
+.jumbo {
+  @extend .jumbotron;
+  @extend .jumbotron-fluid;
+
+  .jumboBrand {
+    @extend .col-12;
+    @extend .col-sm-3;
+    @extend .d-flex;
+    align-items: center;
+    justify-content: center;
+
+    img,
+    svg {
+      @extend .img-fluid;
+    }
+  }
+
+  .jumboHome {
+      @extend .btn;
+      @extend .btn-light;
+
+      @extend .position-absolute;
+      top: $spacer;
+      right: $spacer;
+  }
+
+  .jumboText {
+    @extend .col;
+  }
+}
