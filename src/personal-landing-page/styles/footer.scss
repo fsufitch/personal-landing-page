@@ -1,0 +1,8 @@
+.footer {
+    @extend .p-3;
+    @extend .text-center;
+
+    @extend .small;
+    @extend .text-muted;
+    @extend .font-weight-light;
+}

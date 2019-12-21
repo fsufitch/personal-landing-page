@@ -5,9 +5,6 @@ import Octicon, { Rocket, MortarBoard, Home as HomeIcon, MarkGithub, FileDirecto
 import styles from 'personal-landing-page/styles';
 import { Link } from "react-router-dom";
 
-console.log("Styles");
-console.log(styles);
-
 export class Home extends Component {
     render(): JSX.Element {
         return (

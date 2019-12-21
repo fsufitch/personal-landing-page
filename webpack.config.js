@@ -4,6 +4,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const DefinePlugin = require('webpack').DefinePlugin;
 
 let babelLoader = { loader: 'babel-loader' };
 
@@ -13,6 +14,15 @@ let tsLoader = {
         transpileOnly: true,
     },
 }
+
+let versionData = null;
+if (process.env.HEROKU_SLUG_COMMIT || process.env.HEROKU_RELEASE_VERSION || process.env.HEROKU_RELEASE_CREATED_AT) {
+    versionData = {
+        commit: process.env.HEROKU_SLUG_COMMIT,
+        version: process.env.HEROKU_RELEASE_VERSION,
+        createdAt: process.env.HEROKU_RELEASE_CREATED_AT,
+    };
+} 
 
 let htmlLoader = { loader: 'html-loader' };
 let sassLoader = { loader: 'sass-loader', options: {sourceMap: true}};
@@ -49,6 +59,9 @@ module.exports = {
         new HtmlWebPackPlugin({
             template: "./src/index.html",
             filename: "./index.html",
+        }),
+        new DefinePlugin({
+            VERSION_DATA: JSON.stringify(versionData),
         }),
     ],
     optimization: {

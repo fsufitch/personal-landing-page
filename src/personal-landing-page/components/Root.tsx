@@ -9,6 +9,7 @@ import {
 
 import styles from 'personal-landing-page/styles';
 import { Home } from "./Home";
+import { Footer } from "./Footer";
 
 export class Root extends Component {
 
@@ -33,6 +34,7 @@ export class Root extends Component {
                     </Route>
                 </Switch>
             </Router>
+            <Footer></Footer>
         </div>);
     }
 }
