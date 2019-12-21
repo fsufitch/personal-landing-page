@@ -8,14 +8,14 @@
     @extend .d-flex;
     align-items: center;
     justify-content: center;
-    
-    img, svg {
+
+    img,
+    svg {
       @extend .img-fluid;
     }
   }
- .jumboText {
+  .jumboText {
     @extend .col;
-
   }
 }
 
@@ -37,15 +37,9 @@
     align-items: center;
     flex-direction: column;
 
-      img, svg {
-        @extend .img-fluid;
-      }
-
-    // &:after {
-    //   // Trick from https://spin.atomicobject.com/2015/07/14/css-responsive-square/
-    //   content: "";
-    //   display: block;
-    //   padding-bottom: 50%;
-    // }
+    img,
+    svg {
+      @extend .img-fluid;
+    }
   }
 }

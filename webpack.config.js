@@ -16,7 +16,9 @@ let tsLoader = {
 
 let htmlLoader = { loader: 'html-loader' };
 let sassLoader = { loader: 'sass-loader', options: {sourceMap: true}};
-let cssLoader = { loader: 'css-loader', options: { modules: true } };
+let cssLoader = { loader: 'css-loader', options: { sourceMap: true, modules: {
+    localIdentName: "[hash:base64]__[local]", // XXX: make this opaque for prod?
+} } };
 let cssModulesTyescriptLoader = { loader: 'css-modules-typescript-loader' };
 let miniCssExtractLoader = { loader: MiniCssExtractPlugin.loader };
 let styleLoader = { loader: 'style-loader' };
