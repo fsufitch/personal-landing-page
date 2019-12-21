@@ -1,0 +1,51 @@
+.jumbo {
+  @extend .jumbotron;
+  @extend .jumbotron-fluid;
+
+  .jumboBrand {
+    @extend .col-12;
+    @extend .col-sm-3;
+    @extend .d-flex;
+    align-items: center;
+    justify-content: center;
+    
+    img, svg {
+      @extend .img-fluid;
+    }
+  }
+ .jumboText {
+    @extend .col;
+
+  }
+}
+
+.homeCol {
+  @extend .col-6;
+  @extend .col-sm-4;
+
+  text-align: center;
+
+  a {
+    @extend .mt-3;
+    @extend .p-5;
+    @extend .btn;
+    @extend .btn-light;
+    @extend .btn-block;
+    @extend .d-flex;
+
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+
+      img, svg {
+        @extend .img-fluid;
+      }
+
+    // &:after {
+    //   // Trick from https://spin.atomicobject.com/2015/07/14/css-responsive-square/
+    //   content: "";
+    //   display: block;
+    //   padding-bottom: 50%;
+    // }
+  }
+}

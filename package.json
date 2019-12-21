@@ -22,11 +22,13 @@
   },
   "homepage": "https://github.com/fsufitch/personal-landing-page#readme",
   "dependencies": {
+    "@primer/octicons-react": "^9.3.1",
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.0",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.5",
@@ -37,6 +39,7 @@
     "@types/node-sass": "^4.11.0",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
+    "@types/react-router-dom": "^5.1.3",
     "@typescript-eslint/eslint-plugin": "^2.12.0",
     "@typescript-eslint/parser": "^2.12.0",
     "babel-loader": "^8.0.6",
@@ -47,6 +50,7 @@
     "fork-ts-checker-webpack-plugin": "^3.1.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.2",
@@ -54,7 +58,7 @@
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "typescript": "^3.7.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.41.3",
+    "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.0"
   }
