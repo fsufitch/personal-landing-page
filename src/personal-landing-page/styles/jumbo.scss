@@ -14,16 +14,7 @@
       @extend .img-fluid;
     }
   }
-
-  .jumboHome {
-      @extend .btn;
-      @extend .btn-light;
-
-      @extend .position-absolute;
-      top: $spacer;
-      right: $spacer;
-  }
-
+  
   .jumboText {
     @extend .col;
   }

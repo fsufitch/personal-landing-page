@@ -20,9 +20,6 @@ export class Projects extends Component {
         return (
             <div>
                 <div className={styles.jumbo}>
-                    <Link to="/" className={styles.jumboHome}>
-                        <Octicon icon={HomeIcon} size='medium'/>
-                    </Link>
                     <div className={styles.container}>
                         <div className={styles.row}>
                             <div className={styles.jumboBrand}>
@@ -38,8 +35,20 @@ export class Projects extends Component {
                         </div>
                     </div>
                 </div>
-                {bodyLipsum.map((paragraph, i) => (<p key={i}>{paragraph}</p>))}
-            </div>
+
+                <div className={styles.content}>
+                    <div className={styles.contentMargin}>
+                        <Link to="/" className={styles.contentHomeLink}>
+                            <Octicon icon={HomeIcon} size='medium' />
+                        </Link>
+                    </div>
+                    <div className={styles.contentMain}>
+                        {bodyLipsum.map((paragraph, i) => (<p key={i}>{paragraph}</p>))}
+                    </div>
+                    <div className={styles.contentMargin}></div>
+                </div>
+
+           </div>
         );
     }
 }

@@ -1,0 +1,20 @@
+.content {
+    @extend .row;
+
+    .contentHomeLink {
+        @extend .btn;
+        @extend .btn-secondary;
+        
+        position: fixed;
+        bottom: $spacer;
+        opacity: 0.5;
+        z-index: 10;
+    }
+
+    .contentMargin {
+        @extend .col-sm-1;
+    }
+    .contentMain {
+        @extend .col-sm-10;
+    }
+}
