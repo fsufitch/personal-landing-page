@@ -7,13 +7,21 @@ import {
 } from "react-router-dom";
 
 import styles from 'personal-landing-page/styles';
-import { Home } from "./Home";
+import { Home } from "./home";
 import { Footer } from "./Footer";
-import { Profile } from "./Profile";
-import { Projects } from "./Projects";
-import { Skills } from "./Skills";
+import { Profile } from "./profile";
+import { Projects } from "./projects";
+import { Skills } from "./skills";
 
-export class Root extends Component {
+interface RootState {
+    captchaToken: string|null;
+}
+export class Root extends Component<{}, RootState> {
+    state = { captchaToken: null };
+
+    onCaptchaChange = (token: string|null): void => {
+        this.setState({captchaToken: token});
+    }
 
     render(): JSX.Element {
         return (<div className={styles.container}>
@@ -23,7 +31,7 @@ export class Root extends Component {
                         <Home />
                     </Route>
                     <Route path="/profile">
-                        <Profile />
+                        <Profile onCaptcha={this.onCaptchaChange} isHuman={!!this.state.captchaToken}/>
                     </Route>
                     <Route path="/skills">
                         <Skills />

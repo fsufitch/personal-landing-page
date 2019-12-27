@@ -4,11 +4,9 @@ import Octicon, { Home as HomeIcon, MarkGithub, Person, Rocket, Tools, File, Lin
 
 import styles from 'personal-landing-page/styles';
 import { Link } from "react-router-dom";
-import MEDIUM_LOGO from 'personal-landing-page/resources/medium-logo.png';
+import MEDIUM_LOGO from './medium-logo.png';
 
-const RESUME_URL = `https://drive.google.com/open?id=16zpkvHbJF9cVp5u56MnsDBIVBk-Fuk6riZLXBhrElnc`;
-const MEDIUM_URL = `https://medium.com/@fsufitch`;
-const GITHUB_URL = `https://github.com/fsufitch`;
+import {Strings} from 'personal-landing-page/strings';
 
 export class Home extends Component {
     render(): JSX.Element {
@@ -53,7 +51,7 @@ export class Home extends Component {
                         </Link>
                     </div>
                     <div className={styles.homeCol}>
-                        <a href={RESUME_URL} target="_blank" rel="noreferrer noopener">
+                        <a href={Strings.ResumeUrl.getValue(false)}>
                             <Octicon icon={File} size='large' />
                             <span>
                                 Résumé {' '}
@@ -62,7 +60,7 @@ export class Home extends Component {
                         </a>
                     </div>
                     <div className={styles.homeCol}>
-                        <a href={MEDIUM_URL} target="_blank" rel="noreferrer noopener">
+                        <a href={Strings.MediumUrl.getValue(false)}>
                             <img src={MEDIUM_LOGO} />
                             <span>
                                 Blog {' '}
@@ -71,7 +69,7 @@ export class Home extends Component {
                         </a>
                     </div>
                     <div className={styles.homeCol}>
-                        <a href={GITHUB_URL} target="_blank" rel="noreferrer noopener">
+                        <a href={Strings.GithubUrl.getValue(false)}>
                             <Octicon icon={MarkGithub} size='large' />
                             <span>
                                 Github {' '}
