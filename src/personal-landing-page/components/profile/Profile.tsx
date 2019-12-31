@@ -45,6 +45,10 @@ export class Profile extends Component<ProfileProps, {}> {
                     <div className={styles.contentMain}>
                         <div className={styles.row}>
                             <div className={styles['col-sm-6']}>
+                                <p>
+                                    <img src="https://via.placeholder.com/800x600.jpg?text=Personal%20Image%20Here"/>
+                                </p>
+
                                 <h3> Contact Info </h3>
 
                                 {(!this.props.isHuman) ? this.captchaBlock() : this.captchaOKBlock()}
@@ -87,7 +91,7 @@ export class Profile extends Component<ProfileProps, {}> {
     captchaBlock = (): JSX.Element => (<div>
         <p> Please verify that you&apos;re not a web crawler to see this.</p>
         <ReCAPTCHA sitekey={Strings.ReCAPTCHASiteKey.getValue(false)}
-            onChange={this.onCaptchaChange} 
+            onChange={this.onCaptchaChange}
             size="normal" />
     </div>);
 
