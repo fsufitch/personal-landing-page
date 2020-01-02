@@ -1,19 +1,11 @@
 import React, { Component } from "react";
 import Octicon, { Home as HomeIcon, Tools } from "@primer/octicons-react";
-import { LoremIpsum } from "lorem-ipsum";
 import { Link } from "react-router-dom";
 
 import styles from 'personal-landing-page/styles';
+import { SkillsNav } from "./SkillsNav";
+import { SkillsSubrouter } from './subpages';
 
-const leadLipsum = new LoremIpsum({
-    sentencesPerParagraph: {min: 2, max: 4},
-    wordsPerSentence: {min: 4, max: 16},
-}).generateParagraphs(1);
-
-const bodyLipsum = new LoremIpsum({
-    sentencesPerParagraph: { min: 4, max: 6 },
-    wordsPerSentence: { min: 4, max: 16 },
-}).generateParagraphs(3).split('\n');
 
 export class Skills extends Component {
     render(): JSX.Element {
@@ -29,7 +21,14 @@ export class Skills extends Component {
                             <div className={styles.jumboText}>
                                 <h1 className={styles["display-4"]}>Skills</h1>
                                 <p className={styles.lead}>
-                                    {leadLipsum}
+                                    I am fascinated not by any single technology
+                                    or piece of a stack, but by the complex interactions,
+                                    data/logic flows, and overall architecture of cloud
+                                    systems (and other networked software). To this end,
+                                    I try to maintain a wide base of experience across
+                                    many types of technology, in order to best gain
+                                    a holistic understanding of what I&apos;m working on.
+                                    Below is a sampling of the tech I have worked with in this endeavor.
                                 </p>
                             </div>
                         </div>
@@ -43,7 +42,8 @@ export class Skills extends Component {
                         </Link>
                     </div>
                     <div className={styles.contentMain}>
-                        {bodyLipsum.map((paragraph, i) => (<p key={i}>{paragraph}</p>))}
+                        <SkillsNav />
+                        <SkillsSubrouter />
                     </div>
                     <div className={styles.contentMargin}></div>
                 </div>

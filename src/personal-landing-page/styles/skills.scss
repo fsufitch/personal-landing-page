@@ -1,0 +1,8 @@
+.skillsNav {
+    @extend .nav;
+    @extend .nav-tabs;
+}
+
+.skillsActiveTab {
+    @extend .active;
+}
