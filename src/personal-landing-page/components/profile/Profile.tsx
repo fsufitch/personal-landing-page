@@ -46,7 +46,8 @@ export class Profile extends Component<ProfileProps, {}> {
                         <div className={styles.row}>
                             <div className={styles['col-sm-6']}>
                                 <p>
-                                    <img src="https://via.placeholder.com/800x600.jpg?text=Personal%20Image%20Here"/>
+                                    <img className={styles['img-fluid']} 
+                                    src="https://via.placeholder.com/800x600.jpg?text=Personal%20Image%20Here"/>
                                 </p>
 
                                 <h3> Contact Info </h3>
@@ -77,6 +78,14 @@ export class Profile extends Component<ProfileProps, {}> {
                                 <h3> Why this site? </h3>
                                 <p>
                                     Why not?
+                                </p>
+                                <p> Do you do things other than programming? </p>
+                                <p> Yes, but this is not the place to learn about them.
+                                    I participate in {' '}
+                                    <a href="https://en.wikipedia.org/wiki/Historical_European_martial_arts">Historical European martial arts</a>,
+                                    bake (mostly bread), and am an avid video gamer.
+                                    You might be able to find me in non-professional
+                                    communities under the pseudonym &quot;Blackshell&quot; (or similar).
                                 </p>
                             </div>
                         </div>
