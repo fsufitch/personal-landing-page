@@ -17,6 +17,9 @@ module.exports = {
     rules: {
         // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
         // e.g. "@typescript-eslint/explicit-function-return-type": "off",
+
+        // Implicit return type is good enough for strict typing
+        "@typescript-eslint/explicit-function-return-type": "off" 
     },
     settings: {
         react: {

@@ -18,34 +18,26 @@ export function SkillsNav() {
         </li>
         <li className={styles['nav-item']}>
             <NavLink
-                to={paths.frontends}
+                to={paths.frontend}
                 className={styles['nav-link']}
                 activeClassName={styles.skillsActiveTab}>
-                Front-ends
+                Front-end Development
               </NavLink>
         </li>
         <li className={styles['nav-item']}>
             <NavLink
-                to={paths.backends}
+                to={paths.backend}
                 className={styles['nav-link']}
                 activeClassName={styles.skillsActiveTab}>
-                Back-ends
+                Back-end Development
               </NavLink>
         </li>
         <li className={styles['nav-item']}>
             <NavLink
-                to={paths.databases}
+                to={paths.cloud}
                 className={styles['nav-link']}
                 activeClassName={styles.skillsActiveTab}>
-                Databases
-            </NavLink>
-        </li>
-        <li className={styles['nav-item']}>
-            <NavLink
-                to={paths.cicd}
-                className={styles['nav-link']}
-                activeClassName={styles.skillsActiveTab}>
-                CI/CD
+                Cloud Infrastructure/Deployment
             </NavLink>
         </li>
     </ul>);

@@ -1,8 +1,32 @@
 .skillsNav {
-    @extend .nav;
-    @extend .nav-tabs;
+  @extend .nav;
+  @extend .nav-pills;
 }
 
 .skillsActiveTab {
-    @extend .active;
+  @extend .active;
+}
+
+.skillsDisplayRow {
+  @extend .row;
+  @extend .justify-content-around;
+  .skillsDisplayColumn {
+    @extend .col-6;
+    @extend .col-lg-3;
+    @extend .pt-3;
+
+    .skillsDisplayCard {
+      @extend .card;
+      @extend .p-3;
+
+      .skillsDisplayCardImg {
+        @extend .card-img-top;
+      }
+
+      .skillsDisplayCardBody {
+        @extend .card-body;
+        text-align: center;
+      }
+    }
+  }
 }
