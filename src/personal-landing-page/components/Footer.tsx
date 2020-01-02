@@ -13,7 +13,7 @@ export class Footer extends Component {
         if (!!VERSION_DATA) {
             return (<div className={styles.footer}>
                 &copy; {new Date().getFullYear()} Filip Sufitchi.
-                Built {VERSION_DATA.version} at: {VERSION_DATA.createdAt}. 
+                {VERSION_DATA.version}; 
                 {' '}
                 <a href={this.githubPHUrl}>
                     Check me out on Github <Octicon icon={MarkGithub} />
