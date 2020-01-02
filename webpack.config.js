@@ -35,7 +35,7 @@ let miniCssExtractLoader = { loader: MiniCssExtractPlugin.loader };
 let styleLoader = { loader: 'style-loader' };
 let fileLoader = { loader: 'file-loader', options: { name: '[name]--[contenthash].[ext]' } };
 let urlLoader = { loader: 'url-loader', options: {
-    limit: 4096, 
+    limit: 8192, 
     fallback: fileLoader,
 }};
 
