@@ -4,7 +4,7 @@ import Octicon, { Home as HomeIcon, MarkGithub, Person, Rocket, Tools, File, Lin
 
 import styles from 'personal-landing-page/styles';
 import { Link } from "react-router-dom";
-import MEDIUM_LOGO from './medium-logo.png';
+import MEDIUM_LOGO from 'personal-landing-page/icons/medium.png';
 
 import {Strings} from 'personal-landing-page/strings';
 
