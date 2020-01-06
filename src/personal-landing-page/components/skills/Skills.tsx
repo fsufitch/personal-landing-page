@@ -8,6 +8,10 @@ import { SkillsSubrouter } from './subpages';
 
 
 export class Skills extends Component {
+    componentDidMount() {
+        window.scroll(0, 0);
+    }
+    
     render(): JSX.Element {
         return (
             <div>

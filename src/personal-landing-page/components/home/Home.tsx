@@ -9,6 +9,10 @@ import MEDIUM_LOGO from 'personal-landing-page/icons/medium.png';
 import {Strings} from 'personal-landing-page/strings';
 
 export class Home extends Component {
+    componentDidMount() {
+        window.scroll(0, 0);
+    }
+
     render(): JSX.Element {
 
         return (

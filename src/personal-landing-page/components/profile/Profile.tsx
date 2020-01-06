@@ -14,6 +14,10 @@ interface ProfileProps {
 }
 
 export class Profile extends Component<ProfileProps, {}> {
+    componentDidMount() {
+        window.scroll(0, 0);
+    }
+    
     onCaptchaChange = (token: string | null): void => {
         this.props.onCaptcha(token);
     }

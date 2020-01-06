@@ -10,6 +10,10 @@ import MDPIcon from 'personal-landing-page/icons/mdp.png';
 import ShipSpinningIcon from 'personal-landing-page/icons/ship-spinning.png';
 
 export class Projects extends Component {
+    componentDidMount() {
+        window.scroll(0, 0);
+    }
+    
     render(): JSX.Element {
         return (
             <div>
