@@ -1,0 +1,21 @@
+.projectRow {
+  @extend .row;
+  @extend .pt-3;
+  @extend .pb-3;
+
+  .projectThumbnail {
+    @extend .col-12;
+    @extend .col-md-2;
+    img {
+      @extend .img-fluid;
+    }
+  }
+
+  .projectContent {
+    @extend .col;
+  }
+}
+
+.projectDivider:last-child {
+    display: none;
+}
