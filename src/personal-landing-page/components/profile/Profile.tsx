@@ -78,7 +78,7 @@ export class Profile extends Component<ProfileProps, {}> {
                                 <p>
                                     Why not?
                                 </p>
-                                <p> Do you do things other than programming? </p>
+                                <h3> Do you do things other than programming? </h3>
                                 <p> Yes, but this is not the place to learn about them.
                                     I participate in {' '}
                                     <a href="https://en.wikipedia.org/wiki/Historical_European_martial_arts">Historical European martial arts</a>,
