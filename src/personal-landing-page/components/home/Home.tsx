@@ -24,7 +24,6 @@ export class Home extends Component {
                                 <h1 className={styles["display-4"]}>Welcome!</h1>
                                 <p className={styles.lead}>
                                     You have found the web &quot;business card&quot; of Filip Sufitchi.
-                                    This is currently a work in progress.
                                 </p>
                             </div>
                         </div>
