@@ -6,6 +6,8 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import styles from 'personal-landing-page/styles';
 import { Strings } from 'personal-landing-page/strings';
 
+import FilipImage from './filip.jpg';
+
 interface ProfileProps {
     onCaptcha: (token: string | null) => void;
     isHuman?: boolean;
@@ -45,10 +47,7 @@ export class Profile extends Component<ProfileProps, {}> {
                     <div className={styles.contentMain}>
                         <div className={styles.row}>
                             <div className={styles['col-sm-6']}>
-                                <p>
-                                    <img className={styles['img-fluid']} 
-                                    src="https://via.placeholder.com/800x600.jpg?text=Personal%20Image%20Here"/>
-                                </p>
+                                <img className={styles.profileImg} src={FilipImage} />
 
                                 <h3> Contact Info </h3>
 
@@ -88,6 +87,7 @@ export class Profile extends Component<ProfileProps, {}> {
                                     communities under the pseudonym &quot;Blackshell&quot; (or similar).
                                 </p>
                             </div>
+
                         </div>
                         <div className={styles.contentMargin}></div>
                     </div>
