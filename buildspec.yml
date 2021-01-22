@@ -16,6 +16,6 @@ phases:
     commands:
       - echo Build completed on `date`
 artifacts:
-  files: build/*
+  files: dist/*
   name: apexstats-artifact
   discard-paths: yes
