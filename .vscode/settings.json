@@ -1,0 +1,36 @@
+{
+    "javascript.format.insertSpaceAfterConstructor": false,
+    "javascript.inlayHints.functionLikeReturnTypes.enabled": false,
+    "javascript.inlayHints.enumMemberValues.enabled": false,
+    "javascript.preferences.importModuleSpecifier": "non-relative",
+    "editor.formatOnType": false,
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": true, // optional
+    "editor.formatOnSaveMode": "file", // required to format on save
+    "javascript.format.enable": true,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "[typescript]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "eslint.alwaysShowStatus": true,
+    "eslint.workingDirectories": ["app/"],
+    "eslint.format.enable": false,
+    "eslint.lintTask.enable": true,
+    "prettier.eslintIntegration": true
+}
