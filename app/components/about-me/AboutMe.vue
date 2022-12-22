@@ -24,9 +24,9 @@ const captchaInfoDialog = ref();
 </script>
 
 <template>
-    <VRow justify="center" align-content="stretch">
+    <VRow justify="center" align-content="center" class="fill-height">
         <VCol>
-            <VCard class="fill-height">
+            <VCard>
                 <VRow justify="center">
                     <VCol cols="fill">
                         <VCardTitle>
@@ -62,7 +62,7 @@ const captchaInfoDialog = ref();
             </VCard>
         </VCol>
         <VCol cols="12" lg="4">
-            <VCard class="fill-height">
+            <VCard>
                 <template #title>
                     <h2>Contact Info</h2>
                 </template>

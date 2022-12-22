@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TopNavigation from '@app/components/TopNavigation.vue';
+import TopNavigation from '@app/components/AppNavigation.vue';
 </script>
 
 <template>
@@ -7,7 +7,7 @@ import TopNavigation from '@app/components/TopNavigation.vue';
         <VLayout>
             <TopNavigation />
             <VMain>
-                <VContainer>
+                <VContainer class="fill-height">
                     <RouterView></RouterView>
                 </VContainer>
             </VMain>
