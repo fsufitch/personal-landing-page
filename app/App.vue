@@ -11,7 +11,15 @@ const count = ref(0);
             <VBtn color="primary" @click="count++">You clicked me {{ count }} times.</VBtn>
         </VAppBar>
         <VMain>
-            <RouterView></RouterView>
+            <VContainer>
+                <RouterView></RouterView>
+            </VContainer>
         </VMain>
     </VApp>
 </template>
+
+<style>
+body {
+    font-family: 'Libre Baskerville', serif;
+}
+</style>

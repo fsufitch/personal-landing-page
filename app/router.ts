@@ -5,8 +5,8 @@ export default VueRouter.createRouter({
     routes: [
         {
             path: '/',
-            name: 'home',
-            component: () => import('@app/components/Home.vue'),
+            name: 'about-me',
+            component: () => import('@app/components/about-me/AboutMe.vue'),
         },
         {
             path: '/:pathMatch(.*)*',
