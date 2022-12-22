@@ -24,7 +24,7 @@ const version = __VERSION__;
 </script>
 
 <template>
-    <VNavigationDrawer rail expand-on-hover>
+    <VNavigationDrawer permanent rail expand-on-hover width="75%">
         <VList>
             <VListItem prepend-icon="null">
                 <template #title><big>Filip Sufitchi</big></template>
