@@ -1,20 +1,17 @@
 <script setup lang="ts">
-import AppBar from '@app/components/AppBar.vue';
-import { ref } from 'vue';
-const count = ref(0);
+import TopNavigation from '@app/components/TopNavigation.vue';
 </script>
 
 <template>
     <VApp>
-        <VAppBar>
-            <AppBar />
-            <VBtn color="primary" @click="count++">You clicked me {{ count }} times.</VBtn>
-        </VAppBar>
-        <VMain>
-            <VContainer>
-                <RouterView></RouterView>
-            </VContainer>
-        </VMain>
+        <VLayout>
+            <TopNavigation />
+            <VMain>
+                <VContainer>
+                    <RouterView></RouterView>
+                </VContainer>
+            </VMain>
+        </VLayout>
     </VApp>
 </template>
 

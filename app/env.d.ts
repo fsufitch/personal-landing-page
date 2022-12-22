@@ -6,3 +6,6 @@ declare module '*.vue' {
     const component: DefineComponent<{}, {}, any>;
     export default component;
 }
+
+declare const __GITREF__: string;
+declare const __VERSION__: string;

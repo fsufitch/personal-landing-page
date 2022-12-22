@@ -1,0 +1,65 @@
+<script setup lang="ts">
+const NAVIGATION = [
+    {
+        text: 'About Me',
+        icon: 'mdi-account-circle',
+        to: '/',
+    },
+    {
+        text: 'Medium Blog',
+        icon: 'mdi-notebook-edit',
+        href: 'https://medium.com/@fsufitch',
+    },
+    {
+        text: 'Résumé',
+        icon: 'mdi-account-circle',
+        href: 'https://docs.google.com/document/d/16zpkvHbJF9cVp5u56MnsDBIVBk-Fuk6riZLXBhrElnc',
+    },
+];
+
+// eslint-disable-next-line no-undef
+const commitRef = __GITREF__;
+// eslint-disable-next-line no-undef
+const version = __VERSION__;
+</script>
+
+<template>
+    <VNavigationDrawer rail expand-on-hover>
+        <VList>
+            <VListItem prepend-icon="null">
+                <template #title><big>Filip Sufitchi</big></template>
+                <template #subtitle>Hello, world!</template>
+            </VListItem>
+
+            <VDivider></VDivider>
+
+            <VListItem
+                v-for="(value, idx) in NAVIGATION"
+                :key="idx"
+                :to="value.to"
+                :href="value.href"
+                :prepend-icon="value.icon"
+                :title="value.text"
+                :target="value.href ? '_blank' : ''"
+                color="primary"
+            >
+                <template #append> <VIcon v-if="value.href" icon="mdi-open-in-new" /> </template>
+            </VListItem>
+        </VList>
+
+        <template #append>
+            <VList>
+                <VListItem
+                    :href="`https://github.com/fsufitch/personal-landing-page/tree/${commitRef}`"
+                    target="_blank"
+                    prepend-icon="mdi-git"
+                    append-icon="mdi-open-in-new"
+                    :title="`v${version}`"
+                    :subtitle="commitRef"
+                />
+            </VList>
+        </template>
+    </VNavigationDrawer>
+</template>
+
+<style></style>
