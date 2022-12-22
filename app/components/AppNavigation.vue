@@ -12,7 +12,7 @@ const NAVIGATION = [
     },
     {
         text: 'Résumé',
-        icon: 'mdi-account-circle',
+        icon: 'mdi-trophy',
         href: 'https://docs.google.com/document/d/16zpkvHbJF9cVp5u56MnsDBIVBk-Fuk6riZLXBhrElnc',
     },
 ];

@@ -1,24 +1,97 @@
 {
   "index-legacy.html": {
-    "file": "assets/index-legacy.2f308e5b.js",
+    "file": "assets/index-legacy.70a5b64d.js",
     "src": "index-legacy.html",
-    "isEntry": true
+    "isEntry": true,
+    "dynamicImports": [
+      "app/components/about-me/AboutMe-legacy.vue",
+      "app/components/NotFound-legacy.vue"
+    ]
+  },
+  "app/components/about-me/AboutMe-legacy.vue": {
+    "file": "assets/AboutMe-legacy.c65ef56e.js",
+    "src": "app/components/about-me/AboutMe-legacy.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "index-legacy.html"
+    ],
+    "dynamicImports": [
+      "app/components/about-me/contact-legacy.json?raw"
+    ],
+    "assets": [
+      "assets/filip.2d296bba.jpg"
+    ]
+  },
+  "app/components/NotFound-legacy.vue": {
+    "file": "assets/NotFound-legacy.3cdb26e4.js",
+    "src": "app/components/NotFound-legacy.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "index-legacy.html"
+    ]
+  },
+  "app/components/about-me/contact-legacy.json?raw": {
+    "file": "assets/contact-legacy.97cf04c9.js",
+    "src": "app/components/about-me/contact-legacy.json?raw",
+    "isDynamicEntry": true
   },
   "vite/legacy-polyfills-legacy": {
-    "file": "assets/polyfills-legacy.f1fd0770.js",
+    "file": "assets/polyfills-legacy.aed498dc.js",
     "src": "vite/legacy-polyfills-legacy",
     "isEntry": true
   },
+  "app/components/about-me/filip.jpg": {
+    "file": "assets/filip.2d296bba.jpg",
+    "src": "app/components/about-me/filip.jpg"
+  },
   "index.html": {
-    "file": "assets/index.d1c8dc58.js",
+    "file": "assets/index.7109cd1a.js",
     "src": "index.html",
     "isEntry": true,
+    "dynamicImports": [
+      "app/components/about-me/AboutMe.vue",
+      "app/components/NotFound.vue"
+    ],
     "css": [
-      "assets/index.13592615.css"
+      "assets/index.dfe3e3c3.css"
     ]
   },
+  "app/components/about-me/AboutMe.vue": {
+    "file": "assets/AboutMe.69929356.js",
+    "src": "app/components/about-me/AboutMe.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html"
+    ],
+    "dynamicImports": [
+      "app/components/about-me/contact.json?raw"
+    ],
+    "css": [
+      "assets/AboutMe.4aa85287.css"
+    ],
+    "assets": [
+      "assets/filip.2d296bba.jpg"
+    ]
+  },
+  "app/components/NotFound.vue": {
+    "file": "assets/NotFound.a20b5833.js",
+    "src": "app/components/NotFound.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "index.html"
+    ]
+  },
+  "app/components/about-me/contact.json?raw": {
+    "file": "assets/contact.3d8e757b.js",
+    "src": "app/components/about-me/contact.json?raw",
+    "isDynamicEntry": true
+  },
+  "app/components/about-me/AboutMe.css": {
+    "file": "assets/AboutMe.4aa85287.css",
+    "src": "app/components/about-me/AboutMe.css"
+  },
   "index.css": {
-    "file": "assets/index.13592615.css",
+    "file": "assets/index.dfe3e3c3.css",
     "src": "index.css"
   }
 }
