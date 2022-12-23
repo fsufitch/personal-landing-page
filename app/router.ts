@@ -9,6 +9,11 @@ export default VueRouter.createRouter({
             component: () => import('@app/components/about-me/AboutMe.vue'),
         },
         {
+            path: '/projects',
+            name: 'projects',
+            component: () => import('@app/components/projects/ProjectsMain.vue'),
+        },
+        {
             path: '/:pathMatch(.*)*',
             component: () => import('@app/components/NotFound.vue'),
         },
