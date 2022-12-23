@@ -17,6 +17,7 @@ const buildCommonConfig: () => UserConfig = () => ({
     appType: 'spa',
     root: '.',
     mode: 'development',
+    publicDir: path.join(__dirname, 'static'),
 
     resolve: {
         alias: {
