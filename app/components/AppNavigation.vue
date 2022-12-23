@@ -29,7 +29,7 @@ const version = __VERSION__;
 </script>
 
 <template>
-    <VNavigationDrawer permanent rail expand-on-hover width="30em">
+    <VNavigationDrawer :permanent="$vuetify.display.md" rail expand-on-hover width="30em">
         <VList>
             <VListItem
                 v-for="(value, idx) in NAVIGATION"
