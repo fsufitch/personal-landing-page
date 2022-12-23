@@ -73,7 +73,6 @@ import ShipSpinningImg from './ship-spinning.png';
                                 src="https://www.youtube-nocookie.com/embed/zbBMhfSF3Hw"
                                 title="YouTube video player"
                                 frameborder="0"
-                                allow="encrypted-media"
                                 allowfullscreen
                             ></iframe>
                         </VCol>

@@ -29,7 +29,7 @@ const version = __VERSION__;
 </script>
 
 <template>
-    <VNavigationDrawer permanent rail expand-on-hover width="75%">
+    <VNavigationDrawer permanent rail expand-on-hover width="30em">
         <VList>
             <VListItem
                 v-for="(value, idx) in NAVIGATION"
