@@ -106,3 +106,9 @@ const captchaInfoDialog = ref();
         </VCol>
     </VRow>
 </template>
+
+<style lang="scss">
+.tagline {
+    overflow: auto;
+}
+</style>
