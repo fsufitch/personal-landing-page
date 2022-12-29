@@ -108,7 +108,7 @@ useWheel(
                 break;
         }
     },
-    { domTarget: window },
+    { domTarget: window, delay: true },
 );
 
 useDrag(
@@ -135,7 +135,7 @@ useDrag(
                 break;
         }
     },
-    { domTarget: window },
+    { domTarget: window, delay: true },
 );
 </script>
 
