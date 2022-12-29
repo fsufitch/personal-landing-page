@@ -34,7 +34,10 @@ const captchaInfoDialog = ref();
                             <h1>Filip Sufitchi</h1>
                         </VCardTitle>
                         <VCardSubtitle>
-                            <div class="tagline">Senior Cloud Software Engineer; Perfectionist Geek</div>
+                            <div>
+                                Senior Cloud Software Engineer <br />
+                                Perfectionist Geek
+                            </div>
                         </VCardSubtitle>
                         <VCardText>
                             <p>Hello and welcome to my corner of the Internet!</p>
@@ -106,9 +109,3 @@ const captchaInfoDialog = ref();
         </VCol>
     </VRow>
 </template>
-
-<style lang="scss">
-.tagline {
-    overflow: auto;
-}
-</style>
