@@ -117,11 +117,19 @@ useDrag(
             return;
         }
         const directionY = state.swipe[1];
+        console.log(directionY, $navVisible.value, $navExpanded.value);
         switch (true) {
             // Swipe up, hidden = show + collapse
-            case directionY < 0 && !$navExpanded.value:
+            case directionY < 0 && !$navVisible.value:
                 $navVisible.value = true;
                 $navExpanded.value = false;
+                console.log('asdfjkhasd');
+                break;
+
+            // Swipe up, shown, not expanded = expand
+            case directionY < 0 && $navVisible.value:
+                $navExpanded.value = true;
+                console.log('wtf');
                 break;
 
             // Swipe down, shown, not expanded = hide
@@ -168,8 +176,9 @@ useDrag(
             <!-- Collapsed header for mobile -->
             <VListItem
                 v-if="$navMode === 'mobile' && !$navExpanded"
+                color="warning"
                 prepend-icon="mdi-menu"
-                title="Site Navigation"
+                title="Swipe up for navigation"
                 @click="$navExpanded = true"
             />
 
