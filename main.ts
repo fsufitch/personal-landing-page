@@ -6,6 +6,8 @@ import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
 
+import { GesturePlugin } from '@vueuse/gesture';
+
 import App from '@app/App.vue';
 import ROUTER from '@app/router';
 
@@ -50,6 +52,7 @@ async function main() {
     const app = Vue.createApp(App);
     app.use(await vuetify());
     app.use(ROUTER);
+    app.use(GesturePlugin);
     app.mount('#app-wrapper');
 }
 
