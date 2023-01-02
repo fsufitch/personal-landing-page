@@ -16,10 +16,14 @@ phases:
             - echo Build started on `date`
             - npm install
             - npm run build:prod
+
     post_build:
         commands:
+            - echo Clearing non-build artifacts
+            - ls | grep -v '^build$' | xargs rm -rf
+            - echo Placing buind artifacts
+            - mv build/* . && rm -r build
             - echo Build completed on `date`
 artifacts:
-    files: build/*
+    files: '*'
     name: fsufitch-homepage-artifact
-    # discard-paths: yes
