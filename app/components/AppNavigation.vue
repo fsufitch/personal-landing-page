@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify/lib/framework.mjs';
-import { ref, computed, watch, Ref } from 'vue';
+import { ref, computed, Ref } from 'vue';
 
-import { GestureState, useDrag, useWheel } from '@vueuse/gesture';
+import { useRouter } from 'vue-router';
 
 const NAVIGATION = [
     {
@@ -36,123 +36,30 @@ const version = __VERSION__;
 
 const $vuetifyDisplay = useDisplay();
 const $navMode = computed(() => ($vuetifyDisplay.mdAndUp.value ? 'desktop' : 'mobile'));
-// const $navVisible = ref($navMode.value === 'desktop'); // Default: show on desktop, hide on mobile
-// const $navExpanded = ref(false); // Default: collapsed
-
-// // ========== DESKTOP BEHAVIOR ==========
-
-// // Show and collapse when switching to desktop mode
-// watch(
-//     () => $navMode.value,
-//     (navMode) => {
-//         if (navMode === 'desktop') {
-//             $navVisible.value = true;
-//             $navExpanded.value = false;
-//         }
-//     },
-// );
-
-// useDrag(
-//     (state: GestureState<'drag'>) => {
-//         if ($navMode.value !== 'desktop') {
-//             return;
-//         }
-
-//         if (!state._dragPointerId) {
-//             // This is 0 if it's a mouse pointer; don't handle the pointer drag in desktop mode
-//             return;
-//         }
-
-//         switch (true) {
-//             // Drag right = expand
-//             case state.swipe[0] > 0:
-//                 $navExpanded.value = true;
-//                 break;
-
-//             // Drag left = collapse
-//             case state.swipe[0] < 0:
-//                 $navExpanded.value = false;
-//                 break;
-//         }
-//     },
-//     { domTarget: window, delay: true },
-// );
-
-// // ========== MOBILE BEHAVIOR ==========
-
-// // Hide when switching to mobile mode
-// watch(
-//     () => $navMode.value,
-//     (navMode) => {
-//         if (navMode === 'mobile') {
-//             $navVisible.value = true;
-//         }
-//     },
-// );
-
-// useWheel(
-//     (state: GestureState<'wheel'>) => {
-//         if ($navMode.value !== 'mobile') {
-//             return;
-//         }
-//         const directionY = state.direction[1];
-//         switch (true) {
-//             // Mouse wheel down, not expanded = hide
-//             case directionY > 0 && !$navExpanded.value:
-//                 $navVisible.value = false;
-//                 break;
-
-//             // Mouse wheel up = show
-//             case directionY < 0:
-//                 $navVisible.value = true;
-//                 break;
-//         }
-//     },
-//     { domTarget: window, delay: true },
-// );
-
-// useDrag(
-//     (state: GestureState<'drag'>) => {
-//         if ($navMode.value !== 'mobile') {
-//             return;
-//         }
-//         const directionY = state.swipe[1];
-//         console.log(directionY, $navVisible.value, $navExpanded.value);
-//         switch (true) {
-//             // Swipe up, hidden = show + collapse
-//             case directionY < 0 && !$navVisible.value:
-//                 $navVisible.value = true;
-//                 $navExpanded.value = false;
-//                 console.log('asdfjkhasd');
-//                 break;
-
-//             // Swipe up, shown, not expanded = expand
-//             case directionY < 0 && $navVisible.value:
-//                 $navExpanded.value = true;
-//                 console.log('wtf');
-//                 break;
-
-//             // Swipe down, shown, not expanded = hide
-//             case directionY > 0 && $navVisible.value && !$navExpanded.value:
-//                 $navVisible.value = false;
-//                 break;
-
-//             // Swipe down, shown, expanded = collapse
-//             case directionY > 0 && $navVisible.value && $navExpanded.value:
-//                 $navExpanded.value = false;
-//                 break;
-//         }
-//     },
-//     { domTarget: window, delay: true },
-// );
 
 const $drawer: Ref<boolean> = ref(false);
+
+const router = useRouter();
+const $titleRoute = computed(() => {
+    const matchedRoutes = router.currentRoute.value.matched;
+    if (!matchedRoutes.length) {
+        return '404';
+    }
+    const route = matchedRoutes[0];
+    return route.name;
+});
 </script>
 
 <template>
     <VAppBar density="comfortable" color="primary">
         <VAppBarNavIcon @click="$drawer = !$drawer" />
-        <VAppBarTitle>Foobarbazquux</VAppBarTitle>
+        <VAppBarTitle>
+            <VBtn variant="plain" to="/">Filip Sufitchi</VBtn>
+            <strong></strong>
+            <h4 style="padding-left: 1em; display: inline-block">
+                <Code>~/{{ $titleRoute }}</Code>
+            </h4>
+        </VAppBarTitle>
         <template #append>
             <VBtn
                 variant="outlined"

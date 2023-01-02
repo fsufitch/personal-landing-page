@@ -15,7 +15,8 @@ export default VueRouter.createRouter({
         },
         {
             path: '/:pathMatch(.*)*',
-            component: () => import('@app/components/NotFound.vue'),
+            name: 'page-not-found',
+            component: () => import('@app/components/page-not-found/NotFound.vue'),
         },
     ],
 });
