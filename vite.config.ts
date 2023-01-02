@@ -19,7 +19,7 @@ const getGitRef = () => {
     }
 
     if (process.env.CODEBUILD_RESOLVED_SOURCE_VERSION) {
-        return process.env.CODEBUILD_RESOLVED_SOURCE_VERSION;
+        return process.env.CODEBUILD_RESOLVED_SOURCE_VERSION.toString().trim().slice(0, 6);
     }
     console.error('Env CODEBUILD_RESOLVED_SOURCE_VERSION empty');
     return 'commit-unknown';
