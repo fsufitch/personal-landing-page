@@ -16,7 +16,6 @@ const gitRef = child_process.execSync('git rev-parse HEAD').toString().trim().sl
 const buildCommonConfig: () => UserConfig = () => ({
     appType: 'spa',
     root: '.',
-    mode: 'development',
     publicDir: path.join(__dirname, 'static'),
 
     resolve: {

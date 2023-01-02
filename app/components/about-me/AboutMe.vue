@@ -10,7 +10,6 @@ const captchaY = Math.floor(Math.random() * 49 + 1);
 const captchaSum = ref('');
 
 const captchaValidate = () => {
-    console.log(captchaX, captchaY, captchaSum.value);
     if (captchaX + captchaY === parseInt(captchaSum.value)) {
         window.sessionStorage.setItem('aboutMeCaptchaPassed', 'yes');
         captchaPassed.value = 'yes';

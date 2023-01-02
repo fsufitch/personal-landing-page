@@ -57,7 +57,7 @@ const $titleRoute = computed(() => {
             <VBtn variant="plain" to="/">Filip Sufitchi</VBtn>
             <strong></strong>
             <h4 style="padding-left: 1em; display: inline-block">
-                <Code>~/{{ $titleRoute }}</Code>
+                <code>~/{{ $titleRoute }}</code>
             </h4>
         </VAppBarTitle>
         <template #append>
