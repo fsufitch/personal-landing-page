@@ -10,6 +10,7 @@ RUN dnf install -y \
     gnupg2 \
     hostname \
     iputils \
+    jq \
     man-db \
     ncurses \
     openssh openssh-clients openssh-server \
