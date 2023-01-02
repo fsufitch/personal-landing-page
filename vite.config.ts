@@ -11,7 +11,19 @@ import VuePlugin from '@vitejs/plugin-vue';
 const packageJSONRaw = fs.readFileSync(path.join(__dirname, 'package.json')).toString();
 const packageJSON = JSON.parse(packageJSONRaw);
 
-const gitRef = child_process.execSync('git rev-parse HEAD').toString().trim().slice(0, 6);
+const getGitRef = () => {
+    try {
+        return child_process.execSync('git rev-parse HEAD').toString().trim().slice(0, 6);
+    } catch (exc) {
+        console.error('Could not use git CLI to source commit ID; defaulting to env');
+    }
+
+    if (process.env.CODEBUILD_RESOLVED_SOURCE_VERSION) {
+        return process.env.CODEBUILD_RESOLVED_SOURCE_VERSION;
+    }
+    console.error('Env CODEBUILD_RESOLVED_SOURCE_VERSION empty');
+    return 'commit-unknown';
+};
 
 const buildCommonConfig: () => UserConfig = () => ({
     appType: 'spa',
@@ -26,7 +38,7 @@ const buildCommonConfig: () => UserConfig = () => ({
 
     define: {
         __VERSION__: JSON.stringify(packageJSON['version'] || '0.0.0'),
-        __GITREF__: JSON.stringify(gitRef || 'git-unknown'),
+        __GITREF__: JSON.stringify(getGitRef()),
     },
 
     css: {
