@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+    install:
+        runtime-versions:
+            nodejs: 16
+    pre_build:
+        commands:
+            - echo Nothing to do in the pre_build phase...
+    build:
+        commands:
+            - echo Build started on `date`
+            - npm install
+            - npm run build:prod
+    post_build:
+        commands:
+            - echo Build completed on `date`
+artifacts:
+    files: build/*
+    name: fsufitch-homepage-artifact
+    # discard-paths: yes
