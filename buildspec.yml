@@ -1,9 +1,13 @@
 version: 0.2
 
+env:
+    variables:
+        GIT_DISCOVERY_ACROSS_FILESYSTEM: 1
+
 phases:
     install:
         runtime-versions:
-            nodejs: 16
+            nodejs: latest
     pre_build:
         commands:
             - echo Nothing to do in the pre_build phase...
