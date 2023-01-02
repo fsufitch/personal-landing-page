@@ -25,5 +25,5 @@ phases:
             - mv build/* . && rm -r build
             - echo Build completed on `date`
 artifacts:
-    files: '*'
+    files: '**/*'
     name: fsufitch-homepage-artifact
