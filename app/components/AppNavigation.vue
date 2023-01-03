@@ -54,9 +54,7 @@ const $titleRoute = computed(() => {
     <VAppBar density="comfortable" color="primary">
         <VAppBarNavIcon @click="$drawer = !$drawer" />
         <VAppBarTitle>
-            <VBtn variant="plain" to="/">Filip Sufitchi</VBtn>
-            <strong></strong>
-            <h4 style="padding-left: 1em; display: inline-block">
+            <h4>
                 <code>~/{{ $titleRoute }}</code>
             </h4>
         </VAppBarTitle>
