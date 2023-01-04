@@ -4,10 +4,11 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "build": "npx vite build",
-        "build:prod": "npx vite build --mode prod",
-        "start": "npx vite",
-        "start:prod": "npx vite --mode prod"
+        "build": "npm run generate-protos && npx vite build",
+        "build:prod": "npm run generate-protos && npx vite build --mode prod",
+        "start": "npm run generate-protos && npx vite",
+        "start:prod": "npm run generate-protos && npx vite --mode prod",
+        "generate-protos": "npx -c 'protoc --ts_proto_out=./proto/gen -I ./proto/src ./proto/src/*'"
     },
     "repository": {
         "type": "git",
@@ -23,12 +24,15 @@
         "@mdi/font": "^7.1.96",
         "@primer/octicons-react": "^17.9.0",
         "@vueuse/gesture": "^2.0.0-beta.1",
+        "axios": "^1.2.2",
         "lorem-ipsum": "^2.0.8",
         "vue": "^3.2.45",
         "vue-router": "^4.1.6",
-        "vuetify": "^3.0.3"
+        "vuetify": "^3.0.3",
+        "yaml": "^2.2.1"
     },
     "devDependencies": {
+        "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
         "@types/node": "^18.11.17",
         "@typescript-eslint/eslint-plugin": "^5.45.1",
         "@typescript-eslint/parser": "^5.45.1",
@@ -43,8 +47,10 @@
         "prettier-eslint": "^15.0.1",
         "prettier-eslint-cli": "^7.1.0",
         "sass": "^1.57.1",
+        "ts-proto": "^1.137.0",
         "typescript": "^4.9.3",
         "vite": "^3.2.5",
+        "vite-plugin-node-stdlib-browser": "^0.1.1",
         "vue-eslint-parser": "^9.1.0"
     }
 }

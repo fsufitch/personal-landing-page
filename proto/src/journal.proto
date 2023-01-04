@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package webhome.journal;
+
+message JournalIndex {
+    map<string, JournalCategory> categories = 1;
+} 
+
+message JournalCategory {
+    string name = 1;
+    repeated string articleIDs = 2;
+    bool hidden = 3;
+}

@@ -14,6 +14,11 @@ export default VueRouter.createRouter({
             component: () => import('@app/components/projects/ProjectsMain.vue'),
         },
         {
+            path: '/journal',
+            name: 'journal',
+            component: () => import('@app/components/journal/JournalHome.vue'),
+        },
+        {
             path: '/:pathMatch(.*)*',
             name: 'page-not-found',
             component: () => import('@app/components/page-not-found/NotFound.vue'),

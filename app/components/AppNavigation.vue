@@ -16,6 +16,11 @@ const NAVIGATION = [
         to: '/projects',
     },
     {
+        text: 'Journal',
+        icon: 'mdi-notebook',
+        to: '/journal',
+    },
+    {
         text: 'Medium Blog',
         icon: 'mdi-notebook-edit',
         href: 'https://medium.com/@fsufitch',

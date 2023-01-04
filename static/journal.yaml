@@ -1,0 +1,9 @@
+categories:
+    testcat:
+        name: Test Category Please Ignore
+        articles:
+            - journal-test
+
+    programming:
+        name: Programming
+        articles: []

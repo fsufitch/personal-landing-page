@@ -4,8 +4,8 @@ import AppNavigation from '@app/components/AppNavigation.vue';
 
 <template>
     <VApp>
-        <AppNavigation />
         <VLayout>
+            <AppNavigation />
             <VMain>
                 <VContainer class="fill-height">
                     <RouterView></RouterView>

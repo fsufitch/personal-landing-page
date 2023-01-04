@@ -15,7 +15,7 @@ RUN dnf install -y \
     ncurses \
     openssh openssh-clients openssh-server \
     python3 \
-    protobuf-compiler \
+    protobuf protobuf-compiler protobuf-static \
     sudo \
     vim \
     wget \
