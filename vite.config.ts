@@ -5,7 +5,7 @@ import child_process from 'child_process';
 import { defineConfig, UserConfig } from 'vite';
 
 import BasicSSLPlugin from '@vitejs/plugin-basic-ssl';
-import LegacyBrowserPlugin from '@vitejs/plugin-legacy';
+// import LegacyBrowserPlugin from '@vitejs/plugin-legacy';
 import VuePlugin from '@vitejs/plugin-vue';
 
 import NodePolyfillsPlugin from 'vite-plugin-node-stdlib-browser';

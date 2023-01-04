@@ -8,6 +8,6 @@ message JournalIndex {
 
 message JournalCategory {
     string name = 1;
-    repeated string articleIDs = 2;
+    repeated string articles = 2;
     bool hidden = 3;
 }

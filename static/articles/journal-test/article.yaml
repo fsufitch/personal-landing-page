@@ -1,9 +1,7 @@
-categories:
-    testcat:
-        name: Test Category Please Ignore
-        articles:
-            - journal-test
+id: journal-test
+title: Test Article Title
+blurb: |
+    all work and no play makes jack a dull boy
+    all work and no play makes jack a dull boy
 
-    programming:
-        name: Programming
-        articles: []
+createdOn: 2023-01-03

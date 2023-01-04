@@ -1,8 +1,9 @@
-import { Axios } from 'axios';
+import { Axios, AxiosResponse } from 'axios';
 import { URLBuilder } from './url-builder';
 import YAML from 'yaml';
 import { JournalIndex } from '@proto/journal';
 import { ArticleIndex } from '@proto/article';
+import { ref, Ref, watch } from 'vue';
 
 export class Journal {
     private axios: Axios;
@@ -22,27 +23,62 @@ export class Journal {
         };
     }
 
-    index = this.cachedAsync(async () => {
-        const url = this.urlb.addPath(['journal.yaml']).toString();
-        const response = await this.axios.get(url);
-        const journal = JournalIndex.fromJSON(YAML.parse(response.data.toString()));
-        console.debug(`Loaded journal index from: ${response.config.url}`, JournalIndex.toJSON(journal));
-        return journal;
-    });
+    indexURL = () => this.urlb.addPath(['journal.yaml']).toString();
+    articleURL = (articleID: string) => this.fileURL(articleID, 'article.yaml');
+    fileURL = (articleID: string, path: string) =>
+        this.urlb.addPath(['articles', articleID, ...path.split('/')]).toString();
 
-    article = (id: string) =>
-        this.cachedAsync(async () => {
-            const response = await this.articleFile(id, 'article.yaml');
-            const article = ArticleIndex.fromJSON(YAML.parse(response.data.toString()));
-            console.debug(`Loaded article:`, ArticleIndex.toJSON(article));
-            return article;
-        })();
+    private _index: { loading: boolean; ref: Ref<JournalIndex | undefined> } = { loading: false, ref: ref() };
+    index = () => {
+        if (this._index.loading || this._index.ref.value) {
+            return this._index.ref;
+        }
+        this._index.loading = true;
+        this.axios
+            .get(this.indexURL())
+            .then((response) => JournalIndex.fromJSON(YAML.parse(response.data.toString())))
+            .then(
+                (index) => {
+                    this._index.loading = false;
+                    this._index.ref.value = index;
+                },
+                (err) => {
+                    this._index.loading = false;
+                    this._index.ref.value = undefined;
+                    console.error('error getting journal index', err);
+                },
+            );
+        return this._index.ref;
+    };
 
-    articleFile = (articleID: string, path: string) =>
-        this.cachedAsync(async () => {
-            const url = this.urlb.addPath(['articles', articleID, ...path.split('/')]).toString();
-            const response = await this.axios.get(url);
-            console.debug(`Loaded file from: ${url}, ${response.data.toString().length} bytes`);
-            return response;
-        })();
+    private _files: { [url: string]: { loading: boolean; ref: Ref<AxiosResponse | undefined> } } = {};
+    file = (articleID: string, path: string) => {
+        const url = this.fileURL(articleID, path);
+        const file = (this._files[url] = this._files[url] || { loading: false, ref: ref() });
+        if (file.loading || file.ref.value) {
+            return file.ref;
+        }
+        file.loading = true;
+        this.axios.get(url).then(
+            (response) => {
+                file.loading = false;
+                file.ref.value = response;
+            },
+            (err) => {
+                file.loading = false;
+                file.ref.value = undefined;
+                console.error('error getting file', url, err);
+            },
+        );
+        return file.ref;
+    };
+
+    article = (id: string) => {
+        const article: Ref<ArticleIndex | undefined> = ref();
+        watch(
+            this.file(id, 'article.yaml'),
+            (response) => response && (article.value = ArticleIndex.fromJSON(YAML.parse(response.data.toString()))),
+        );
+        return article;
+    };
 }
