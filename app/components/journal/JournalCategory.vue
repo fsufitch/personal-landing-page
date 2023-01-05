@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { getJournal, getDefaultJournalURL } from './service';
 import { ref, computed, watch } from 'vue';
-import { ArticleIndex } from '@proto/article';
 import { useRoute } from 'vue-router';
 import { Journal } from '@app/journal/journal';
 import { JournalIndex } from '@proto/journal';
@@ -75,20 +74,20 @@ console.log($displayArticles.value);
 
 <template>
     <PageMetadataInjector :title="$pageMeta.title" :description="$pageMeta.description" page-type="webpage" />
-    <VSheet class="px-5">
+    <VSheet class="mt-6 text-center">
         <h2>
             Journal
             <small v-if="$categoryID !== 'all'" class="text-disabled">
                 (Category: {{ $index.categories[$categoryID].name }})
             </small>
         </h2>
-        <p>
-            Call it a blog, call it a journal, call it just a bunch of date-stamped long form essays... It's all the
-            same in the end.
-        </p>
     </VSheet>
 
-    <VRow>
+    <VDivider class="ma-6" />
+
+    <VRow align-content="space-between">
+        <VSpacer />
+
         <VCol v-for="[id, article] in $displayArticles" :key="id" cols="4">
             <VCard>
                 <VCardTitle>{{ article.title }}</VCardTitle>
@@ -111,8 +110,12 @@ console.log($displayArticles.value);
                         </small>
                     </p>
                 </VCardText>
+                <VCardActions class="float-right">
+                    <VBtn :to="`/journal/a/${id}`" variant="elevated" color="primary">Read</VBtn>
+                </VCardActions>
             </VCard>
         </VCol>
+        <VSpacer />
     </VRow>
 </template>
 
