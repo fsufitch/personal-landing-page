@@ -15,7 +15,17 @@ export default VueRouter.createRouter({
         },
         {
             path: '/journal',
+            name: 'journal-redirect',
+            redirect: '/journal/c/all',
+        },
+        {
+            path: '/journal/c/:categoryID',
             name: 'journal',
+            component: () => import('@app/components/journal/JournalCategory.vue'),
+        },
+        {
+            path: '/journal/a/:articleID',
+            name: 'journal/article',
             component: () => import('@app/components/journal/JournalHome.vue'),
         },
         {

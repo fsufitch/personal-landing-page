@@ -2,23 +2,19 @@ import { Journal } from '@app/journal/journal';
 
 const JOURNAL_CACHE: { [baseURL: string]: Journal } = {};
 
-export const getJournal = async (baseURL: string, forceInit = false) => {
+export const getJournal = (baseURL: string, forceInit = false) => {
     while (baseURL.endsWith('/')) {
         baseURL = baseURL.slice(0, baseURL.length - 1);
     }
     if (forceInit || !JOURNAL_CACHE[baseURL]) {
         const j = new Journal(baseURL);
-        await j.index();
         JOURNAL_CACHE[baseURL] = j;
     }
     return JOURNAL_CACHE[baseURL];
 };
 
-export const getDefaultJournal = async () => {
+export const getDefaultJournalURL = () => {
     const baseURL = new URL(window.location.href);
     baseURL.pathname = '';
-    return {
-        baseURL: baseURL.toString(),
-        journal: await getJournal(baseURL.toString()),
-    };
+    return baseURL.toString();
 };

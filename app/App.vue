@@ -8,7 +8,9 @@ import AppNavigation from '@app/components/AppNavigation.vue';
             <AppNavigation />
             <VMain>
                 <VContainer class="fill-height">
-                    <RouterView></RouterView>
+                    <Suspense>
+                        <RouterView></RouterView>
+                    </Suspense>
                 </VContainer>
             </VMain>
         </VLayout>

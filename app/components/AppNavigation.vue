@@ -2,7 +2,7 @@
 import { useDisplay } from 'vuetify/lib/framework.mjs';
 import { ref, computed, Ref } from 'vue';
 
-import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 const NAVIGATION = [
     {
@@ -44,13 +44,8 @@ const $navMode = computed(() => ($vuetifyDisplay.mdAndUp.value ? 'desktop' : 'mo
 
 const $drawer: Ref<boolean> = ref(false);
 
-const router = useRouter();
+const route = useRoute();
 const $titleRoute = computed(() => {
-    const matchedRoutes = router.currentRoute.value.matched;
-    if (!matchedRoutes.length) {
-        return '404';
-    }
-    const route = matchedRoutes[0];
     return route.name;
 });
 </script>
