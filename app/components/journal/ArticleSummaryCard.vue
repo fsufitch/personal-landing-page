@@ -35,7 +35,7 @@ const bannerImageSrc = computed(() =>
 
 <template>
     <VCard>
-        <VCardTitle>{{ $article.title }}</VCardTitle>
+        <VCardTitle class="full-title">{{ $article.title }}</VCardTitle>
         <VImg aspect-ratio="3" cover :src="bannerImageSrc" :lazy-src="PlaceholderBanner" />
         <VCardText>
             <p>{{ $article.blurb }}</p>
@@ -59,5 +59,11 @@ const bannerImageSrc = computed(() =>
 <style lang="scss">
 .comma-list:not(:last-child)::after {
     content: ', ';
+}
+
+.full-title {
+    hyphens: none;
+    word-wrap: break-word;
+    white-space: break-spaces;
 }
 </style>
