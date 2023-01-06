@@ -6,6 +6,7 @@ import { JournalIndex } from '@proto/journal';
 import PageMetadataInjector from '@app/components/page-meta/PageMetadataInjector.vue';
 import ArticleSummaryCard from './ArticleSummaryCard.vue';
 import { useRoute } from 'vue-router';
+import { useDisplay } from 'vuetify/lib/framework.mjs';
 
 const $journalInfo = computed(() => getActiveJournalInfo());
 const $journal = computed(() => $journalInfo.value.journal);
@@ -13,11 +14,12 @@ const $journal = computed(() => $journalInfo.value.journal);
 console.log('ji', $journalInfo);
 console.log('journal', $journal, $journal.value);
 
-const route = useRoute();
-const $categoryID = computed(() => route.params?.categoryID?.toString() || 'all');
-
 const $index = ref(await $journal.value.index());
 watch($journal, async (journal) => ($index.value = await journal.index()));
+
+const route = useRoute();
+const $categoryID = computed(() => route.params?.categoryID?.toString() || 'all');
+const $category = computed(() => $index.value.categories[$categoryID.value]);
 
 const $displayCategories = computed(() =>
     Object.entries($index.value.categories).filter(([id]) => $categoryID.value === 'all' || $categoryID.value === id),
@@ -60,18 +62,32 @@ const $pageMeta = computed(() =>
 );
 
 console.log('display articles', $displayArticles.value);
+
+const $display = useDisplay();
 </script>
 
 <template>
     <PageMetadataInjector :title="$pageMeta.title" :description="$pageMeta.description" page-type="webpage" />
-    <VSheet class="mt-6 text-center">
-        <h2>
-            Journal
-            <small v-if="$categoryID !== 'all'" class="text-disabled">
-                (Category: {{ $index.categories[$categoryID].name }})
-            </small>
-        </h2>
-    </VSheet>
+    <VRow class="mt-6">
+        <VCol
+            cols="12"
+            md="auto"
+            :class="`d-flex flex-column  ${$display.mdAndUp.value ? 'align-start' : 'align-center'}`"
+        >
+            <h2>
+                Journal
+                <small v-if="$categoryID !== 'all'" class="text-disabled">
+                    (Category: {{ $index.categories[$categoryID].name }})
+                </small>
+            </h2>
+            <VSheet>
+                <h5 class="font-weight-light">... blog, mission log, or timestamped long-form essay collection</h5>
+            </VSheet>
+        </VCol>
+        <VCol :class="`d-flex align-end ${$display.mdAndUp.value ? 'justify-end' : 'justify-center'}`">
+            <VBtn color="primary">Browsing category: {{ $categoryID !== 'all' ? $category.name : '(all)' }}</VBtn>
+        </VCol>
+    </VRow>
 
     <VDivider class="ma-6" />
 
