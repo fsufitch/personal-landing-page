@@ -71,7 +71,7 @@ const $titleRoute = computed(() => {
         </template>
     </VAppBar>
 
-    <VNavigationDrawer :model-value="$drawer" temporary>
+    <VNavigationDrawer :model-value="$drawer" temporary @update:model-value="(val) => ($drawer = val)">
         <VList>
             <VListItem
                 v-for="(value, idx) in NAVIGATION"
