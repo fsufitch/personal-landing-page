@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { getJournal, getDefaultJournalURL } from './service';
+import { getActiveJournalInfo } from './service';
 import { ref, computed, watch } from 'vue';
-import { useRoute } from 'vue-router';
 import { Journal } from '@app/journal/journal';
 import { JournalIndex } from '@proto/journal';
 import PageMetadataInjector from '@app/components/page-meta/PageMetadataInjector.vue';
+import ArticleSummaryCard from './ArticleSummaryCard.vue';
+import { useRoute } from 'vue-router';
+
+const $journalInfo = computed(() => getActiveJournalInfo());
+const $journal = computed(() => $journalInfo.value.journal);
+
+console.log('ji', $journalInfo);
+console.log('journal', $journal, $journal.value);
 
 const route = useRoute();
-
-const $journalURL = computed(() => route.params['j']?.toString() ?? getDefaultJournalURL());
-const $journal = computed(() => getJournal($journalURL.value));
-
 const $categoryID = computed(() => route.params?.categoryID?.toString() || 'all');
 
 const $index = ref(await $journal.value.index());
@@ -20,9 +23,9 @@ const $displayCategories = computed(() =>
     Object.entries($index.value.categories).filter(([id]) => $categoryID.value === 'all' || $categoryID.value === id),
 );
 
-const $browseCategories = computed(() =>
-    Object.entries($index.value.categories).filter(([, category]) => !category.hidden),
-);
+// const $browseCategories = computed(() =>
+//     Object.entries($index.value.categories).filter(([, category]) => !category.hidden),
+// );
 
 const getDisplayArticles = async (journal: Journal, index: JournalIndex, displayCategoryIDs: string[]) => {
     const articleIDs = displayCategoryIDs.flatMap((id) => index.categories[id].articles);
@@ -42,19 +45,6 @@ const $displayArticles = ref(
 watch([$journal, $index, $displayCategories], async ([journal, index, displayCategories]) => {
     const categoryIDs = displayCategories.map(([id]) => id);
     $displayArticles.value = await getDisplayArticles(journal, index, categoryIDs);
-});
-
-const $articleCategories = computed(() => {
-    const articleCategories: { [articleID: string]: string[] } = {};
-    for (const categoryID in $index.value.categories) {
-        for (const articleID of $index.value.categories[categoryID].articles) {
-            articleCategories[articleID] = articleCategories[articleID] ?? [];
-            if (!articleCategories[articleID].includes(categoryID)) {
-                articleCategories[articleID].push(categoryID);
-            }
-        }
-    }
-    return articleCategories;
 });
 
 const $pageMeta = computed(() =>
@@ -89,38 +79,8 @@ console.log($displayArticles.value);
         <VSpacer />
 
         <VCol v-for="[id, article] in $displayArticles" :key="id" cols="4">
-            <VCard>
-                <VCardTitle>{{ article.title }}</VCardTitle>
-                <VCardText>
-                    <p>{{ article.blurb }}</p>
-                    <p>
-                        <small class="text-disabled">
-                            Published: {{ article.createdOn?.toLocaleString() }} in
-                            <span
-                                v-for="categoryID in $articleCategories[id]?.filter(
-                                    (cid) => !$index.categories[cid].hidden,
-                                ) ?? []"
-                                :key="categoryID"
-                                class="comma-list"
-                            >
-                                <RouterLink :to="`/journal/c/${categoryID}`">
-                                    {{ $index.categories[categoryID].name }}
-                                </RouterLink>
-                            </span>
-                        </small>
-                    </p>
-                </VCardText>
-                <VCardActions class="float-right">
-                    <VBtn :to="`/journal/a/${id}`" variant="elevated" color="primary">Read</VBtn>
-                </VCardActions>
-            </VCard>
+            <ArticleSummaryCard :journal="$journal" :article="[id, article]" />
         </VCol>
         <VSpacer />
     </VRow>
 </template>
-
-<style lang="scss">
-.comma-list:not(:last-child)::after {
-    content: ', ';
-}
-</style>
