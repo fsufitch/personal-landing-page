@@ -5,7 +5,6 @@ package webhome.journal;
 import "google/protobuf/timestamp.proto";
 
 message ArticleIndex {
-    string id = 1;
     string title = 2;
     string blurb = 3;
     google.protobuf.Timestamp createdOn = 4;

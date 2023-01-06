@@ -59,7 +59,7 @@ const $pageMeta = computed(() =>
           },
 );
 
-console.log($displayArticles.value);
+console.log('display articles', $displayArticles.value);
 </script>
 
 <template>

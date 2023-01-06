@@ -45,14 +45,14 @@ export class Journal {
         return this._index;
     };
 
-    private _article: Promise<ArticleIndex> | undefined;
+    private _articles: { [id: string]: Promise<ArticleIndex> } = {};
     article = (articleID: string, options?: { force?: boolean }) => {
-        if (options?.force || !this._article) {
-            this._article = this._get(this.articleURL(articleID), { force: options?.force }).then((response) =>
-                ArticleIndex.fromJSON(YAML.parse(response.data.toString())),
+        if (options?.force || !this._articles[articleID]) {
+            this._articles[articleID] = this._get(this.articleURL(articleID), { force: options?.force }).then(
+                (response) => ArticleIndex.fromJSON(YAML.parse(response.data.toString())),
             );
         }
-        return this._article;
+        return this._articles[articleID];
     };
 
     private _attachments: { [url: string]: Promise<{ url: string; response: AxiosResponse }> } = {};

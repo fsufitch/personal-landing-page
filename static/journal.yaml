@@ -3,10 +3,14 @@ categories:
         name: Test Category Please Ignore
         articles:
             - journal-test
-            - journal-test
 
     programming:
         name: Programming
         articles:
             - journal-test
-            - journal-test
+            - article-lorem
+
+    cooking:
+        name: Cooking
+        articles:
+            - i-like-food

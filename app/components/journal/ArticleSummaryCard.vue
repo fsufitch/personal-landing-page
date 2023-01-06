@@ -2,6 +2,7 @@
 import { Journal } from '@app/journal/journal';
 import { ArticleIndex } from '@proto/article';
 import { JournalIndex } from '@proto/journal';
+import PlaceholderBanner from './placeholder-banner.png';
 
 import { defineProps, computed, ref, watch } from 'vue';
 
@@ -24,11 +25,18 @@ watch(
     [$journalIndex, $articleID],
     async ([journalIndex, articleID]) => ($categories.value = await computeCategories(journalIndex, articleID)),
 );
+
+const bannerImageSrc = computed(() =>
+    $article.value.bannerImageFilename
+        ? PROPS.journal.fileURL($articleID.value, $article.value.bannerImageFilename)
+        : PlaceholderBanner,
+);
 </script>
 
 <template>
     <VCard>
         <VCardTitle>{{ $article.title }}</VCardTitle>
+        <VImg aspect-ratio="3" cover :src="bannerImageSrc" :lazy-src="PlaceholderBanner" />
         <VCardText>
             <p>{{ $article.blurb }}</p>
             <p>
