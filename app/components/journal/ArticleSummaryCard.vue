@@ -34,7 +34,7 @@ const bannerImageSrc = computed(() =>
 </script>
 
 <template>
-    <VCard :to="`/journal/a/${$articleID}`">
+    <VCard v-bind="PROPS" :to="`/journal/a/${$articleID}`" class="d-flex flex-column">
         <VCardTitle class="full-title text-center">
             <button variant="text" :to="`/journal/a/${$articleID}`">
                 <h4>{{ $article.title }}</h4>

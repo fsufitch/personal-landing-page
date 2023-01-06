@@ -75,12 +75,9 @@ console.log('display articles', $displayArticles.value);
 
     <VDivider class="ma-6" />
 
-    <VRow align-content="space-between">
-        <VSpacer />
-
-        <VCol v-for="[id, article] in $displayArticles" :key="id" cols="4">
-            <ArticleSummaryCard :journal="$journal" :article="[id, article]" />
+    <VRow class="align-stretch justify-center">
+        <VCol v-for="[id, article] in $displayArticles" :key="id" cols="12" sm="6" lg="4" xl="3">
+            <ArticleSummaryCard :journal="$journal" :article="[id, article]" class="fill-height" />
         </VCol>
-        <VSpacer />
     </VRow>
 </template>
