@@ -9,6 +9,7 @@ categories:
         articles:
             - journal-test
             - article-lorem
+            - python-is-great
 
     cooking:
         name: Cooking

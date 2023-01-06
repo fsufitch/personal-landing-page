@@ -34,24 +34,35 @@ const bannerImageSrc = computed(() =>
 </script>
 
 <template>
-    <VCard>
-        <VCardTitle class="full-title">{{ $article.title }}</VCardTitle>
+    <VCard :to="`/journal/a/${$articleID}`">
+        <VCardTitle class="full-title text-center">
+            <button variant="text" :to="`/journal/a/${$articleID}`">
+                <h4>{{ $article.title }}</h4>
+            </button>
+        </VCardTitle>
         <VImg aspect-ratio="3" cover :src="bannerImageSrc" :lazy-src="PlaceholderBanner" />
         <VCardText>
             <p>{{ $article.blurb }}</p>
-            <p>
-                <small class="text-disabled">
-                    Published: {{ $article.createdOn?.toLocaleString() }} in
-                    <span v-for="[id, category] in $categories" :key="id" class="comma-list">
-                        <RouterLink :to="`/journal/c/${id}`">
-                            {{ category.name }}
-                        </RouterLink>
-                    </span>
-                </small>
-            </p>
         </VCardText>
-        <VCardActions class="float-right">
-            <VBtn :to="`/journal/a/${$articleID}`" variant="elevated" color="primary">Read</VBtn>
+        <VCardActions>
+            <VRow>
+                <VCol class="d-flex justify-start align-end flex-wrap">
+                    <VChip
+                        v-for="[id, category] in $categories"
+                        :key="id"
+                        :to="`/journal/c/${id}`"
+                        pill
+                        rounded
+                        size="x-small"
+                        class="ma-1"
+                    >
+                        {{ category.name }}
+                    </VChip>
+                </VCol>
+                <VCol class="d-flex justify-end align-end text-caption">
+                    {{ $article.createdOn?.toLocaleString() }}
+                </VCol>
+            </VRow>
         </VCardActions>
     </VCard>
 </template>
