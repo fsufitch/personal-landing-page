@@ -5,6 +5,7 @@ import { JournalIndex } from '@proto/journal';
 import PlaceholderBanner from './placeholder-banner.png';
 
 import { defineProps, computed, ref, watch } from 'vue';
+import { useTheme } from 'vuetify/lib/framework.mjs';
 
 const PROPS = defineProps<{ journal: Journal; article: [string, ArticleIndex] }>();
 
@@ -31,16 +32,19 @@ const bannerImageSrc = computed(() =>
         ? PROPS.journal.fileURL($articleID.value, $article.value.bannerImageFilename)
         : PlaceholderBanner,
 );
+
+const $articleURL = computed(() => `/journal/a/${$articleID.value}`);
 </script>
 
 <template>
-    <VCard v-bind="PROPS" :to="`/journal/a/${$articleID}`" class="d-flex flex-column">
-        <VCardTitle class="full-title text-center">
-            <button variant="text" :to="`/journal/a/${$articleID}`">
-                <h4>{{ $article.title }}</h4>
-            </button>
-        </VCardTitle>
-        <VImg aspect-ratio="3" cover :src="bannerImageSrc" :lazy-src="PlaceholderBanner" />
+    <VCard v-bind="PROPS" class="d-flex flex-column" link>
+        <RouterLink :to="$articleURL" class="text-decoration-none">
+            <VCardTitle class="full-title text-center on-surface" :to="$articleURL">
+                {{ $article.title }}
+            </VCardTitle>
+            <VImg aspect-ratio="3" cover :src="bannerImageSrc" :lazy-src="PlaceholderBanner" :to="$articleURL" />
+        </RouterLink>
+
         <VCardText>
             <p>{{ $article.blurb }}</p>
         </VCardText>
@@ -58,9 +62,12 @@ const bannerImageSrc = computed(() =>
                     >
                         {{ category.name }}
                     </VChip>
+                    <div class="text-caption text-disabled ma-1">
+                        {{ $article.createdOn?.toLocaleString() }}
+                    </div>
                 </VCol>
-                <VCol class="d-flex justify-end align-end text-caption">
-                    {{ $article.createdOn?.toLocaleString() }}
+                <VCol class="d-flex flex-column justify-end align-end">
+                    <VBtn :to="$articleURL" variant="outlined" color="primary">Read</VBtn>
                 </VCol>
             </VRow>
         </VCardActions>
