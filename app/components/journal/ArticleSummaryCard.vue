@@ -50,17 +50,12 @@ const $articleURL = computed(() => `/journal/a/${$articleID.value}`);
         <VCardActions>
             <VRow>
                 <VCol class="d-flex justify-start align-end flex-wrap">
-                    <VChip
-                        v-for="[id, category] in $categories"
-                        :key="id"
-                        :to="`/journal/c/${id}`"
-                        pill
-                        rounded
-                        size="x-small"
-                        class="ma-1"
-                    >
-                        {{ category.name }}
-                    </VChip>
+                    <RouterLink v-for="[id, category] in $categories" :key="id" :to="`/journal/c/${id}`">
+                        <VChip pill rounded size="x-small" class="ma-1 on-surface" link>
+                            {{ category.name }}
+                        </VChip>
+                    </RouterLink>
+
                     <div class="text-caption text-disabled ma-1">
                         {{ $article.createdOn?.toLocaleString() }}
                     </div>
