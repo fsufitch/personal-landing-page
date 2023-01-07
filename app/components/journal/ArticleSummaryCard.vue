@@ -5,7 +5,6 @@ import { JournalIndex } from '@proto/journal';
 import PlaceholderBanner from './placeholder-banner.png';
 
 import { defineProps, computed, ref, watch } from 'vue';
-import { useTheme } from 'vuetify/lib/framework.mjs';
 
 const PROPS = defineProps<{ journal: Journal; article: [string, ArticleIndex] }>();
 
@@ -24,7 +23,7 @@ const computeCategories = (journalIndex: JournalIndex, articleID: string) =>
 const $categories = ref(computeCategories($journalIndex.value, $articleID.value));
 watch(
     [$journalIndex, $articleID],
-    async ([journalIndex, articleID]) => ($categories.value = await computeCategories(journalIndex, articleID)),
+    async ([journalIndex, articleID]) => ($categories.value = computeCategories(journalIndex, articleID)),
 );
 
 const bannerImageSrc = computed(() =>

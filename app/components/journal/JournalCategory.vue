@@ -25,9 +25,9 @@ const $displayCategories = computed(() =>
     Object.entries($index.value.categories).filter(([id]) => $categoryID.value === 'all' || $categoryID.value === id),
 );
 
-// const $browseCategories = computed(() =>
-//     Object.entries($index.value.categories).filter(([, category]) => !category.hidden),
-// );
+const $browseCategories = computed(() =>
+    Object.entries($index.value.categories).filter(([, category]) => !category.hidden),
+);
 
 const getDisplayArticles = async (journal: Journal, index: JournalIndex, displayCategoryIDs: string[]) => {
     const articleIDs = displayCategoryIDs.flatMap((id) => index.categories[id].articles);
@@ -68,7 +68,7 @@ const $display = useDisplay();
 
 <template>
     <PageMetadataInjector :title="$pageMeta.title" :description="$pageMeta.description" page-type="webpage" />
-    <VRow class="mt-6">
+    <VRow class="mt-6 justify-center">
         <VCol
             cols="12"
             md="auto"
@@ -84,8 +84,30 @@ const $display = useDisplay();
                 <h5 class="font-weight-light">... blog, mission log, or timestamped long-form essay collection</h5>
             </VSheet>
         </VCol>
-        <VCol :class="`d-flex align-end ${$display.mdAndUp.value ? 'justify-end' : 'justify-center'}`">
-            <VBtn color="primary">Browsing category: {{ $categoryID !== 'all' ? $category.name : '(all)' }}</VBtn>
+        <VCol cols="auto" :class="`d-flex align-end ${$display.mdAndUp.value ? 'justify-end' : 'justify-center'}`">
+            <VBtn id="categoryMenu" color="secondary">
+                Browsing: {{ $categoryID !== 'all' ? $category.name : '(all)' }}
+                <VMenu activator="#categoryMenu">
+                    <VList>
+                        <VListItem to="/journal">
+                            <VRadio
+                                density="compact"
+                                :model-value="$categoryID === 'all'"
+                                label="All Categories"
+                                hide-details
+                            />
+                        </VListItem>
+                        <VListItem v-for="[id, category] in $browseCategories" :key="id" :to="`/journal/c/${id}`">
+                            <VRadio
+                                density="compact"
+                                :model-value="$categoryID === id"
+                                :label="category.name"
+                                hide-details
+                            />
+                        </VListItem>
+                    </VList>
+                </VMenu>
+            </VBtn>
         </VCol>
     </VRow>
 
