@@ -63,4 +63,11 @@ export class Journal {
         }
         return this._attachments[url];
     };
+
+    externalAttachment = (url: string, options?: { force?: boolean }) => {
+        if (options?.force || !this._attachments[url]) {
+            this._attachments[url] = this._get(url).then((response) => ({ url, response }));
+        }
+        return this._attachments[url];
+    };
 }

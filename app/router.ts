@@ -23,11 +23,11 @@ export default VueRouter.createRouter({
             name: 'journal',
             component: () => import('@app/components/journal/JournalCategory.vue'),
         },
-        // {
-        //     path: '/journal/a/:articleID',
-        //     name: 'journal/article',
-        //     component: () => import('@app/components/journal/JournalHome.vue'),
-        // },
+        {
+            path: '/journal/a/:articleID',
+            name: 'journal/article',
+            component: () => import('@app/components/journal/JournalArticleView.vue'),
+        },
         {
             path: '/:pathMatch(.*)*',
             name: 'page-not-found',

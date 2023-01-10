@@ -28,3 +28,30 @@ export const getActiveJournalInfo = () => {
     }
     return { url, journal: getJournal(url) };
 };
+
+export const readArticleAttachmentRaw = async (journal: Journal, articleID: string, attachmentName: string) => {
+    const article = await journal.article(articleID);
+    const attachment = article.attachments[attachmentName];
+    if (!attachment) {
+        throw `Attachment not found; article='${articleID}' attachment='${attachmentName}'`;
+    }
+
+    const { url, response } = await (attachment.filePath
+        ? journal.attachment(articleID, attachment.filePath)
+        : attachment.url
+        ? journal.externalAttachment(attachment.url)
+        : (() => {
+              throw `Article attachment had neither filePath or url; article='${articleID}' attachment=${attachmentName}`;
+          })());
+
+    const mimeType = attachment.mimetype || response.headers['Content-Type'];
+    if (!mimeType) {
+        console.warn(
+            'Article attachment did not have a mime type (metadata or query header)',
+            articleID,
+            attachmentName,
+        );
+    }
+
+    return { url, mimeType, data: response.data };
+};
