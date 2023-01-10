@@ -8,6 +8,11 @@ phases:
     install:
         runtime-versions:
             nodejs: latest
+        commands:
+            - echo Installing build dependencies...
+            - apt-get update
+            - apt-get install -y protobuf-compiler
+
     pre_build:
         commands:
             - echo Nothing to do in the pre_build phase...
@@ -19,6 +24,9 @@ phases:
 
     post_build:
         commands:
+            - echo Creating Cloudfront invalidation
+            - aws cloudfront create-invalidation --distribution-id ${CF_DISTRIBUTION} --invalidation-batch
+              'Paths={Quantity=1,Items=[/*]},CallerReference=codebuild-'$(date +%s)
             - echo Build completed on `date`
 artifacts:
     files: '**/*'
