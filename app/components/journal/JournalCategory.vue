@@ -11,9 +11,6 @@ import { useDisplay } from 'vuetify/lib/framework.mjs';
 const $journalInfo = computed(() => getActiveJournalInfo());
 const $journal = computed(() => $journalInfo.value.journal);
 
-console.log('ji', $journalInfo);
-console.log('journal', $journal, $journal.value);
-
 const $index = ref(await $journal.value.index());
 watch($journal, async (journal) => ($index.value = await journal.index()));
 
@@ -33,8 +30,9 @@ const getDisplayArticles = async (journal: Journal, index: JournalIndex, display
     const articleIDs = displayCategoryIDs.flatMap((id) => index.categories[id].articles);
     const articlesPromises = articleIDs.map((id) => journal.article(id).then((article) => ({ id, article })));
     const articles = await Promise.all(articlesPromises);
-    const uniqueArticles = Object.entries(Object.fromEntries(articles.map((obj) => [obj.id, obj.article])));
-    uniqueArticles.sort((a1, a2) => (a1[1].createdOn?.getTime() ?? 0) - (a2[1].createdOn?.getTime() ?? 0));
+    const uniqueArticles = Object.entries(Object.fromEntries(articles.map((obj) => [obj.id, obj.article])))
+        .filter(([id]) => !!id)
+        .sort((a1, a2) => (a1[1].createdOn?.getTime() ?? 0) - (a2[1].createdOn?.getTime() ?? 0));
     return uniqueArticles;
 };
 const $displayArticles = ref(
@@ -60,8 +58,6 @@ const $pageMeta = computed(() =>
               description: '',
           },
 );
-
-console.log('display articles', $displayArticles.value);
 
 const $display = useDisplay();
 </script>

@@ -15,7 +15,7 @@ watch($journal, async (journal) => ($journalIndex.value = await journal.index())
 const route = useRoute();
 const $articleID = computed(() => route.params?.articleID?.toString() || '');
 
-const getArticle = (journal: Journal, articleID: string) => journal.article(articleID);
+const getArticle = (journal: Journal, articleID: string) => (articleID ? journal.article(articleID) : null);
 const $article = ref(await getArticle($journal.value, $articleID.value));
 watch([$journal, $articleID], async ([journal, articleID]) => ($article.value = await getArticle(journal, articleID)));
 
@@ -39,7 +39,7 @@ const $display = useDisplay();
 <template>
     <VRow>
         <VCol cols="12" md="auto">
-            <h1>{{ $article.title }}</h1>
+            <h1>{{ $article?.title }}</h1>
             <p>
                 <RouterLink v-for="[id, category] in $categories" :key="id" :to="`/journal/c/${id}`">
                     <VChip pill rounded size="x-small" class="ma-1 on-surface" link>
@@ -50,8 +50,8 @@ const $display = useDisplay();
         </VCol>
         <VCol :class="$display.mdAndUp.value ? 'text-right' : 'text-left'">
             <span class="text-caption text-disabled ma-1">
-                {{ $article.createdOn?.toLocaleString() }}
-                {{ $article.updatedOn ? `(Update: ${$article.updatedOn.toLocaleString()})` : '' }}
+                Posted: {{ $article?.createdOn?.toLocaleDateString() }}
+                {{ $article?.updatedOn ? `(Update: ${$article?.updatedOn.toLocaleString()})` : '' }}
             </span>
             <VBtn variant="tonal" icon="mdi-file-code" size="small" :href="$articleData.url" target="_blank" />
         </VCol>

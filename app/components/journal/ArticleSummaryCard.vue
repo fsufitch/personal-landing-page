@@ -56,9 +56,9 @@ const $articleURL = computed(() => `/journal/a/${$articleID.value}`);
                         </VChip>
                     </RouterLink>
 
-                    <div class="text-caption text-disabled ma-1">
-                        {{ $article.createdOn?.toLocaleString() }}
-                    </div>
+                    <p class="text-caption text-disabled ma-1">
+                        Posted: {{ $article?.createdOn?.toLocaleDateString() }}
+                    </p>
                 </VCol>
                 <VCol class="d-flex flex-column justify-end align-end">
                     <VBtn :to="$articleURL" variant="outlined" color="primary">Read</VBtn>
