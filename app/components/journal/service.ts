@@ -19,7 +19,7 @@ export const getActiveJournalInfo = () => {
     const urlFromParams = new URLSearchParams(window.location.search).get('j');
     if (urlFromParams) {
         url = urlFromParams;
-    } else if (Object.hasOwn(globalThis, '__JOURNAL_BASE_URL__') && __JOURNAL_BASE_URL__) {
+    } else if (__JOURNAL_BASE_URL__) {
         url = __JOURNAL_BASE_URL__;
     } else {
         const rootURL = new URL(window.location.href);
