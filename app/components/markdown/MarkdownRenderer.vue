@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import MarkdownIt from 'markdown-it';
+import MarkdownItEmoji from 'markdown-it-emoji';
 import { computed } from 'vue';
 
 import hljs from 'highlight.js';
@@ -9,9 +10,10 @@ import ReElement from './ReElement.vue';
 import { useMDAlert } from './dom/Alert.vue';
 import { useMDImageCard } from './dom/ImageCard.vue';
 
-let MD = new MarkdownIt('default');
+let MD = new MarkdownIt('default').use(MarkdownItEmoji);
 MD = useMDAlert(MD);
 MD = useMDImageCard(MD);
+
 MD.options.highlight = (str, lang) => {
     const language = lang ? hljs.getLanguage(lang) : undefined;
     if (language) {

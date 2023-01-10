@@ -30,6 +30,7 @@
         "lorem-ipsum": "^2.0.8",
         "markdown-it": "^13.0.1",
         "markdown-it-container": "^3.0.0",
+        "markdown-it-emoji": "^2.0.2",
         "vue": "^3.2.45",
         "vue-router": "^4.1.6",
         "vuetify": "^3.0.3",
@@ -38,6 +39,7 @@
     "devDependencies": {
         "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
         "@types/markdown-it": "^12.2.3",
+        "@types/markdown-it-emoji": "^2.0.2",
         "@types/node": "^18.11.17",
         "@typescript-eslint/eslint-plugin": "^5.45.1",
         "@typescript-eslint/parser": "^5.45.1",
