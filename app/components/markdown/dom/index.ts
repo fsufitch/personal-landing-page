@@ -4,6 +4,7 @@ import Dummy from './Dummy.vue';
 import Text from './Text.vue';
 import Heading from './Heading.vue';
 import HorizontalRule from './HorizontalRule.vue';
+import Table from './Table.vue';
 import { Component } from 'vue';
 
 // See:
@@ -34,6 +35,11 @@ const reNodes: { [nodeName: string]: Component | string } = {
     hr: HorizontalRule,
 
     blockquote: BlockQuote,
+
+    pre: 'pre',
+    code: 'code',
+
+    table: Table,
 
     dd: Dummy,
     dt: Dummy,
