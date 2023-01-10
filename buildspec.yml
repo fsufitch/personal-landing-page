@@ -29,5 +29,5 @@ phases:
               'Paths={Quantity=1,Items=[/*]},CallerReference=codebuild-'$(date +%s)
             - echo Build completed on `date`
 artifacts:
-    files: '**/*'
+    files: 'build/**/*'
     name: fsufitch-homepage-artifact
