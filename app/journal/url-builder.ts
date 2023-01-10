@@ -42,7 +42,16 @@ export class URLBuilder {
     clearPath = () => this.clone((url) => (url.pathname = ''));
 
     addPath = (parts: string[]) =>
-        this.clone((url) => parts.forEach((part) => (url.pathname += '/' + encodeURIComponent(part))));
+        this.clone(
+            (url) =>
+                (url.pathname =
+                    url.pathname +
+                    (!url.pathname.endsWith('/') ? '/' : '') +
+                    parts
+                        .filter((part) => !!part)
+                        .map((part) => encodeURIComponent(part))
+                        .join('/')),
+        );
 
     clearParams = () => this.clone((url) => (url.search = ''));
 
