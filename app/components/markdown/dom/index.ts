@@ -1,4 +1,5 @@
 import Alert from './Alert.vue';
+import Anchor from './Anchor.vue';
 import BlockQuote from './BlockQuote.vue';
 import Dummy from './Dummy.vue';
 import Text from './Text.vue';
@@ -22,7 +23,7 @@ const reNodes: { [nodeName: string]: Component | string } = {
     h5: Heading,
     h6: Heading,
 
-    a: 'a', // TODO
+    a: Anchor,
     p: 'p',
     b: 'b',
     i: 'i',

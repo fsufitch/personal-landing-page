@@ -2,6 +2,7 @@
 import MarkdownIt from 'markdown-it';
 import MarkdownItContainer from 'markdown-it-container';
 import Token from 'markdown-it/lib/token';
+import { getActiveJournalInfo } from '@app/components/journal/service';
 
 export const useMDImageCard = (md: MarkdownIt) =>
     md.use(MarkdownItContainer, 'imagecard', {
@@ -38,9 +39,23 @@ export const useMDImageCard = (md: MarkdownIt) =>
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
 const props = defineProps<{ node: Element }>();
 
-const $src = computed(() => props.node.getAttribute('src') || '');
+const route = useRoute();
+const $articleID = computed(() => (route.params['articleID'] || '').toString());
+
+const $journal = computed(() => getActiveJournalInfo().journal);
+
+const $src = computed(() => {
+    let src = props.node.getAttribute('src') || '';
+    if (!src.match('^[a-z0-9]://') && !src.startsWith('/') && $articleID.value) {
+        // Relative URL, render relative to article ID if possible
+        src = $journal.value.fileURL($articleID.value, src);
+    }
+    return src;
+});
 const $position = computed(() => props.node.getAttribute('position') || '');
 </script>
 

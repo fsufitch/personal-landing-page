@@ -342,3 +342,9 @@ All work and no play makes Jack a dull boy.
 All work and no play makes Jack a dull boy.
 All work and no play makes Jack a dull boy.
 All work and no play makes Jack a dull boy.
+
+## Attachments
+
+::: imagecard center another-cat.jpg
+[Download this image](another-cat.jpg)
+:::
