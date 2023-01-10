@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, computed, defineComponent } from 'vue';
+import { defineProps, computed } from 'vue';
 import E from './dom/index';
 
 const props = defineProps<{ node: Node }>();

@@ -10,7 +10,6 @@ export const anchor = (title: string) => {
     let idx = 0;
     for (idx = 0; idx < truncTitle.length; idx++) {
         const code = truncTitle.charCodeAt(idx);
-        console.log(truncTitle[idx], code, wordStart);
         if (
             (code > 47 && code < 58) || // numeric (0-9)
             (code > 64 && code < 91) || // upper alpha (A-Z)
@@ -28,14 +27,12 @@ export const anchor = (title: string) => {
     }
 
     const lastWord = truncTitle.slice(wordStart, truncTitle.length);
-    console.log(lastWord, wordStart, truncTitle.length);
     if (lastWord) {
         output += (output ? '-' : '') + lastWord;
     }
 
     const titleHash = Math.abs(hashCode(title));
     output += (output ? '-' : '') + titleHash;
-    console.log(title, '===>', output);
 
     return output.toLocaleLowerCase();
 };
