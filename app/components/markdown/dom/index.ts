@@ -34,6 +34,8 @@ const reNodes: { [nodeName: string]: Component | string } = {
     sub: 'sub',
     s: 's',
 
+    img: 'img', // TODO?
+
     ul: List,
     ol: List,
 
