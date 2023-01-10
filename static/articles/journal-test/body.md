@@ -261,20 +261,23 @@ this is an info alert
 
 it has some code in it!!
 
-```
-    import hello
-    hello.world()
+```python 
+import hello
+hello.world("python")
+
+for foo in bar:
+    wow what's this
 ```
 :::
 
 ::: alert success
-this is an info alert
+this is a success alert
 :::
 
 ::: alert warning
-this is an info alert
+this is a warning alert
 :::
 
 ::: alert error
-this is an info alert
+this is an error alert
 :::

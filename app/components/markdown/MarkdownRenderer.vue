@@ -1,12 +1,30 @@
 <script setup lang="ts">
 import MarkdownIt from 'markdown-it';
 import { computed } from 'vue';
+
+import hljs from 'highlight.js';
+
 import ReElement from './ReElement.vue';
 
 import { useMDAlert } from './dom/Alert.vue';
 
 let MD = new MarkdownIt('default');
 MD = useMDAlert(MD);
+MD.options.highlight = (str, lang) => {
+    const language = lang ? hljs.getLanguage(lang) : undefined;
+    if (language) {
+        try {
+            return (
+                '<pre class="hljs"><code>' +
+                hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
+                '</code></pre>'
+            );
+        } catch (err) {
+            console.error('Failed to highlight code', err);
+        }
+    }
+    return `<pre class="hljs"><code>${MD.utils.escapeHtml(str)}</code></pre>\n`;
+};
 
 interface Props {
     content: string;

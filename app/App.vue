@@ -17,7 +17,9 @@ import AppNavigation from '@app/components/AppNavigation.vue';
     </VApp>
 </template>
 
-<style>
+<style lang="scss">
+@import 'highlight.js/scss/xt256.scss';
+
 body {
     font-family: 'Libre Baskerville', serif;
 }

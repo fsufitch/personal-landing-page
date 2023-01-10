@@ -38,3 +38,11 @@ const $nodeAttrs = computed(() => {
         <ReElement v-for="(child, idx) of $childNodes" :key="idx" :node="child" />
     </component>
 </template>
+
+<style lang="scss">
+pre {
+    margin: 0.5em;
+    margin-left: 1em;
+    padding: 1em;
+}
+</style>

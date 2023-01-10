@@ -26,6 +26,7 @@
         "@types/markdown-it-container": "^2.0.5",
         "@vueuse/gesture": "^2.0.0-beta.1",
         "axios": "^1.2.2",
+        "highlight.js": "^11.7.0",
         "lorem-ipsum": "^2.0.8",
         "markdown-it": "^13.0.1",
         "markdown-it-container": "^3.0.0",
