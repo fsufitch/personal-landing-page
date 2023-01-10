@@ -43,6 +43,7 @@ const buildCommonConfig: () => UserConfig = () => ({
     define: {
         __VERSION__: JSON.stringify(packageJSON['version'] || '0.0.0'),
         __GITREF__: JSON.stringify(gitRef),
+        __JOURNAL_BASE_URL__: JSON.stringify(process.env?.JOURNAL_BASE_URL ?? ''),
     },
 
     css: {
