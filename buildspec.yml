@@ -19,10 +19,6 @@ phases:
 
     post_build:
         commands:
-            - echo Clearing non-build artifacts
-            - ls | grep -v '^build$' | xargs rm -rf
-            - echo Placing buind artifacts
-            - mv build/* . && rm -r build
             - echo Build completed on `date`
 artifacts:
     files: '**/*'
