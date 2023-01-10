@@ -28,6 +28,8 @@ phases:
             - ls -a | grep -v '^build$' | xargs rm -rf
             - echo Placing buind artifacts
             - mv build/* . && rm -r build
+            - echo Creating Cloudfront invalidation
+            - aws cloudfront create-invalidation --distribution-id ${CF_DISTRIBUTION} --invalidation-batch 'Paths={Quantity=1,Items=[/*]},CallerReference=codebuild-'$(date +%s)
             - echo Build completed on `date`
 artifacts:
     files: '**/*'
