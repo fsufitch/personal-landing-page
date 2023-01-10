@@ -10,7 +10,8 @@ phases:
             nodejs: latest
         commands:
             - echo Installing build dependencies...
-            - dnf install -y protobuf-compiler
+            - apt-get update
+            - apt-get install -y protobuf-compiler
 
     pre_build:
         commands:
