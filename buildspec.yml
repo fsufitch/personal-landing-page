@@ -25,7 +25,7 @@ phases:
     post_build:
         commands:
             - echo Clearing non-build artifacts
-            - ls -a | grep -v '^build$' | xargs rm -rf
+            - ls -a | grep -Ev '^build$|^..?$' | xargs rm -rf
             - echo Placing buind artifacts
             - mv build/* . && rm -r build
             - echo Creating Cloudfront invalidation
