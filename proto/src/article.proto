@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package webhome.journal;
+
+import "google/protobuf/timestamp.proto";
+
+message ArticleIndex {
+    string title = 2;
+    string blurb = 3;
+    google.protobuf.Timestamp createdOn = 4;
+    google.protobuf.Timestamp updatedOn = 5;
+    string republishURL = 6;
+
+    ArticleFile body = 7;
+    string bannerImageFilename = 8;
+    map<string, ArticleFile> attachments = 9;
+}
+
+message ArticleFile {
+    oneof contents {
+        string filePath = 1;
+        string url = 2;
+    }
+    string mimetype = 3;
+}

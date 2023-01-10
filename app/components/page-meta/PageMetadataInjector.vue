@@ -31,7 +31,7 @@ const defaultImage = '/favicon.png';
 
 const renderProps = ({ props }: { props: PageMetaProps }) => {
     // Meta Tags Generated via http://heymeta.com
-    console.log(props);
+    console.debug('Set page meta props', { ...props });
 
     // Google
     setMetadata('itemprop', 'name', 'content', props.title);

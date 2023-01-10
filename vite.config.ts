@@ -5,8 +5,10 @@ import child_process from 'child_process';
 import { defineConfig, UserConfig } from 'vite';
 
 import BasicSSLPlugin from '@vitejs/plugin-basic-ssl';
-import LegacyBrowserPlugin from '@vitejs/plugin-legacy';
+// import LegacyBrowserPlugin from '@vitejs/plugin-legacy';
 import VuePlugin from '@vitejs/plugin-vue';
+
+import NodePolyfillsPlugin from 'vite-plugin-node-stdlib-browser';
 
 const packageJSONRaw = fs.readFileSync(path.join(__dirname, 'package.json')).toString();
 const packageJSON = JSON.parse(packageJSONRaw);
@@ -24,7 +26,7 @@ const gitRef = (() => {
     console.error('Env CODEBUILD_RESOLVED_SOURCE_VERSION empty');
     return 'commit-unknown';
 })();
-console.log(`GIT REF: ${gitRef}`);
+console.info(`GIT REF: ${gitRef}`);
 
 const buildCommonConfig: () => UserConfig = () => ({
     appType: 'spa',
@@ -34,6 +36,7 @@ const buildCommonConfig: () => UserConfig = () => ({
     resolve: {
         alias: {
             '@app': '/app',
+            '@proto': '/proto/gen',
         },
     },
 
@@ -50,6 +53,17 @@ const buildCommonConfig: () => UserConfig = () => ({
     build: {
         outDir: './build',
         manifest: true,
+        rollupOptions: {
+            output: {
+                manualChunks: (id: string) => {
+                    if (id.includes('node_modules')) {
+                        const moduleName = id.split('node_modules/')[1].split('/')[0];
+                        return `vendor/${moduleName}`;
+                    }
+                    return undefined;
+                },
+            },
+        },
     },
 
     server: {
@@ -58,7 +72,12 @@ const buildCommonConfig: () => UserConfig = () => ({
         hmr: true,
     },
 
-    plugins: [BasicSSLPlugin(), LegacyBrowserPlugin(), VuePlugin()],
+    plugins: [
+        BasicSSLPlugin(),
+        // LegacyBrowserPlugin(),
+        VuePlugin(),
+        NodePolyfillsPlugin(),
+    ],
 });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

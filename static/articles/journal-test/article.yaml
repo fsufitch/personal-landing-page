@@ -1,0 +1,18 @@
+id: journal-test
+title: 'Sample Article #1'
+blurb: |
+    all work and no play makes jack a dull boy
+    all work and no play makes jack a dull boy
+bannerImageFilename: banner.jpg
+createdOn: 2023-01-03
+updatedOn: 2023-01-06
+
+republishURL: https://google.com
+
+attachments:
+    body:
+        mimetype: text/markdown
+        filePath: body.md
+    anothercat.jpg:
+        mimetype: image/jpeg
+        filePath: anothercat.jpg

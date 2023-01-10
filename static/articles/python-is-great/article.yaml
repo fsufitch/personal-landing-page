@@ -1,0 +1,21 @@
+id: journal-test
+title: 'Python is super awesome innit'
+blurb: >
+    lol python is basically a meme at this point
+
+    omg
+
+bannerImageFilename: python.png
+createdOn: 2023-01-03
+updatedOn: 2023-01-06
+
+republishURL: https://google.com
+
+body:
+    mimetype: text/markdown
+    filePath: body.md
+
+attachments:
+    anothercat.jpg:
+        mimetype: image/jpeg
+        filePath: anothercat.jpg

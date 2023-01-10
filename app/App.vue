@@ -4,18 +4,22 @@ import AppNavigation from '@app/components/AppNavigation.vue';
 
 <template>
     <VApp>
-        <AppNavigation />
         <VLayout>
+            <AppNavigation />
             <VMain>
                 <VContainer class="fill-height">
-                    <RouterView></RouterView>
+                    <Suspense>
+                        <RouterView></RouterView>
+                    </Suspense>
                 </VContainer>
             </VMain>
         </VLayout>
     </VApp>
 </template>
 
-<style>
+<style lang="scss">
+@import 'highlight.js/scss/xt256.scss';
+
 body {
     font-family: 'Libre Baskerville', serif;
 }

@@ -2,7 +2,7 @@
 import { useDisplay } from 'vuetify/lib/framework.mjs';
 import { ref, computed, Ref } from 'vue';
 
-import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 const NAVIGATION = [
     {
@@ -14,6 +14,11 @@ const NAVIGATION = [
         text: 'Projects',
         icon: 'mdi-archive',
         to: '/projects',
+    },
+    {
+        text: 'Journal',
+        icon: 'mdi-notebook',
+        to: '/journal',
     },
     {
         text: 'Medium Blog',
@@ -39,13 +44,8 @@ const $navMode = computed(() => ($vuetifyDisplay.mdAndUp.value ? 'desktop' : 'mo
 
 const $drawer: Ref<boolean> = ref(false);
 
-const router = useRouter();
+const route = useRoute();
 const $titleRoute = computed(() => {
-    const matchedRoutes = router.currentRoute.value.matched;
-    if (!matchedRoutes.length) {
-        return '404';
-    }
-    const route = matchedRoutes[0];
     return route.name;
 });
 </script>
@@ -71,7 +71,7 @@ const $titleRoute = computed(() => {
         </template>
     </VAppBar>
 
-    <VNavigationDrawer :model-value="$drawer">
+    <VNavigationDrawer :model-value="$drawer" temporary @update:model-value="(val) => ($drawer = val)">
         <VList>
             <VListItem
                 v-for="(value, idx) in NAVIGATION"
@@ -97,6 +97,8 @@ const $titleRoute = computed(() => {
             />
         </VList>
     </VNavigationDrawer>
+
+    <!-- <VSpacer height="48px" /> -->
 </template>
 
 <style>
