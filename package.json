@@ -23,10 +23,12 @@
     "dependencies": {
         "@mdi/font": "^7.1.96",
         "@primer/octicons-react": "^17.9.0",
+        "@types/markdown-it-container": "^2.0.5",
         "@vueuse/gesture": "^2.0.0-beta.1",
         "axios": "^1.2.2",
         "lorem-ipsum": "^2.0.8",
         "markdown-it": "^13.0.1",
+        "markdown-it-container": "^3.0.0",
         "vue": "^3.2.45",
         "vue-router": "^4.1.6",
         "vuetify": "^3.0.3",

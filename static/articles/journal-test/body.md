@@ -60,6 +60,14 @@ _This is italic text_
 > > > ...or with spaces between arrows.
 
 
+Look it's a block quote that generates an alert component:
+
+> !alert
+> foo bar baz
+> quux omg
+>
+> wow a second paragraph
+
 ## Lists
 
 Unordered
@@ -241,4 +249,32 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 
 ::: warning
 *here be dragons*
+:::
+
+
+::: alert
+this is a default alert
+:::
+
+::: alert info
+this is an info alert
+
+it has some code in it!!
+
+```
+    import hello
+    hello.world()
+```
+:::
+
+::: alert success
+this is an info alert
+:::
+
+::: alert warning
+this is an info alert
+:::
+
+::: alert error
+this is an info alert
 :::

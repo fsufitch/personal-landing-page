@@ -25,6 +25,7 @@ const $nodeAttrs = computed(() => {
     for (const attr of props.node.getAttributeNames()) {
         attrs[attr] = props.node.getAttribute(attr);
     }
+    console.log(props.node, attrs);
     return attrs;
 });
 </script>

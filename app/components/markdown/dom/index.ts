@@ -1,3 +1,5 @@
+import Alert from './Alert.vue';
+import BlockQuote from './BlockQuote.vue';
 import Dummy from './Dummy.vue';
 import Text from './Text.vue';
 import Heading from './Heading.vue';
@@ -31,8 +33,13 @@ const reNodes: { [nodeName: string]: Component | string } = {
 
     hr: HorizontalRule,
 
+    blockquote: BlockQuote,
+
     dd: Dummy,
     dt: Dummy,
+
+    /// Custom components
+    alert: Alert,
 };
 
 export default reNodes;

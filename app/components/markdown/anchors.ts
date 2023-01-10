@@ -20,7 +20,6 @@ export const anchor = (title: string) => {
 
         const newWord = truncTitle.slice(wordStart, idx);
         if (newWord) {
-            console.log('add', newWord);
             output += (output ? '-' : '') + newWord;
         }
         wordStart = idx + 1;
