@@ -4,6 +4,7 @@ import Dummy from './Dummy.vue';
 import Text from './Text.vue';
 import List from './List.vue';
 import Heading from './Heading.vue';
+import ImageCard from './ImageCard.vue';
 import HorizontalRule from './HorizontalRule.vue';
 import Table from './Table.vue';
 import { Component } from 'vue';
@@ -21,6 +22,7 @@ const reNodes: { [nodeName: string]: Component | string } = {
     h5: Heading,
     h6: Heading,
 
+    a: 'a', // TODO
     p: 'p',
     b: 'b',
     i: 'i',
@@ -30,11 +32,13 @@ const reNodes: { [nodeName: string]: Component | string } = {
     strong: 'strong',
     sup: 'sup',
     sub: 'sub',
+    s: 's',
 
     ul: List,
     ol: List,
 
     div: 'div', // TODO?
+    span: 'span', // TODO?
 
     hr: HorizontalRule,
 
@@ -44,12 +48,18 @@ const reNodes: { [nodeName: string]: Component | string } = {
     code: 'code',
 
     table: Table,
+    thead: 'thead',
+    tbody: 'tbody',
+    tr: 'tr',
+    td: 'td',
+    th: 'th',
 
     dd: Dummy,
     dt: Dummy,
 
     /// Custom components
     alert: Alert,
+    imagecard: ImageCard,
 };
 
 export default reNodes;

@@ -7,9 +7,11 @@ import hljs from 'highlight.js';
 import ReElement from './ReElement.vue';
 
 import { useMDAlert } from './dom/Alert.vue';
+import { useMDImageCard } from './dom/ImageCard.vue';
 
 let MD = new MarkdownIt('default');
 MD = useMDAlert(MD);
+MD = useMDImageCard(MD);
 MD.options.highlight = (str, lang) => {
     const language = lang ? hljs.getLanguage(lang) : undefined;
     if (language) {
@@ -43,5 +45,7 @@ const $nodes = computed(() => {
 </script>
 
 <template>
-    <ReElement v-for="(node, idx) of $nodes" :key="idx" :node="node" />
+    <Suspense>
+        <ReElement v-for="(node, idx) of $nodes" :key="idx" :node="node" />
+    </Suspense>
 </template>
