@@ -38,7 +38,7 @@ const $renderedContent = computed(() => MD.render(props.content, {}));
 
 const $nodes = computed(() => {
     const rawHTML = $renderedContent.value;
-    console.log(rawHTML);
+    console.debug('Raw HTML:', rawHTML);
     const el = document.createElement('main');
     el.innerHTML = rawHTML;
     const nodeArray = Array.from(el.childNodes);

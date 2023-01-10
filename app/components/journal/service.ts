@@ -7,7 +7,7 @@ export const getJournal = (baseURL: string, forceInit = false) => {
         baseURL = baseURL.slice(0, baseURL.length - 1);
     }
     if (forceInit || !JOURNAL_CACHE[baseURL]) {
-        console.log('Initialize journal from', baseURL);
+        console.info('Initialize journal from', baseURL);
         JOURNAL_CACHE[baseURL] = new Journal(baseURL);
     }
     return JOURNAL_CACHE[baseURL];

@@ -26,7 +26,7 @@ const gitRef = (() => {
     console.error('Env CODEBUILD_RESOLVED_SOURCE_VERSION empty');
     return 'commit-unknown';
 })();
-console.log(`GIT REF: ${gitRef}`);
+console.info(`GIT REF: ${gitRef}`);
 
 const buildCommonConfig: () => UserConfig = () => ({
     appType: 'spa',
