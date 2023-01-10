@@ -2,6 +2,7 @@ import Alert from './Alert.vue';
 import BlockQuote from './BlockQuote.vue';
 import Dummy from './Dummy.vue';
 import Text from './Text.vue';
+import List from './List.vue';
 import Heading from './Heading.vue';
 import HorizontalRule from './HorizontalRule.vue';
 import Table from './Table.vue';
@@ -29,6 +30,9 @@ const reNodes: { [nodeName: string]: Component | string } = {
     strong: 'strong',
     sup: 'sup',
     sub: 'sub',
+
+    ul: List,
+    ol: List,
 
     div: 'div', // TODO?
 
