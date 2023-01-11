@@ -30,12 +30,14 @@ const $nodeAttrs = computed(() => {
 </script>
 
 <template>
-    <component :is="$C.component" v-if="$C.isCustomComponent" :node="props.node">
-        <ReElement v-for="(child, idx) of $childNodes" :key="idx" :node="child" />
-    </component>
-    <component :is="$C.component" v-else v-bind="$nodeAttrs">
-        <ReElement v-for="(child, idx) of $childNodes" :key="idx" :node="child" />
-    </component>
+    <Suspense>
+        <component :is="$C.component" v-if="$C.isCustomComponent" :node="props.node">
+            <ReElement v-for="(child, idx) of $childNodes" :key="idx" :node="child" />
+        </component>
+        <component :is="$C.component" v-else v-bind="$nodeAttrs">
+            <ReElement v-for="(child, idx) of $childNodes" :key="idx" :node="child" />
+        </component>
+    </Suspense>
 </template>
 
 <style lang="scss">

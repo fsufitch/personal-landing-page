@@ -5,30 +5,52 @@ import child_process from 'child_process';
 import { defineConfig, UserConfig } from 'vite';
 
 import BasicSSLPlugin from '@vitejs/plugin-basic-ssl';
-// import LegacyBrowserPlugin from '@vitejs/plugin-legacy';
 import VuePlugin from '@vitejs/plugin-vue';
+import DynamicImportVarsPlugin from '@rollup/plugin-dynamic-import-vars';
 
 import NodePolyfillsPlugin from 'vite-plugin-node-stdlib-browser';
 
 const packageJSONRaw = fs.readFileSync(path.join(__dirname, 'package.json')).toString();
 const packageJSON = JSON.parse(packageJSONRaw);
 
-const gitRef = (() => {
+const gitRef = async () => {
     try {
-        return child_process.execSync('git rev-parse HEAD').toString().trim().slice(0, 6);
+        const gitRef = child_process.execSync('git rev-parse HEAD').toString().trim().slice(0, 6);
+        console.info(`GIT ref from CLI: ${gitRef}`);
+        return gitRef;
     } catch (exc) {
-        console.error('Could not use git CLI to source commit ID; defaulting to env');
+        console.warn('Could not get git ref from CLI', exc);
     }
 
     if (process.env.CODEBUILD_RESOLVED_SOURCE_VERSION) {
-        return process.env.CODEBUILD_RESOLVED_SOURCE_VERSION.toString().trim().slice(0, 6);
+        const gitRef = process.env.CODEBUILD_RESOLVED_SOURCE_VERSION.toString().trim().slice(0, 6);
+        console.info(`GIT ref from Codebuild env: ${gitRef}`);
+        return gitRef;
     }
-    console.error('Env CODEBUILD_RESOLVED_SOURCE_VERSION empty');
+    console.error('Could not resolve git ref');
     return 'commit-unknown';
-})();
-console.info(`GIT REF: ${gitRef}`);
+};
 
-const buildCommonConfig: () => UserConfig = () => ({
+const hljsLanguages = async () => {
+    console.info('Loading HLJS language index');
+    const hljs = (await import('highlight.js')).default;
+    const languages = hljs.listLanguages();
+    console.info(`    ${languages.length} languages`);
+    return languages;
+};
+
+// const hljsLanguageAliases = async () => {
+//     const hljs = (await import('highlight.js')).default;
+//     const languages = hljs.listLanguages();
+//     return Object.fromEntries(
+//         languages.map((lang) => [
+//             `highlight.js/lib/language/${lang}`,
+//             `/node_modules/highlight.js/lib/language/${lang}.js`,
+//         ]),
+//     );
+// };
+
+const buildCommonConfig: () => Promise<UserConfig> = async () => ({
     appType: 'spa',
     root: '.',
     publicDir: path.join(__dirname, 'static'),
@@ -37,13 +59,16 @@ const buildCommonConfig: () => UserConfig = () => ({
         alias: {
             '@app': '/app',
             '@proto': '/proto/gen',
+            '@hljs-lazy': '/hljs-lazy',
+            // ...(await hljsLanguageAliases()),
         },
     },
 
     define: {
         __VERSION__: JSON.stringify(packageJSON['version'] || '0.0.0'),
-        __GITREF__: JSON.stringify(gitRef),
+        __GITREF__: JSON.stringify(await gitRef()),
         __JOURNAL_BASE_URL__: JSON.stringify(process.env?.JOURNAL_BASE_URL ?? ''),
+        __HLJS_LANGUAGES__: JSON.stringify(await hljsLanguages()),
     },
 
     css: {
@@ -55,11 +80,14 @@ const buildCommonConfig: () => UserConfig = () => ({
         outDir: './build',
         manifest: true,
         rollupOptions: {
+            plugins: [DynamicImportVarsPlugin()],
+
             output: {
                 manualChunks: (id: string) => {
-                    if (id.includes('node_modules')) {
-                        const moduleName = id.split('node_modules/')[1].split('/')[0];
-                        return `vendor/${moduleName}`;
+                    if (id.includes('hljs-lazy')) {
+                        const p = path.parse(id);
+                        const langName = p.name.split('.')[0];
+                        return `@hljs-lazy/${langName}`;
                     }
                     return undefined;
                 },

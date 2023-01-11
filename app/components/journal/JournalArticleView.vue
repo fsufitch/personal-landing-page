@@ -5,7 +5,7 @@ import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { getActiveJournalInfo, readArticleAttachmentRaw } from './service';
 import { useDisplay } from 'vuetify/lib/framework.mjs';
-import MarkdownRenderer from '../markdown/MarkdownRenderer.vue';
+import MarkdownRenderer from '@app/components/markdown/MarkdownRenderer.vue';
 
 const $journalInfo = computed(() => getActiveJournalInfo());
 const $journal = computed(() => $journalInfo.value.journal);

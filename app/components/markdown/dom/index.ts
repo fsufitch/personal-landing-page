@@ -1,6 +1,7 @@
 import Alert from './Alert.vue';
 import Anchor from './Anchor.vue';
 import BlockQuote from './BlockQuote.vue';
+import Code from './Code.vue';
 import Dummy from './Dummy.vue';
 import Text from './Text.vue';
 import List from './List.vue';
@@ -48,7 +49,7 @@ const reNodes: { [nodeName: string]: Component | string } = {
     blockquote: BlockQuote,
 
     pre: 'pre',
-    code: 'code',
+    code: Code,
 
     table: Table,
     thead: 'thead',
