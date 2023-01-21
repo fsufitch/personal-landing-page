@@ -61,7 +61,7 @@ const $display = useDisplay();
             <VDivider class="ma-5" />
 
             <VCard>
-                <VCardText v-if="$articleData.mimeType === 'text/markdown'">
+                <VCardText v-if="$articleData.mimeType === 'text/markdown'" class="article-body">
                     <Suspense>
                         <MarkdownRenderer :content="$articleData.data" />
                     </Suspense>
@@ -78,5 +78,9 @@ const $display = useDisplay();
 <style>
 .not-too-wide {
     max-width: 75%;
+}
+
+.article-body {
+    line-height: 1.75 !important;
 }
 </style>

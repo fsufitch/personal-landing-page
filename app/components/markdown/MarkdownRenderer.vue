@@ -52,3 +52,9 @@ const $nodes = computed(() => {
         <ReElement v-for="(node, idx) of $nodes" :key="idx" :node="node" />
     </Suspense>
 </template>
+
+<style>
+p:not(:first-of-type) {
+    margin-top: 1em;
+}
+</style>

@@ -63,3 +63,9 @@ const outputProps = Object.assign(
         <slot />
     </code>
 </template>
+
+<style>
+pre {
+    margin-top: 1em;
+}
+</style>

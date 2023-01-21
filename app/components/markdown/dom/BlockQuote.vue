@@ -10,6 +10,7 @@
 
 <style>
 blockquote.re-bq {
+    margin: 1em;
     padding: 0.5em;
     padding-left: 1em;
     border-left: thin solid lightgray;

@@ -26,5 +26,6 @@ ul,
 ol {
     margin-left: 2em;
     margin-bottom: 1em;
+    margin-top: 1em;
 }
 </style>

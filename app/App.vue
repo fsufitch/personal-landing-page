@@ -23,7 +23,4 @@ import AppNavigation from '@app/components/AppNavigation.vue';
 body {
     font-family: 'Libre Baskerville', serif;
 }
-p:not(:last-of-type) {
-    padding-bottom: 1em;
-}
 </style>

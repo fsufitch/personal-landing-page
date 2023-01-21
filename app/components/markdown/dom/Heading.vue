@@ -8,8 +8,14 @@ const $anchor = computed(() => anchor(`${props.node.nodeName}-${props.node.textC
 </script>
 
 <template>
-    <component :is="props.node.nodeName" :id="$anchor" class="align-bottom">
+    <component :is="props.node.nodeName" :id="$anchor" class="align-bottom md-heading">
         <VBtn :href="`#${$anchor}`" variant="plain" color="blue" icon="mdi-pound" size="x-small" />
         <slot />
     </component>
 </template>
+
+<style>
+.md-heading {
+    margin-top: 1em;
+}
+</style>
