@@ -3,6 +3,7 @@ import MarkdownIt from 'markdown-it';
 import MarkdownItContainer from 'markdown-it-container';
 import Token from 'markdown-it/lib/token';
 import { getActiveJournalInfo } from '@app/components/journal/service';
+import { useDisplay } from 'vuetify/lib/framework.mjs';
 
 export const useMDImageCard = (md: MarkdownIt) =>
     md.use(MarkdownItContainer, 'imagecard', {
@@ -42,6 +43,7 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const props = defineProps<{ node: Element }>();
+const $display = useDisplay();
 
 const route = useRoute();
 const $articleID = computed(() => (route.params['articleID'] || '').toString());
@@ -57,17 +59,12 @@ const $src = computed(() => {
     return src;
 });
 const $position = computed(() => props.node.getAttribute('position') || '');
+const $floated = computed(() => $display.mdAndUp.value && ['right', 'left'].includes($position.value));
 </script>
 
 <template>
-    <VCard v-if="$position === 'right' || $position === 'left'" :class="`float-${$position} clearfix ma-5`">
-        <VImg cover :src="$src" />
-        <VCardText>
-            <slot />
-        </VCardText>
-    </VCard>
-    <div v-if="$position === 'center'" class="clear">{{ ' ' }}</div>
-    <VRow v-if="$position === 'center'">
+    <div v-if="!$floated" class="clear">{{ ' ' }}</div>
+    <VRow v-if="!$floated">
         <VSpacer />
         <VCol cols="12" sm="10" md="8" lg="6">
             <VCard width="100%" class="ma-5">
@@ -79,6 +76,12 @@ const $position = computed(() => props.node.getAttribute('position') || '');
         </VCol>
         <VSpacer />
     </VRow>
+    <VCard v-else :class="`float-${$position} clearfix ma-5`" style="max-width: 50%; min-width: 33%">
+        <VImg cover :src="$src" />
+        <VCardText>
+            <slot />
+        </VCardText>
+    </VCard>
 </template>
 
 <style>
