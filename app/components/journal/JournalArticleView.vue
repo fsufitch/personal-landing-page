@@ -38,7 +38,7 @@ const $display = useDisplay();
 
 <template>
     <VRow class="justify-center">
-        <VCol :cols="$display.mdAndDown.value ? 12 : 8">
+        <VCol :cols="$display.smAndDown.value ? 12 : $display.md.value ? 10 : $display.lg.value ? 8 : 6">
             <VRow>
                 <VCol cols="12" md="auto">
                     <h1>{{ $article?.title }}</h1>
