@@ -9,6 +9,7 @@ import VuePlugin from '@vitejs/plugin-vue';
 import DynamicImportVarsPlugin from '@rollup/plugin-dynamic-import-vars';
 
 import NodePolyfillsPlugin from 'vite-plugin-node-stdlib-browser';
+import VuetifyPlugin from 'vite-plugin-vuetify';
 
 const packageJSONRaw = fs.readFileSync(path.join(__dirname, 'package.json')).toString();
 const packageJSON = JSON.parse(packageJSONRaw);
@@ -79,6 +80,7 @@ const buildCommonConfig: () => Promise<UserConfig> = async () => ({
     build: {
         outDir: './build',
         manifest: true,
+        target: 'esnext',
         rollupOptions: {
             plugins: [DynamicImportVarsPlugin()],
 
@@ -89,7 +91,7 @@ const buildCommonConfig: () => Promise<UserConfig> = async () => ({
                         const langName = p.name.split('.')[0];
                         return `@hljs-lazy/${langName}`;
                     }
-                    return undefined;
+                    return null;
                 },
             },
         },
@@ -106,6 +108,7 @@ const buildCommonConfig: () => Promise<UserConfig> = async () => ({
         // LegacyBrowserPlugin(),
         VuePlugin(),
         NodePolyfillsPlugin(),
+        VuetifyPlugin(),
     ],
 });
 
