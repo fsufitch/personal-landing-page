@@ -37,36 +37,46 @@ const $display = useDisplay();
 </script>
 
 <template>
-    <VRow>
-        <VCol cols="12" md="auto">
-            <h1>{{ $article?.title }}</h1>
-            <p>
-                <RouterLink v-for="[id, category] in $categories" :key="id" :to="`/journal/c/${id}`">
-                    <VChip pill rounded size="x-small" class="ma-1 on-surface" link>
-                        {{ category.name }}
-                    </VChip>
-                </RouterLink>
-            </p>
-        </VCol>
-        <VCol :class="$display.mdAndUp.value ? 'text-right' : 'text-left'">
-            <span class="text-caption text-disabled ma-1">
-                Posted: {{ $article?.createdOn?.toLocaleDateString() }}
-                {{ $article?.updatedOn ? `(Update: ${$article?.updatedOn.toLocaleString()})` : '' }}
-            </span>
-            <VBtn variant="tonal" icon="mdi-file-code" size="small" :href="$articleData.url" target="_blank" />
+    <VRow class="justify-center">
+        <VCol :cols="$display.mdAndDown.value ? 12 : 8">
+            <VRow>
+                <VCol cols="12" md="auto">
+                    <h1>{{ $article?.title }}</h1>
+                    <p>
+                        <RouterLink v-for="[id, category] in $categories" :key="id" :to="`/journal/c/${id}`">
+                            <VChip pill rounded size="x-small" class="ma-1 on-surface" link>
+                                {{ category.name }}
+                            </VChip>
+                        </RouterLink>
+                    </p>
+                </VCol>
+                <VCol :class="$display.mdAndUp.value ? 'text-right' : 'text-left'">
+                    <span class="text-caption text-disabled ma-1">
+                        Posted: {{ $article?.createdOn?.toLocaleDateString() }}
+                        {{ $article?.updatedOn ? `(Update: ${$article?.updatedOn.toLocaleString()})` : '' }}
+                    </span>
+                    <VBtn variant="tonal" icon="mdi-file-code" size="small" :href="$articleData.url" target="_blank" />
+                </VCol>
+            </VRow>
+            <VDivider class="ma-5" />
+
+            <VCard>
+                <VCardText v-if="$articleData.mimeType === 'text/markdown'">
+                    <Suspense>
+                        <MarkdownRenderer :content="$articleData.data" />
+                    </Suspense>
+                </VCardText>
+                <VCardText v-else>
+                    Cannot render content of mimetype
+                    <code> {{ $articleData.mimeType }} </code>.
+                </VCardText>
+            </VCard>
         </VCol>
     </VRow>
-    <VDivider class="ma-5" />
-
-    <VCard>
-        <VCardText v-if="$articleData.mimeType === 'text/markdown'">
-            <Suspense>
-                <MarkdownRenderer :content="$articleData.data" />
-            </Suspense>
-        </VCardText>
-        <VCardText v-else>
-            Cannot render content of mimetype
-            <code> {{ $articleData.mimeType }} </code>.
-        </VCardText>
-    </VCard>
 </template>
+
+<style>
+.not-too-wide {
+    max-width: 75%;
+}
+</style>
