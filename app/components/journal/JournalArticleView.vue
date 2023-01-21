@@ -6,6 +6,8 @@ import { useRoute } from 'vue-router';
 import { getActiveJournalInfo, readArticleAttachmentRaw } from './service';
 import { useDisplay } from 'vuetify/lib/framework.mjs';
 import MarkdownRenderer from '@app/components/markdown/MarkdownRenderer.vue';
+import PageMetadataInjector from '@app/components/page-meta/PageMetadataInjector.vue';
+import { propsToAttrMap } from '@vue/shared';
 
 const $journalInfo = computed(() => getActiveJournalInfo());
 const $journal = computed(() => $journalInfo.value.journal);
@@ -33,10 +35,20 @@ watch(
 
 const $articleData = ref(await readArticleAttachmentRaw($journal.value, $articleID.value, 'body'));
 
+const $pageMetaProps = computed(() => ({
+    title: $article.value?.title ?? '',
+    description: $article.value?.blurb ?? '',
+    image: $article.value?.bannerImageFilename
+        ? $journal.value.fileURL($articleID.value, $article.value.bannerImageFilename)
+        : undefined,
+    pageType: 'article',
+}));
+
 const $display = useDisplay();
 </script>
 
 <template>
+    <PageMetadataInjector v-bind="$pageMetaProps" />
     <VRow class="justify-center">
         <VCol :cols="$display.smAndDown.value ? 12 : $display.md.value ? 10 : $display.lg.value ? 8 : 6">
             <VRow>
