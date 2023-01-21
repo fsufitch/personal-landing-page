@@ -39,7 +39,7 @@ export const useMDImageCard = (md: MarkdownIt) =>
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
 import { useRoute } from 'vue-router';
 
 const props = defineProps<{ node: Element }>();
@@ -69,7 +69,7 @@ const $floated = computed(() => $display.mdAndUp.value && ['right', 'left'].incl
         <VCol cols="12" sm="10" md="8" lg="6">
             <VCard width="100%" class="ma-5">
                 <VImg cover :src="$src" />
-                <VCardText>
+                <VCardText class="imagecard-caption">
                     <slot />
                 </VCardText>
             </VCard>
@@ -78,13 +78,13 @@ const $floated = computed(() => $display.mdAndUp.value && ['right', 'left'].incl
     </VRow>
     <VCard v-else :class="`float-${$position} clearfix ma-5`" style="max-width: 50%; min-width: 33%">
         <VImg cover :src="$src" />
-        <VCardText>
+        <VCardText class="imagecard-caption">
             <slot />
         </VCardText>
     </VCard>
 </template>
 
-<style>
+<style lang="scss">
 .clear {
     clear: both;
 }
@@ -92,5 +92,11 @@ const $floated = computed(() => $display.mdAndUp.value && ['right', 'left'].incl
     content: '';
     clear: both;
     display: table;
+}
+
+.imagecard-caption {
+    &:empty {
+        display: none;
+    }
 }
 </style>
