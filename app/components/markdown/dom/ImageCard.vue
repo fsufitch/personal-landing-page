@@ -39,7 +39,7 @@ export const useMDImageCard = (md: MarkdownIt) =>
 </script>
 
 <script setup lang="ts">
-import { computed, useSlots } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const props = defineProps<{ node: Element }>();
