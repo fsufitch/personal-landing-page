@@ -1,22 +1,8 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
 import { hljsWithLanguage } from '@hljs-lazy/index';
-// const hljsLanguages = Object.fromEntries(
-//     __HLJS_LANGUAGES__
-//         .map((lang) => ({
-//             lang,
-//             func: async () => {
-//                 console.log('loading hljs lang', lang);
-//                 return (await import(`node_modules/highlight.js/lib/languages/${lang}.js`)).default;
-//             },
-//         }))
-//         .map(({ lang, func }) => [lang, func]),
-// );
 
 const props = defineProps<{ node: HTMLPreElement; onRender?: (language: string, output: string) => void }>();
-
-// const importHighlightLanguage = (lang: string) => import(`highlight.js/es/languages/${lang}.js`);
-
 const $language = ref('');
 const $highlightedCode = ref<string>('');
 
@@ -49,23 +35,21 @@ const renderHighlightedCode = async () => {
 
 watchEffect(renderHighlightedCode);
 
-const outputProps = Object.assign(
-    {},
-    Object.fromEntries(props.node.getAttributeNames().map((k) => [k, props.node.getAttribute(k)])),
-    { class: `hljs ${props.node.getAttribute('class')}` },
-);
+const originalProps = Object.fromEntries([...props.node.attributes].map(({ name, value }) => [name, value]));
 </script>
 
 <template>
     <!-- eslint-disable-next-line vue/no-v-html -->
-    <code v-if="$highlightedCode" v-bind="outputProps" v-html="$highlightedCode" />
-    <code v-else v-bind="outputProps">
-        <slot />
-    </code>
+    <code v-if="$highlightedCode" v-bind="originalProps" class="hljs" v-html="$highlightedCode" />
+    <code v-else v-bind="originalProps" class="hljs"><slot /></code>
 </template>
 
-<style>
+<style lang="scss">
 pre {
     margin-top: 1em;
+}
+
+:not(pre) > code {
+    display: inline-block;
 }
 </style>

@@ -2,9 +2,6 @@
 import MarkdownIt from 'markdown-it';
 import MarkdownItEmoji from 'markdown-it-emoji';
 import { computed } from 'vue';
-
-// import hljs from 'highlight.js';
-
 import ReElement from './ReElement.vue';
 
 import { useMDAlert } from './dom/Alert.vue';
@@ -13,23 +10,6 @@ import { useMDImageCard } from './dom/ImageCard.vue';
 let MD = new MarkdownIt('default').use(MarkdownItEmoji);
 MD = useMDAlert(MD);
 MD = useMDImageCard(MD);
-
-// MD.options.highlight = (str, lang) => {
-//     const hljs = require('highlight.js');
-//     const language = lang ? hljs.getLanguage(lang) : undefined;
-//     if (language) {
-//         try {
-//             return (
-//                 '<pre class="hljs"><code>' +
-//                 hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
-//                 '</code></pre>'
-//             );
-//         } catch (err) {
-//             console.error('Failed to highlight code', err);
-//         }
-//     }
-//     return `<pre class="hljs"><code>${MD.utils.escapeHtml(str)}</code></pre>\n`;
-// };
 
 interface Props {
     content: string;
