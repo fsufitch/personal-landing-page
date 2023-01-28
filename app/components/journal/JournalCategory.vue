@@ -1,60 +1,70 @@
 <script setup lang="ts">
-import { getActiveJournalInfo } from './service';
 import { ref, computed, watch } from 'vue';
-import { Journal } from '@app/journal/journal';
-import { JournalIndex } from '@proto/journal';
+import { useJournal } from '@app/journal/journal';
+import { JournalCategory, JournalIndex } from '@proto/journal';
 import PageMetadataInjector from '@app/components/page-meta/PageMetadataInjector.vue';
 import ArticleSummaryCard from './ArticleSummaryCard.vue';
 import { useRoute } from 'vue-router';
 import { useDisplay } from 'vuetify/lib/framework.mjs';
-
-const $journalInfo = computed(() => getActiveJournalInfo());
-const $journal = computed(() => $journalInfo.value.journal);
-
-const $index = ref(await $journal.value.index());
-watch($journal, async (journal) => ($index.value = await journal.index()));
+import { ArticleIndex } from '@proto/article';
 
 const route = useRoute();
-const $categoryID = computed(() => route.params?.categoryID?.toString() || 'all');
-const $category = computed(() => $index.value.categories[$categoryID.value]);
+const categoryID = route.params?.categoryID?.toString() || 'all';
 
-const $displayCategories = computed(() =>
-    Object.entries($index.value.categories).filter(([id]) => $categoryID.value === 'all' || $categoryID.value === id),
-);
+const $journal = useJournal();
+const $journalIndex = ref<JournalIndex>();
+const $category = ref<JournalCategory>();
 
-const $browseCategories = computed(() =>
-    Object.entries($index.value.categories).filter(([, category]) => !category.hidden),
-);
+const $displayCategories = ref<[string, JournalCategory][]>([]);
+const $browseCategories = ref<[string, JournalCategory][]>([]);
+const $displayArticles = ref<[string, ArticleIndex][]>([]);
 
-const getDisplayArticles = async (journal: Journal, index: JournalIndex, displayCategoryIDs: string[]) => {
-    const articleIDs = displayCategoryIDs.flatMap((id) => index.categories[id].articles);
-    const articlesPromises = articleIDs.map((id) => journal.article(id).then((article) => ({ id, article })));
-    const articles = await Promise.all(articlesPromises);
-    const uniqueArticles = Object.entries(Object.fromEntries(articles.map((obj) => [obj.id, obj.article])))
-        .filter(([id]) => !!id)
-        .sort((a1, a2) => (a1[1].createdOn?.getTime() ?? 0) - (a2[1].createdOn?.getTime() ?? 0));
-    return uniqueArticles;
-};
-const $displayArticles = ref(
-    await getDisplayArticles(
-        $journal.value,
-        $index.value,
-        $displayCategories.value.map(([id]) => id),
-    ),
+watch(
+    [$journal, () => categoryID],
+    async ([journal, categoryID]) => {
+        if (!journal) {
+            console.error('Tried to render article from null journal');
+            return;
+        }
+
+        if (!categoryID) {
+            console.error('Tried to render empty article ID');
+            return;
+        }
+
+        $journalIndex.value = await journal.index();
+
+        $category.value = $journalIndex.value.categories[categoryID];
+
+        $displayCategories.value = Object.entries($journalIndex.value.categories).filter(
+            ([id]) => categoryID === 'all' || categoryID === id,
+        );
+
+        $browseCategories.value = Object.entries($journalIndex.value.categories).filter(
+            ([, category]) => !category.hidden,
+        );
+
+        const articleIDs: string[] = $displayCategories.value.flatMap(
+            ([id]) => $journalIndex.value?.categories[id].articles ?? [],
+        );
+        const articlesPromises = articleIDs.map((id) => journal.article(id).then((article) => ({ id, article })));
+        const articles = await Promise.all(articlesPromises);
+        const uniqueArticles = Object.entries(Object.fromEntries(articles.map((obj) => [obj.id, obj.article])))
+            .filter(([id]) => !!id)
+            .sort((a1, a2) => (a1[1].createdOn?.getTime() ?? 0) - (a2[1].createdOn?.getTime() ?? 0));
+        $displayArticles.value = uniqueArticles;
+    },
+    { immediate: true },
 );
-watch([$journal, $index, $displayCategories], async ([journal, index, displayCategories]) => {
-    const categoryIDs = displayCategories.map(([id]) => id);
-    $displayArticles.value = await getDisplayArticles(journal, index, categoryIDs);
-});
 
 const $pageMeta = computed(() =>
-    $categoryID.value === 'all'
+    categoryID === 'all'
         ? {
               title: 'fsufitch@homepage - Journal',
               description: '',
           }
         : {
-              title: `fsufitch@homepage - Journal (${$index.value.categories[$categoryID.value].name})`,
+              title: `fsufitch@homepage - Journal (${$category.value?.name})`,
               description: '',
           },
 );
@@ -72,9 +82,7 @@ const $display = useDisplay();
         >
             <h2>
                 Journal
-                <small v-if="$categoryID !== 'all'" class="text-disabled">
-                    (Category: {{ $index.categories[$categoryID].name }})
-                </small>
+                <small v-if="$category" class="text-disabled"> (Category: {{ $category?.name }}) </small>
             </h2>
             <VSheet>
                 <h5 class="font-weight-light">... blog, mission log, or timestamped long-form essay collection</h5>
@@ -82,13 +90,13 @@ const $display = useDisplay();
         </VCol>
         <VCol cols="auto" :class="`d-flex align-end ${$display.mdAndUp.value ? 'justify-end' : 'justify-center'}`">
             <VBtn id="categoryMenu" color="secondary">
-                Browsing: {{ $categoryID !== 'all' ? $category.name : '(all)' }}
+                Browsing: {{ $category ? $category.name : '(all)' }}
                 <VMenu activator="#categoryMenu">
                     <VList>
                         <VListItem to="/journal">
                             <VRadio
                                 density="compact"
-                                :model-value="$categoryID === 'all'"
+                                :model-value="categoryID === 'all'"
                                 label="All Categories"
                                 hide-details
                             />
@@ -96,7 +104,7 @@ const $display = useDisplay();
                         <VListItem v-for="[id, category] in $browseCategories" :key="id" :to="`/journal/c/${id}`">
                             <VRadio
                                 density="compact"
-                                :model-value="$categoryID === id"
+                                :model-value="categoryID === id"
                                 :label="category.name"
                                 hide-details
                             />
@@ -110,8 +118,10 @@ const $display = useDisplay();
     <VDivider class="ma-6" />
 
     <VRow class="align-stretch justify-center">
-        <VCol v-for="[id, article] in $displayArticles" :key="id" cols="12" sm="6" lg="4" xl="3">
-            <ArticleSummaryCard :journal="$journal" :article="[id, article]" class="fill-height" />
+        <VCol v-for="[id] in $displayArticles" :key="id" cols="12" sm="6" lg="4" xl="3">
+            <Suspense>
+                <ArticleSummaryCard v-if="$journal" :journal="$journal" :article="id" class="fill-height" />
+            </Suspense>
         </VCol>
     </VRow>
 </template>

@@ -50,14 +50,20 @@ interface Breadcrumb {
     disabled?: boolean;
 }
 
-const $breadcrumbsBase = computed<Breadcrumb[]>(() => [
-    { title: '~', to: '/' },
-    { title: 'fsufitch', to: '/' },
-    {
-        title: routeBreadcrumbElements[$route.name?.toString() || ''] || '<bad_path>',
-        to: $route.path,
-    },
-]);
+const $breadcrumbsBase = computed<Breadcrumb[]>(() => {
+    const crumbs = [
+        { title: '~', to: '/' },
+        { title: 'fsufitch', to: '/' },
+    ];
+    const baseTitle = routeBreadcrumbElements[$route.name?.toString() || ''] || '';
+    if (baseTitle && $route.path) {
+        crumbs.push({
+            title: routeBreadcrumbElements[$route.name?.toString() || ''] || '',
+            to: $route.path,
+        });
+    }
+    return crumbs;
+});
 
 const $breadcrumbsJournalCategory = computed<Breadcrumb[]>(() =>
     $route.name !== 'journal'
@@ -152,7 +158,7 @@ const toggleTheme = () =>
     <VAppBar density="comfortable" color="primary">
         <VAppBarNavIcon @click="$showDrawer = !$showDrawer" />
         <VAppBarTitle>
-            <VBreadcrumbs :items="$breadcrumbs" style="overflow-x: auto" />
+            <VBreadcrumbs :items="$breadcrumbs" density="compact" style="overflow-x: auto" />
         </VAppBarTitle>
         <template #append>
             <VBtn

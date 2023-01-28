@@ -3,6 +3,9 @@ import { URLBuilder } from './url-builder';
 import YAML from 'yaml';
 import { JournalIndex } from '@proto/journal';
 import { ArticleIndex } from '@proto/article';
+import { computed, inject, Ref } from 'vue';
+
+import { INJECT_JOURNAL, INJECT_JOURNAL_BASE_URL } from './plugin';
 
 export class Journal {
     private axios: Axios;
@@ -71,3 +74,36 @@ export class Journal {
         return this._attachments[url];
     };
 }
+
+export const useJournal = () =>
+    computed(() => {
+        const $journalBaseURL = inject<Ref<string>>(INJECT_JOURNAL_BASE_URL);
+        if (!$journalBaseURL) {
+            throw 'Could not get ref to journal base URL';
+        }
+        const $journal = inject<Ref<Journal | undefined>>(INJECT_JOURNAL);
+        if (!$journal) {
+            throw 'Could not get ref to journal';
+        }
+
+        let initialize = false;
+
+        if (!$journal.value) {
+            console.info('Lazy-initializing journal from URL:', $journalBaseURL.value);
+            initialize = true;
+        } else if ($journalBaseURL.value && $journalBaseURL.value !== $journal.value.baseURL) {
+            console.info(
+                `Reinitializing journal because base URL changed; before=${$journal.value.baseURL} after=${$journalBaseURL.value}`,
+            );
+            initialize = true;
+        }
+
+        if (initialize) {
+            if (!$journalBaseURL.value) {
+                console.error('Could not initialize journal; base URL was empty');
+            } else {
+                $journal.value = new Journal($journalBaseURL.value);
+            }
+        }
+        return $journal.value;
+    });

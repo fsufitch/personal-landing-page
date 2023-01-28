@@ -30,6 +30,9 @@ const $nodes = computed(() => {
 <template>
     <Suspense>
         <ReElement v-for="(node, idx) of $nodes" :key="idx" :node="node" />
+        <template #fallback>
+            <VProgressCircular indeterminate />
+        </template>
     </Suspense>
 </template>
 

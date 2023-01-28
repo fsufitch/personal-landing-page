@@ -29,7 +29,16 @@ export const getActiveJournalInfo = () => {
     return { url, journal: getJournal(url) };
 };
 
-export const readArticleAttachmentRaw = async (journal: Journal, articleID: string, attachmentName: string) => {
+export interface ArticleAttachmentRaw {
+    url: string;
+    mimeType?: string;
+    data: unknown;
+}
+export const readArticleAttachmentRaw = async (
+    journal: Journal,
+    articleID: string,
+    attachmentName: string,
+): Promise<ArticleAttachmentRaw> => {
     const article = await journal.article(articleID);
     const attachment = article.attachments[attachmentName];
     if (!attachment) {

@@ -1,51 +1,60 @@
 <script setup lang="ts">
-import { Journal } from '@app/journal/journal';
+import { useJournal } from '@app/journal/journal';
 import { ArticleIndex } from '@proto/article';
-import { JournalIndex } from '@proto/journal';
+import { JournalCategory, JournalIndex } from '@proto/journal';
 import PlaceholderBanner from './placeholder-banner.png';
 
-import { defineProps, computed, ref, watch } from 'vue';
+import { defineProps, ref, watch } from 'vue';
 
-const PROPS = defineProps<{ journal: Journal; article: [string, ArticleIndex] }>();
+const PROPS = defineProps<{ article: string }>();
+const articleURL = `/journal/a/${PROPS.article}`;
 
-const $articleID = computed(() => PROPS.article[0]);
-const $article = computed(() => PROPS.article[1]);
+const $journal = useJournal();
+const $journalIndex = ref<JournalIndex>();
+const $article = ref<ArticleIndex>();
+const $categories = ref<[string, JournalCategory][]>([]);
+const $bannerImageSrc = ref<string>('');
 
-const $journalIndex = ref(await PROPS.journal.index());
-watch(PROPS, async () => ($journalIndex.value = await PROPS.journal.index()));
-
-const computeCategories = (journalIndex: JournalIndex, articleID: string) =>
-    Object.entries(journalIndex.categories)
-        .filter(([, category]) => !category.hidden)
-        .filter(([, category]) => category.articles.includes(articleID))
-        .sort(([, c1], [, c2]) => (c1.name < c2.name ? -1 : c1.name > c2.name ? 1 : 0));
-
-const $categories = ref(computeCategories($journalIndex.value, $articleID.value));
 watch(
-    [$journalIndex, $articleID],
-    async ([journalIndex, articleID]) => ($categories.value = computeCategories(journalIndex, articleID)),
-);
+    [$journal, () => PROPS.article],
+    async ([journal, articleID]) => {
+        if (!journal) {
+            console.error('Tried to render article card from null journal');
+            return;
+        }
+        if (!articleID) {
+            console.error('Tried to render article card from null articleID');
+            return;
+        }
 
-const bannerImageSrc = computed(() =>
-    $article.value.bannerImageFilename
-        ? PROPS.journal.fileURL($articleID.value, $article.value.bannerImageFilename)
-        : PlaceholderBanner,
-);
+        $journalIndex.value = await journal.index();
 
-const $articleURL = computed(() => `/journal/a/${$articleID.value}`);
+        $article.value = await journal.article(articleID);
+
+        $categories.value = Object.entries($journalIndex.value.categories)
+            .filter(([, category]) => !category.hidden)
+            .filter(([, category]) => category.articles.includes(articleID))
+            .sort(([, c1], [, c2]) => (c1.name < c2.name ? -1 : c1.name > c2.name ? 1 : 0));
+
+        $bannerImageSrc.value = $article.value.bannerImageFilename
+            ? journal.fileURL(articleID, $article.value.bannerImageFilename)
+            : PlaceholderBanner;
+    },
+    { immediate: true },
+);
 </script>
 
 <template>
     <VCard v-bind="PROPS" class="d-flex flex-column" link>
-        <RouterLink :to="$articleURL" class="text-decoration-none">
-            <VCardTitle class="full-title text-center on-surface" :to="$articleURL">
-                {{ $article.title }}
+        <RouterLink :to="articleURL" class="text-decoration-none">
+            <VCardTitle class="full-title text-center on-surface" :to="articleURL">
+                {{ $article?.title }}
             </VCardTitle>
-            <VImg aspect-ratio="3" cover :src="bannerImageSrc" :lazy-src="PlaceholderBanner" :to="$articleURL" />
+            <VImg aspect-ratio="3" cover :src="$bannerImageSrc" :lazy-src="PlaceholderBanner" :to="articleURL" />
         </RouterLink>
 
         <VCardText>
-            <p>{{ $article.blurb }}</p>
+            <p>{{ $article?.blurb }}</p>
         </VCardText>
         <VCardActions>
             <VRow>
@@ -61,7 +70,7 @@ const $articleURL = computed(() => `/journal/a/${$articleID.value}`);
                     </p>
                 </VCol>
                 <VCol class="d-flex flex-column justify-end align-end">
-                    <VBtn :to="$articleURL" variant="outlined" color="primary">Read</VBtn>
+                    <VBtn :to="articleURL" variant="outlined" color="primary">Read</VBtn>
                 </VCol>
             </VRow>
         </VCardActions>

@@ -244,7 +244,9 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 
 ::: warning _here be dragons_ :::
 
-::: alert this is a default alert :::
+::: alert this is a default alert
+
+:::
 
 ::: alert info this is an info alert
 
@@ -281,11 +283,12 @@ makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and 
 
 ::: imagecard center https://placekitten.com/1000/500 This image sits in the center. :::
 
-::: imagecard right https://placekitten.com/400/600 This image is floated right. ::: The quick brown fox jumped over the
-lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown
-fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy
-dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox
-jumped over the lazy dog. The quick brown fox jumped over the lazy dog.
+::: imagecard right https://placekitten.com/400/600 This image is floated right. :::
+
+The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped
+over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick
+brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the
+lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog.
 
 All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack
 a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play
