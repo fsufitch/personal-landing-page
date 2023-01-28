@@ -6,11 +6,12 @@ import Token from 'markdown-it/lib/token';
 export const useMDAlert = (md: MarkdownIt) =>
     md.use(MarkdownItContainer, 'alert', {
         validate: (params: string) => {
-            const matches = params.trim().match(/^alert\s?(.*)$/);
+            const matches = params.trim().match(/^alert(?:\s(success|info|warning|error))?/);
             return !!matches;
         },
         render: (tokens: Token[], idx: number) => {
-            const matchedTokens = tokens[idx].info.trim().match(/^alert\s?(.*)$/);
+            console.log('...', tokens[idx]);
+            const matchedTokens = tokens[idx].info.trim().match(/^alert(?:\s(success|info|warning|error))?/);
             let alertArg = '';
             if (matchedTokens?.length == 2 && matchedTokens[1]) {
                 alertArg = ` type="${encodeURIComponent(matchedTokens[1])}"`;

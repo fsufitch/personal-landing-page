@@ -244,11 +244,12 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 
 ::: warning _here be dragons_ :::
 
-::: alert this is a default alert
-
+::: alert
+this is a default alert
 :::
 
-::: alert info this is an info alert
+::: alert info
+this is an info alert
 
 it has some code in it!!
 
@@ -262,13 +263,21 @@ for foo in bar:
 
 :::
 
-::: alert success this is a success alert :::
+::: alert success
+this is a success alert
+:::
 
-::: alert warning this is a warning alert :::
+::: alert warning
+this is a warning alert
+:::
 
-::: alert error this is an error alert :::
+::: alert error
+this is an error alert
+:::
 
-::: imagecard left https://placekitten.com/600/600 This image is floated left. :::
+::: imagecard left https://placekitten.com/600/600
+This image is floated left.
+:::
 
 All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack
 a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play
@@ -281,9 +290,13 @@ work and no play makes Jack a dull boy. All work and no play makes Jack a dull b
 dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play
 makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy.
 
-::: imagecard center https://placekitten.com/1000/500 This image sits in the center. :::
+::: imagecard center https://placekitten.com/1000/500
+This image sits in the center.
+:::
 
-::: imagecard right https://placekitten.com/400/600 This image is floated right. :::
+::: imagecard right https://placekitten.com/400/600
+This image is floated right.
+:::
 
 The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped
 over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick
@@ -297,4 +310,6 @@ and no play makes Jack a dull boy.
 
 ## Attachments
 
-::: imagecard center another-cat.jpg [Download this image](another-cat.jpg) :::
+::: imagecard center another-cat.jpg
+[Download this image](another-cat.jpg)
+:::
