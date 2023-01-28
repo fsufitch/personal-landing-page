@@ -89,7 +89,10 @@ const $breadcrumbs = computed<Breadcrumb[]>(() => {
         ...$breadcrumbsJournalArticle.value,
     ];
     const ext = breadcrumbFunExtensions[Math.floor(Math.random() * breadcrumbFunExtensions.length)];
-    crumbs[crumbs.length - 1].title += '.' + ext;
+    Object.assign(crumbs[crumbs.length - 1], {
+        title: crumbs[crumbs.length - 1].title + '.' + ext,
+        disabled: false,
+    });
     return crumbs;
 });
 
