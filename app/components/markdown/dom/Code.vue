@@ -78,6 +78,6 @@ html[data-theme='light'] {
 }
 
 html[data-theme='dark'] {
-    @include meta.load-css('highlight.js/scss/base16/dark-violet.scss');
+    @include meta.load-css('highlight.js/scss/base16/humanoid-dark.scss');
 }
 </style>
