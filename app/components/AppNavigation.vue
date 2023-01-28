@@ -2,21 +2,114 @@
 import { useDisplay, useTheme } from 'vuetify/lib/framework.mjs';
 import { ref, computed, Ref } from 'vue';
 
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+
+const $route = useRoute();
+const $router = useRouter();
+
+$router.getRoutes();
+
+const breadcrumbFunExtensions = [
+    'html',
+    'htm',
+    'php',
+    'java',
+    'kt',
+    'c',
+    'cpp',
+    'h',
+    'py',
+    'go',
+    'rb',
+    'md',
+    'rst',
+    'js',
+    'ts',
+    'css',
+    'scss',
+    'vue',
+    'sql',
+    'json',
+    'yaml',
+    'yml',
+];
+
+const routeBreadcrumbElements: Record<string, string> = {
+    'about-me': 'about-me',
+    projects: 'projects',
+    'journal-redirect': 'redirecting-to-journal',
+    journal: 'journal',
+    'journal/article': 'journal',
+    'page-not-found': '404',
+};
+
+interface Breadcrumb {
+    title: string;
+    to?: string;
+    disabled?: boolean;
+}
+
+const $breadcrumbsBase = computed<Breadcrumb[]>(() => [
+    { title: '~', to: '/' },
+    { title: 'fsufitch', to: '/' },
+    {
+        title: routeBreadcrumbElements[$route.name?.toString() || ''] || '<bad_path>',
+        to: $route.path,
+    },
+]);
+
+const $breadcrumbsJournalCategory = computed<Breadcrumb[]>(() =>
+    $route.name !== 'journal'
+        ? []
+        : [
+              { title: 'category', disabled: true },
+              {
+                  title: `${$route?.params?.categoryID}`,
+                  to: `/journal/c/${$route?.params?.categoryID}`,
+              },
+          ],
+);
+
+const $breadcrumbsJournalArticle = computed<Breadcrumb[]>(() =>
+    $route.name !== 'journal/article'
+        ? []
+        : [
+              { title: 'article', disabled: true },
+              {
+                  title: `${$route?.params?.articleID}`,
+                  to: `/journal/a/${$route?.params?.articleID}`,
+              },
+          ],
+);
+
+const $breadcrumbs = computed<Breadcrumb[]>(() => {
+    const crumbs = [
+        ...$breadcrumbsBase.value,
+        ...$breadcrumbsJournalCategory.value,
+        ...$breadcrumbsJournalArticle.value,
+    ];
+    const ext = breadcrumbFunExtensions[Math.floor(Math.random() * breadcrumbFunExtensions.length)];
+    crumbs[crumbs.length - 1].title += '.' + ext;
+    return crumbs;
+});
 
 const NAVIGATION = [
     {
+        routeName: 'about-me',
         text: 'About Me',
+        breadcrumb: 'about-me.html',
         icon: 'mdi-account-circle',
         to: '/',
     },
     {
         text: 'Projects',
+        breadcrumb: 'projects.py',
         icon: 'mdi-archive',
         to: '/projects',
     },
     {
         text: 'Journal',
+        breadcrumb: 'journal',
         icon: 'mdi-notebook',
         to: '/journal',
     },
@@ -41,29 +134,21 @@ const version = __VERSION__;
 
 const $vuetifyDisplay = useDisplay();
 const $navMode = computed(() => ($vuetifyDisplay.mdAndUp.value ? 'desktop' : 'mobile'));
-
-const $drawer: Ref<boolean> = ref(false);
-
-const route = useRoute();
-const $titleRoute = computed(() => {
-    return route.name;
-});
-
+const $showDrawer: Ref<boolean> = ref(false);
 const $theme = useTheme();
 const $themeType = computed(() => ($theme.current.value.dark ? 'dark' : 'light'));
 const toggleTheme = () => ($theme.global.name.value = $themeType.value === 'dark' ? 'light' : 'dark');
 </script>
 
 <template>
-    <VAppBar density="comfortable" color="primary" fixed>
-        <VAppBarNavIcon @click="$drawer = !$drawer" />
+    <VAppBar density="comfortable" color="primary">
+        <VAppBarNavIcon @click="$showDrawer = !$showDrawer" />
         <VAppBarTitle>
-            <h4>
-                <code>~/{{ $titleRoute }}</code>
-            </h4>
+            <VBreadcrumbs :items="$breadcrumbs" style="overflow-x: auto" />
         </VAppBarTitle>
         <template #append>
             <VBtn
+                v-if="$navMode === 'desktop'"
                 variant="outlined"
                 color="info"
                 :href="`https://github.com/fsufitch/personal-landing-page/tree/${commitRef}`"
@@ -75,7 +160,7 @@ const toggleTheme = () => ($theme.global.name.value = $themeType.value === 'dark
         </template>
     </VAppBar>
 
-    <VNavigationDrawer :model-value="$drawer" temporary @update:model-value="(val) => ($drawer = val)">
+    <VNavigationDrawer :model-value="$showDrawer" temporary @update:model-value="(val) => ($showDrawer = val)">
         <div class="fill-height d-flex flex-column justify-space-between">
             <VList>
                 <VListItem
@@ -90,15 +175,6 @@ const toggleTheme = () => ($theme.global.name.value = $themeType.value === 'dark
                 >
                     <template #append> <VIcon v-if="value.href" icon="mdi-open-in-new" /> </template>
                 </VListItem>
-
-                <VListItem
-                    v-if="$navMode === 'desktop'"
-                    :href="`https://github.com/fsufitch/personal-landing-page/tree/${commitRef}`"
-                    target="_blank"
-                    append-icon="mdi-open-in-new"
-                    :title="`v${version}`"
-                    :subtitle="commitRef"
-                />
             </VList>
             <VList>
                 <VListItem @click="toggleTheme">
@@ -109,6 +185,15 @@ const toggleTheme = () => ($theme.global.name.value = $themeType.value === 'dark
                     <div class="align-center">Theme</div>
                     <template #append> <VSwitch hide-details :model-value="$themeType === 'light'" /> </template>
                 </VListItem>
+                <VListItem
+                    v-if="$navMode === 'mobile'"
+                    :href="`https://github.com/fsufitch/personal-landing-page/tree/${commitRef}`"
+                    target="_blank"
+                    append-icon="mdi-open-in-new"
+                    prepend-icon="mdi-github"
+                    :title="`v${version}`"
+                    :subtitle="commitRef"
+                />
             </VList>
         </div>
     </VNavigationDrawer>
