@@ -18,7 +18,7 @@ import AppNavigation from '@app/components/AppNavigation.vue';
 </template>
 
 <style lang="scss">
-@import 'highlight.js/scss/an-old-hope.scss';
+// @import 'highlight.js/scss/atom-one-light.scss';
 
 body {
     font-family: 'Libre Baskerville', serif;

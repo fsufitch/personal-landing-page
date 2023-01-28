@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { ref, watchEffect, computed } from 'vue';
 import { hljsWithLanguage } from '@hljs-lazy/index';
 
 const props = defineProps<{ node: HTMLPreElement; onRender?: (language: string, output: string) => void }>();
 const $language = ref('');
-const $highlightedCode = ref<string>('');
+const $highlightedCode = ref<string>(props.node.textContent || '');
 
 const renderHighlightedCode = async () => {
     const classAttr = (props.node.getAttribute('class') || '').toString();
@@ -36,20 +36,47 @@ const renderHighlightedCode = async () => {
 watchEffect(renderHighlightedCode);
 
 const originalProps = Object.fromEntries([...props.node.attributes].map(({ name, value }) => [name, value]));
+const isInline = computed(() => props.node.parentElement?.tagName !== 'PRE');
+
+// const $classes = computed(() => {
+//     const classes: string[] = ['hljs'];
+//     return classes;
+// });
 </script>
 
 <template>
-    <!-- eslint-disable-next-line vue/no-v-html -->
-    <code v-if="$highlightedCode" v-bind="originalProps" class="hljs" v-html="$highlightedCode" />
-    <code v-else v-bind="originalProps" class="hljs"><slot /></code>
+    <!-- eslint-disable-next-line vue/no-v-html vue/no-v-text-v-html-on-component -->
+    <!-- <code elevation="1" v-bind="originalProps" class="hljs" v-html="$highlightedCode" /> -->
+
+    <VAlert
+        v-if="!isInline"
+        tag="code"
+        variant="elevated"
+        elevation="1"
+        class="hljs"
+        v-bind="originalProps"
+        v-html="$highlightedCode"
+    />
+    <VAlert
+        v-else
+        tag="code"
+        variant="elevated"
+        elevation="1"
+        v-bind="originalProps"
+        class="hljs inline-code"
+        v-html="$highlightedCode"
+    />
 </template>
 
 <style lang="scss">
+@use 'vuetify';
+@use 'highlight.js/scss/base16/humanoid-light.scss';
+
 pre {
     margin-top: 1em;
 }
 
-:not(pre) > code {
-    display: inline-block;
+.inline-code {
+    display: inline;
 }
 </style>
