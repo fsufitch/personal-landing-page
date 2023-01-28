@@ -37,17 +37,10 @@ watchEffect(renderHighlightedCode);
 
 const originalProps = Object.fromEntries([...props.node.attributes].map(({ name, value }) => [name, value]));
 const isInline = computed(() => props.node.parentElement?.tagName !== 'PRE');
-
-// const $classes = computed(() => {
-//     const classes: string[] = ['hljs'];
-//     return classes;
-// });
 </script>
 
 <template>
-    <!-- eslint-disable-next-line vue/no-v-html vue/no-v-text-v-html-on-component -->
-    <!-- <code elevation="1" v-bind="originalProps" class="hljs" v-html="$highlightedCode" /> -->
-
+    <!-- eslint-disable vue/no-v-html vue/no-v-text-v-html-on-component -->
     <VAlert
         v-if="!isInline"
         tag="code"
@@ -70,7 +63,7 @@ const isInline = computed(() => props.node.parentElement?.tagName !== 'PRE');
 
 <style lang="scss">
 @use 'vuetify';
-@use 'highlight.js/scss/base16/humanoid-light.scss';
+@use 'sass:meta';
 
 pre {
     margin-top: 1em;
@@ -78,5 +71,13 @@ pre {
 
 .inline-code {
     display: inline;
+}
+
+html[data-theme='light'] {
+    @include meta.load-css('highlight.js/scss/base16/humanoid-light.scss');
+}
+
+html[data-theme='dark'] {
+    @include meta.load-css('highlight.js/scss/base16/dark-violet.scss');
 }
 </style>

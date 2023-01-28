@@ -10,8 +10,9 @@ import { GesturePlugin } from '@vueuse/gesture';
 
 import App from '@app/App.vue';
 import ROUTER from '@app/router';
+import { ThemingPlugin } from '@app/theming';
 
-const vuetify = async () =>
+const initVuetify = () =>
     Vuetify.createVuetify({
         components,
         directives,
@@ -24,7 +25,6 @@ const vuetify = async () =>
             },
         },
         theme: {
-            defaultTheme: 'light',
             themes: {
                 light: {
                     dark: false,
@@ -50,9 +50,13 @@ const vuetify = async () =>
 
 async function main() {
     const app = Vue.createApp(App);
-    app.use(await vuetify());
+    const vuetify = initVuetify();
+
+    app.use(vuetify);
+    app.use(ThemingPlugin, { vuetify });
     app.use(ROUTER);
     app.use(GesturePlugin);
+
     app.mount('#app-wrapper');
 }
 

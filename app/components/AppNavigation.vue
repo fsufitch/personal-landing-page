@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useDisplay, useTheme } from 'vuetify/lib/framework.mjs';
+import { useDisplay } from 'vuetify/lib/framework.mjs';
 import { ref, computed, Ref } from 'vue';
 
 import { useRoute, useRouter } from 'vue-router';
+import { useAppTheme, useVuetifyTheme, Theme, VuetifyTheme, getSystemVuetifyTheme } from '@app/theming';
 
 const $route = useRoute();
 const $router = useRouter();
@@ -134,13 +135,17 @@ const commitRef = __GITREF__;
 const version = __VERSION__;
 
 // ========== GENERAL NAV STATE ===========
-
 const $vuetifyDisplay = useDisplay();
 const $navMode = computed(() => ($vuetifyDisplay.mdAndUp.value ? 'desktop' : 'mobile'));
 const $showDrawer: Ref<boolean> = ref(false);
-const $theme = useTheme();
-const $themeType = computed(() => ($theme.current.value.dark ? 'dark' : 'light'));
-const toggleTheme = () => ($theme.global.name.value = $themeType.value === 'dark' ? 'light' : 'dark');
+
+const $appTheme = useAppTheme();
+const $vuetifyTheme = useVuetifyTheme();
+const toggleTheme = () =>
+    ($appTheme.value = {
+        [VuetifyTheme.dark]: Theme.light,
+        [VuetifyTheme.light]: Theme.dark,
+    }[$vuetifyTheme.value ?? getSystemVuetifyTheme()]);
 </script>
 
 <template>
@@ -182,11 +187,11 @@ const toggleTheme = () => ($theme.global.name.value = $themeType.value === 'dark
             <VList>
                 <VListItem @click="toggleTheme">
                     <template #prepend>
-                        <VIcon v-if="$themeType === 'dark'" icon="mdi-weather-night" />
+                        <VIcon v-if="$vuetifyTheme === 'dark'" icon="mdi-weather-night" />
                         <VIcon v-else icon="mdi-weather-sunny" />
                     </template>
                     <div class="align-center">Theme</div>
-                    <template #append> <VSwitch hide-details :model-value="$themeType === 'light'" /> </template>
+                    <template #append> <VSwitch hide-details :model-value="$vuetifyTheme === 'light'" /> </template>
                 </VListItem>
                 <VListItem
                     v-if="$navMode === 'mobile'"
