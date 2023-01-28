@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useDisplay } from 'vuetify/lib/framework.mjs';
+import { useDisplay, useTheme } from 'vuetify/lib/framework.mjs';
 import { ref, computed, Ref } from 'vue';
 
 import { useRoute } from 'vue-router';
@@ -48,10 +48,14 @@ const route = useRoute();
 const $titleRoute = computed(() => {
     return route.name;
 });
+
+const $theme = useTheme();
+const $themeType = computed(() => ($theme.current.value.dark ? 'dark' : 'light'));
+const toggleTheme = () => ($theme.global.name.value = $themeType.value === 'dark' ? 'light' : 'dark');
 </script>
 
 <template>
-    <VAppBar density="comfortable" color="primary">
+    <VAppBar density="comfortable" color="primary" fixed>
         <VAppBarNavIcon @click="$drawer = !$drawer" />
         <VAppBarTitle>
             <h4>
@@ -72,39 +76,40 @@ const $titleRoute = computed(() => {
     </VAppBar>
 
     <VNavigationDrawer :model-value="$drawer" temporary @update:model-value="(val) => ($drawer = val)">
-        <VList>
-            <VListItem
-                v-for="(value, idx) in NAVIGATION"
-                :key="idx"
-                :to="value.to"
-                :href="value.href"
-                :prepend-icon="value.icon"
-                :title="value.text"
-                :target="value.href ? '_blank' : ''"
-                color="primary"
-            >
-                <template #append> <VIcon v-if="value.href" icon="mdi-open-in-new" /> </template>
-            </VListItem>
+        <div class="fill-height d-flex flex-column justify-space-between">
+            <VList>
+                <VListItem
+                    v-for="(value, idx) in NAVIGATION"
+                    :key="idx"
+                    :to="value.to"
+                    :href="value.href"
+                    :prepend-icon="value.icon"
+                    :title="value.text"
+                    :target="value.href ? '_blank' : ''"
+                    color="primary"
+                >
+                    <template #append> <VIcon v-if="value.href" icon="mdi-open-in-new" /> </template>
+                </VListItem>
 
-            <VListItem
-                v-if="$navMode === 'desktop'"
-                :href="`https://github.com/fsufitch/personal-landing-page/tree/${commitRef}`"
-                target="_blank"
-                prepend-icon="mdi-git"
-                append-icon="mdi-open-in-new"
-                :title="`v${version}`"
-                :subtitle="commitRef"
-            />
-        </VList>
+                <VListItem
+                    v-if="$navMode === 'desktop'"
+                    :href="`https://github.com/fsufitch/personal-landing-page/tree/${commitRef}`"
+                    target="_blank"
+                    append-icon="mdi-open-in-new"
+                    :title="`v${version}`"
+                    :subtitle="commitRef"
+                />
+            </VList>
+            <VList>
+                <VListItem @click="toggleTheme">
+                    <template #prepend>
+                        <VIcon v-if="$themeType === 'dark'" icon="mdi-weather-night" />
+                        <VIcon v-else icon="mdi-weather-sunny" />
+                    </template>
+                    <div class="align-center">Theme</div>
+                    <template #append> <VSwitch hide-details :model-value="$themeType === 'light'" /> </template>
+                </VListItem>
+            </VList>
+        </div>
     </VNavigationDrawer>
-
-    <!-- <VSpacer height="48px" /> -->
 </template>
-
-<style>
-#nav-toggle {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-}
-</style>

@@ -6,8 +6,8 @@ import AppNavigation from '@app/components/AppNavigation.vue';
     <VApp>
         <VLayout>
             <AppNavigation />
-            <VMain>
-                <VContainer class="fill-height">
+            <VMain scrollable>
+                <VContainer>
                     <Suspense>
                         <RouterView></RouterView>
                     </Suspense>
