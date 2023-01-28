@@ -312,4 +312,4 @@ and no play makes Jack a dull boy.
 
 ::: imagecard center another-cat.jpg
 [Download this image](another-cat.jpg)
-:::
+x:::

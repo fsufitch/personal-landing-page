@@ -2,8 +2,8 @@
 import MarkdownIt from 'markdown-it';
 import MarkdownItContainer from 'markdown-it-container';
 import Token from 'markdown-it/lib/token';
-import { getActiveJournalInfo } from '@app/components/journal/service';
 import { useDisplay } from 'vuetify/lib/framework.mjs';
+import { useJournal } from '@app/journal/journal';
 
 export const useMDImageCard = (md: MarkdownIt) =>
     md.use(MarkdownItContainer, 'imagecard', {
@@ -46,15 +46,17 @@ const props = defineProps<{ node: Element }>();
 const $display = useDisplay();
 
 const route = useRoute();
-const $articleID = computed(() => (route.params['articleID'] || '').toString());
+const articleID =
+    typeof route.params['articleID'] === 'object' ? route.params['articleID'][0] : route.params['articleID'];
 
-const $journal = computed(() => getActiveJournalInfo().journal);
+const $journal = useJournal();
 
 const $src = computed(() => {
     let src = props.node.getAttribute('src') || '';
-    if (!src.match('^[a-z0-9]://') && !src.startsWith('/') && $articleID.value) {
+    console.log('src', src);
+    if (!src.match('^[a-z0-9]+://') && !src.startsWith('/') && articleID) {
         // Relative URL, render relative to article ID if possible
-        src = $journal.value.fileURL($articleID.value, src);
+        src = $journal.value?.fileURL(articleID, src) || src;
     }
     return src;
 });
