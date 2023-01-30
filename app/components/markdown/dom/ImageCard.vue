@@ -53,13 +53,17 @@ const $journal = useJournal();
 
 const $src = computed(() => {
     let src = props.node.getAttribute('src') || '';
-    console.log('src', src);
+    console.log('image src', src);
+    if (!src) {
+        return '';
+    }
     if (!src.match('^[a-z0-9]+://') && !src.startsWith('/') && articleID) {
         // Relative URL, render relative to article ID if possible
         src = $journal.value?.fileURL(articleID, src) || src;
     }
     return src;
 });
+
 const $position = computed(() => props.node.getAttribute('position') || '');
 const $floated = computed(() => $display.mdAndUp.value && ['right', 'left'].includes($position.value));
 </script>
@@ -70,7 +74,7 @@ const $floated = computed(() => $display.mdAndUp.value && ['right', 'left'].incl
         <VSpacer />
         <VCol cols="12" sm="10" md="8" lg="6">
             <VCard width="100%" class="ma-5">
-                <VImg cover :src="$src" />
+                <VImg v-if="$src" cover :src="$src" />
                 <VCardText class="imagecard-caption">
                     <slot />
                 </VCardText>
@@ -79,7 +83,7 @@ const $floated = computed(() => $display.mdAndUp.value && ['right', 'left'].incl
         <VSpacer />
     </VRow>
     <VCard v-else :class="`float-${$position} clearfix ma-5`" style="max-width: 50%; min-width: 33%">
-        <VImg cover :src="$src" />
+        <VImg v-if="$src" cover :src="$src" />
         <VCardText class="imagecard-caption">
             <slot />
         </VCardText>

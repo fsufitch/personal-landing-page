@@ -1,5 +1,6 @@
 import Alert from './Alert.vue';
 import Anchor from './Anchor.vue';
+import Aside from './Aside.vue';
 import BlockQuote from './BlockQuote.vue';
 import Code from './Code.vue';
 import Dummy from './Dummy.vue';
@@ -63,6 +64,7 @@ const reNodes: { [nodeName: string]: Component | string } = {
 
     /// Custom components
     alert: Alert,
+    aside: Aside,
     imagecard: ImageCard,
 };
 

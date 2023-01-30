@@ -6,10 +6,12 @@ import ReElement from './ReElement.vue';
 
 import { useMDAlert } from './dom/Alert.vue';
 import { useMDImageCard } from './dom/ImageCard.vue';
+import { useAside } from './dom/Aside.vue';
 
 let MD = new MarkdownIt('default').use(MarkdownItEmoji);
 MD = useMDAlert(MD);
 MD = useMDImageCard(MD);
+MD = useAside(MD);
 
 interface Props {
     content: string;

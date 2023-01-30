@@ -313,3 +313,76 @@ and no play makes Jack a dull boy.
 ::: imagecard center another-cat.jpg
 [Download this image](another-cat.jpg)
 :::
+
+## Asides
+
+Blah blah blah.
+
+::: aside left
+This is an aside to the left.
+
+It has full **markdown formatting**.
+:::
+
+The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped
+over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick
+brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the
+lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog.
+
+All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack
+a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play
+makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work
+and no play makes Jack a dull boy.
+The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped
+over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick
+brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the
+lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog.
+
+::: aside right
+
+#### Right Aside
+
+Look code:
+
+```pascal
+program HelloWorld;
+uses crt;
+begin
+   writeln('Hello, World!');
+   readkey;
+end.
+```
+
+:::
+
+All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack
+a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play
+makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work
+and no play makes Jack a dull boy.
+The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped
+over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick
+brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the
+lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog.
+
+All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack
+a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play
+makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work
+and no play makes Jack a dull boy.
+
+```aside center
+Finally, a center aside
+```
+
+All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack
+a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play
+makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work
+and no play makes Jack a dull boy.
+The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped
+over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick
+brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the
+lazy dog. The quick brown fox jumped over the lazy dog. The quick brown fox jumped over the lazy dog.
+
+All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack
+a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play
+makes Jack a dull boy. All work and no play makes Jack a dull boy. All work and no play makes Jack a dull boy. All work
+and no play makes Jack a dull boy.
