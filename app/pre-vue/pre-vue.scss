@@ -1,0 +1,34 @@
+/* Styles to load for the base index.html, before Vue is loaded */
+@use '@app/styles/gridspinner';
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#prevue {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--prevue-colors-background);
+
+    .--prevue-text {
+        color: var(--prevue-colors-background);
+        filter: invert(100%);
+    }
+
+    div.spinner {
+        @include gridspinner.gridspinner(var(--prevue-colors-primary), var(--edge-count));
+
+        width: 200px;
+        height: 200px;
+    }
+}

@@ -13,6 +13,23 @@
     "customizations": {
         // Configure properties specific to VS Code.
         "vscode": {
+            "settings": {
+                "[json]": {
+                    "editor.quickSuggestions": {
+                        "strings": true
+                    },
+                    "editor.suggest.insertMode": "replace",
+                    "gitlens.codeLens.scopes": ["document"]
+                },
+                "[scss]": {
+                    "editor.suggest.insertMode": "replace",
+                    "gitlens.codeLens.scopes": ["document"]
+                },
+                "[css]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                }
+            },
+
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [
                 "bungcip.better-toml",

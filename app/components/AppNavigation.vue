@@ -3,7 +3,8 @@ import { useDisplay } from 'vuetify/lib/framework.mjs';
 import { ref, computed, Ref } from 'vue';
 
 import { useRoute, useRouter } from 'vue-router';
-import { useAppTheme, useVuetifyTheme, Theme, VuetifyTheme, getSystemVuetifyTheme } from '@app/theming';
+import { useAppTheme, useVuetifyTheme } from '@app/theming';
+import { getSystemPreferredThemeKey, AppTheme, VuetifyThemeKey } from '@app/styles/themes';
 
 const $route = useRoute();
 const $router = useRouter();
@@ -149,9 +150,9 @@ const $appTheme = useAppTheme();
 const $vuetifyTheme = useVuetifyTheme();
 const toggleTheme = () =>
     ($appTheme.value = {
-        [VuetifyTheme.dark]: Theme.light,
-        [VuetifyTheme.light]: Theme.dark,
-    }[$vuetifyTheme.value ?? getSystemVuetifyTheme()]);
+        [VuetifyThemeKey.dark]: AppTheme.light,
+        [VuetifyThemeKey.light]: AppTheme.dark,
+    }[$vuetifyTheme.value ?? getSystemPreferredThemeKey()]);
 </script>
 
 <template>

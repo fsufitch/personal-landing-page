@@ -19,4 +19,9 @@ import AppNavigation from '@app/components/AppNavigation.vue';
 body {
     font-family: 'Libre Baskerville', serif;
 }
+
+#pre-vue {
+    // This is the "loading" content before the app actually loads, which should be hidden now
+    display: none;
+}
 </style>

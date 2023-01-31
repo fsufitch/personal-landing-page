@@ -40,6 +40,12 @@ const hljsLanguages = async () => {
     return languages;
 };
 
+const vuetifyDefaultThemes = async () => {
+    const { createVuetify: getVuetify } = await import('./app/styles/vuetify-loader');
+    const vuetifyInstance = await getVuetify(true);
+    return vuetifyInstance.theme.themes.value;
+};
+
 // const hljsLanguageAliases = async () => {
 //     const hljs = (await import('highlight.js')).default;
 //     const languages = hljs.listLanguages();
@@ -63,6 +69,7 @@ const buildCommonConfig: () => Promise<UserConfig> = async () => ({
             '@hljs-lazy': '/hljs-lazy',
             // ...(await hljsLanguageAliases()),
         },
+        extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.css'],
     },
 
     define: {
@@ -70,6 +77,7 @@ const buildCommonConfig: () => Promise<UserConfig> = async () => ({
         __GITREF__: JSON.stringify(await gitRef()),
         __JOURNAL_BASE_URL__: JSON.stringify(process.env?.JOURNAL_BASE_URL ?? ''),
         __HLJS_LANGUAGES__: JSON.stringify(await hljsLanguages()),
+        __DEFAULT_THEMES__: JSON.stringify(await vuetifyDefaultThemes()),
     },
 
     css: {

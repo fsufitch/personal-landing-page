@@ -28,33 +28,23 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="stylesheet" href="./app/pre-vue/pre-vue.scss" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre Baskerville" />
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet" />
-    <style>
-        .loader {
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            height: 100%;
-            width: 100%;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
-
-    <script>
-        var __JOURNAL_BASE_URL__ = __JOURNAL_BASE_URL__ || '';
-    </script>
 </head>
 
 <body>
-    <div id="app-wrapper">
-        <h1 class="loader">Vue.js app loading...</h1>
+    <script>0</script>
+    <div id="prevue">
+        <div class="spinner"></div>
+        <noscript>
+            Unfortunately this website requires that Javascript be enabled, and your browser cannot provide that. Sorry!
+        </noscript>
     </div>
+    <div id="app-wrapper"></div>
 
-    <script type="module" src="./main.ts"></script>
+    <script type="module" src="app/pre-vue"></script>
+    <script type="module" src="app/main.ts"></script>
 </body>
 
 </html>

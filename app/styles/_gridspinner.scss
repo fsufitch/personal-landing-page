@@ -1,0 +1,44 @@
+@mixin gridspinner($color: gray, $edgeCount: 3, $n: 13) {
+    $itemToMarginRatio: 0.75;
+    $itemWH: calc(100% / $edgeCount * $itemToMarginRatio);
+    $itemMargin: calc((100% - ($edgeCount * $itemWH))/ $edgeCount / 2);
+    $duration: 1s;
+
+    display: flex;
+    padding: 0;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-items: center;
+
+    dot {
+        width: $itemWH;
+        height: $itemWH;
+
+        padding: 0;
+        margin: $itemMargin;
+        background-color: $color;
+        border-radius: 50%;
+
+        animation-name: fading-spinner;
+        animation-duration: $duration;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        @keyframes fading-spinner {
+            0%,
+            100% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @for $i from 0 to $n {
+            &:nth-of-type(#{$n}n + #{$i}) {
+                animation-delay: calc(var(--timing-offset) * $duration * -1);
+            }
+        }
+    }
+}
