@@ -14,7 +14,8 @@ const getJournalBaseURL = () => {
     if (searchParams.get('j')) {
         const url = searchParams.get('j');
         searchParams.delete('j');
-        window.location.search = searchParams.toString();
+        window.history.pushState({}, '', searchParams.toString());
+        console.debug(`Got journal base URL from 'j' URL parameter:`, url);
         return url;
     }
 
