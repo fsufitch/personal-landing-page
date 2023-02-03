@@ -3,15 +3,15 @@ import DiscordBoarBotImg from './discord-boar-bot.png';
 import ChocolateDoomImg from './chocolate-doom.png';
 import PrezTweetingImg from './modern-day-presidential.png';
 import ShipSpinningImg from './ship-spinning.png';
-import PageMetadataInjector from '@app/components/page-meta/PageMetadataInjector.vue';
+import { usePageMetadata } from '@app/page-metadata';
+
+usePageMetadata().value = {
+    title: 'Projects - @fsufitch',
+    description: 'A curated selection of projects, intended to show off my various skills/adventures.',
+};
 </script>
 
 <template>
-    <PageMetadataInjector
-        title="Filip Sufitchi's Projects"
-        description="This is a curated selection of projects, intended to show off my various skills/adventures."
-        page-type="webpage"
-    />
     <VRow>
         <VSpacer />
         <VCol cols="12" lg="8" xl="6">
