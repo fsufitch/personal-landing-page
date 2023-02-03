@@ -8,6 +8,7 @@ import ROUTER from '@app/router';
 import { ThemingPlugin } from '@app/theming';
 import { JournalPlugin } from '@app/journal/plugin';
 import { createVuetify } from '@app/styles/vuetify-loader';
+import { PageMetadataPlugin } from './page-metadata';
 
 const getJournalBaseURL = () => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -32,6 +33,7 @@ async function main() {
     const app = Vue.createApp(App);
     const vuetify = await createVuetify();
 
+    app.use(PageMetadataPlugin);
     app.use(vuetify);
     app.use(ThemingPlugin, { vuetify });
     app.use(ROUTER);

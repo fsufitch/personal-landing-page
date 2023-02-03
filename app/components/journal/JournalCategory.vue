@@ -2,11 +2,11 @@
 import { ref, computed, watch } from 'vue';
 import { useJournal } from '@app/journal/journal';
 import { JournalCategory, JournalIndex } from '@proto/journal';
-import PageMetadataInjector from '@app/components/page-meta/PageMetadataInjector.vue';
 import ArticleSummaryCard from './ArticleSummaryCard.vue';
 import { useRoute } from 'vue-router';
 import { useDisplay } from 'vuetify/lib/framework.mjs';
 import { ArticleIndex } from '@proto/article';
+import { usePageMetadata } from '@app/page-metadata';
 
 const route = useRoute();
 const $categoryID = computed(() => route.params?.categoryID?.toString() || 'all');
@@ -18,6 +18,8 @@ const $category = ref<JournalCategory>();
 const $displayCategories = ref<[string, JournalCategory][]>([]);
 const $browseCategories = ref<[string, JournalCategory][]>([]);
 const $displayArticles = ref<[string, ArticleIndex][]>([]);
+
+const $pageMetadata = usePageMetadata();
 
 watch(
     [$journal, $categoryID],
@@ -53,27 +55,19 @@ watch(
             .filter(([id]) => !!id)
             .sort((a1, a2) => (a2[1].createdOn?.getTime() ?? 0) - (a1[1].createdOn?.getTime() ?? 0));
         $displayArticles.value = uniqueArticles;
+
+        $pageMetadata.value = {
+            title: !categoryID ? 'Journal - @fsufitch' : `Journal (${$category.value.name}) - @fsufitch`,
+            description: '',
+        };
     },
     { immediate: true },
-);
-
-const $pageMeta = computed(() =>
-    $categoryID.value === 'all'
-        ? {
-              title: 'fsufitch@homepage - Journal',
-              description: '',
-          }
-        : {
-              title: `fsufitch@homepage - Journal (${$category.value?.name})`,
-              description: '',
-          },
 );
 
 const $display = useDisplay();
 </script>
 
 <template>
-    <PageMetadataInjector :title="$pageMeta.title" :description="$pageMeta.description" page-type="webpage" />
     <VRow class="mt-6 justify-center">
         <VCol
             cols="12"

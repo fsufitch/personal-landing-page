@@ -11,6 +11,8 @@ import PageMetadataInjector from '@app/components/page-meta/PageMetadataInjector
 
 import { ArticleIndex } from '@proto/article';
 
+import { usePageMetadata } from '@app/page-metadata';
+
 const route = useRoute();
 const articleID = route.params?.articleID?.toString();
 
@@ -21,6 +23,8 @@ const $categories = ref<[string, JournalCategory][]>([]);
 const $articleData = ref<ArticleAttachmentRaw>();
 
 const $loadState = ref<{ loading?: boolean; ready?: boolean; error?: string }>({ loading: true });
+
+const $meta = usePageMetadata();
 
 watch(
     [$journal, () => articleID],
@@ -47,6 +51,11 @@ watch(
         $articleData.value = await readArticleAttachmentRaw(journal, articleID, 'body');
 
         $loadState.value = { ready: true };
+        $meta.value = {
+            title: `${$article.value.title} - journal@fsufitch.home`,
+            description: $article.value.blurb,
+            pageType: 'article',
+        };
     },
     { immediate: true },
 );

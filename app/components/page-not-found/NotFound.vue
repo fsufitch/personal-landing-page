@@ -1,6 +1,12 @@
 <script setup lang="ts">
+import { usePageMetadata } from '@app/page-metadata';
 import NotFoundCat from './404-cat.jpg';
-import PageMetadataInjector from '@app/components/page-meta/PageMetadataInjector.vue';
+
+const $pageMetadata = usePageMetadata();
+$pageMetadata.value = {
+    title: 'Page not found - @fsufitch',
+    description: '',
+};
 </script>
 
 <template>

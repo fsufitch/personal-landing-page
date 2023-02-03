@@ -2,7 +2,7 @@
 import FilipJPG from './filip.jpg';
 import { ref } from 'vue';
 import AsyncContactInfo from './AsyncContactInfo.vue';
-import PageMetadataInjector from '@app/components/page-meta/PageMetadataInjector.vue';
+import { usePageMetadata } from '@app/page-metadata';
 
 const captchaPassed = ref(window.sessionStorage.getItem('aboutMeCaptchaPassed') || null);
 
@@ -21,15 +21,16 @@ const captchaValidate = () => {
 };
 
 const captchaInfoDialog = ref();
+
+const $pageMetadata = usePageMetadata();
+$pageMetadata.value = {
+    title: 'Home - @fsufitch',
+    description: 'this is my homepage on the web. Welcome!',
+    image: FilipJPG,
+};
 </script>
 
 <template>
-    <PageMetadataInjector
-        title="fsufitch@homepage - Home"
-        description="This is my homepage on the web."
-        :image="FilipJPG"
-        page-type="webpage"
-    />
     <VRow justify="center" align-content="center" class="fill-height">
         <VCol>
             <VCard>

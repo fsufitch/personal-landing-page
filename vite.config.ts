@@ -48,7 +48,6 @@ const buildCommonConfig: () => Promise<UserConfig> = async () => ({
             '@app': '/app',
             '@proto': '/proto/gen',
             '@hljs-lazy': '/hljs-lazy',
-            // ...(await hljsLanguageAliases()),
         },
         extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.css'],
     },
@@ -61,7 +60,6 @@ const buildCommonConfig: () => Promise<UserConfig> = async () => ({
     },
 
     css: {
-        // ??
         devSourcemap: true,
     },
 

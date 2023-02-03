@@ -14,7 +14,7 @@
     // Editor settings
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
     "editor.suggest.preview": true,
-    "editor.formatOnSaveMode": "modificationsIfAvailable",
+    "editor.formatOnSave": true,
     "editor.autoIndent": "advanced",
     "[dockerfile]": {
         "editor.defaultFormatter": "ms-azuretools.vscode-docker"
@@ -35,5 +35,8 @@
     },
     "[scss]": {
         "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
     }
 }
