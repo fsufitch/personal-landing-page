@@ -57,7 +57,7 @@ watch(
         $displayArticles.value = uniqueArticles;
 
         $pageMetadata.value = {
-            title: !categoryID ? 'Journal - @fsufitch' : `Journal (${$category.value.name}) - @fsufitch`,
+            title: categoryID === 'all' ? 'Journal - @fsufitch' : `Journal (${$category.value.name}) - @fsufitch`,
             description: '',
         };
     },
