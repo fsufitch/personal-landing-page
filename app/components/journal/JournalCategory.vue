@@ -119,9 +119,7 @@ const $display = useDisplay();
 
     <VRow class="align-stretch justify-center">
         <VCol v-for="[id] in $displayArticles" :key="id" cols="12" sm="6" lg="4" xl="3">
-            <Suspense>
-                <ArticleSummaryCard v-if="$journal" :journal="$journal" :article="id" class="fill-height" />
-            </Suspense>
+            <ArticleSummaryCard v-if="$journal" :journal="$journal" :article="id" class="fill-height" />
         </VCol>
     </VRow>
 </template>
