@@ -35,6 +35,8 @@
                 // Editor settings
                 "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
                 "editor.suggest.preview": true,
+                "editor.formatOnSaveMode": "modifications",
+                "editor.autoIndent": "advanced",
                 "[dockerfile]": {
                     "editor.defaultFormatter": "ms-azuretools.vscode-docker"
                 },
