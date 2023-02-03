@@ -9,7 +9,7 @@ import { useDisplay } from 'vuetify/lib/framework.mjs';
 import { ArticleIndex } from '@proto/article';
 
 const route = useRoute();
-const categoryID = route.params?.categoryID?.toString() || 'all';
+const $categoryID = computed(() => route.params?.categoryID?.toString() || 'all');
 
 const $journal = useJournal();
 const $journalIndex = ref<JournalIndex>();
@@ -20,7 +20,7 @@ const $browseCategories = ref<[string, JournalCategory][]>([]);
 const $displayArticles = ref<[string, ArticleIndex][]>([]);
 
 watch(
-    [$journal, () => categoryID],
+    [$journal, $categoryID],
     async ([journal, categoryID]) => {
         if (!journal) {
             console.error('Tried to render article from null journal');
@@ -58,7 +58,7 @@ watch(
 );
 
 const $pageMeta = computed(() =>
-    categoryID === 'all'
+    $categoryID.value === 'all'
         ? {
               title: 'fsufitch@homepage - Journal',
               description: '',
@@ -94,7 +94,7 @@ const $display = useDisplay();
                         <VListItem to="/journal">
                             <VRadio
                                 density="compact"
-                                :model-value="categoryID === 'all'"
+                                :model-value="$categoryID === 'all'"
                                 label="All Categories"
                                 hide-details
                             />
@@ -102,7 +102,7 @@ const $display = useDisplay();
                         <VListItem v-for="[id, category] in $browseCategories" :key="id" :to="`/journal/c/${id}`">
                             <VRadio
                                 density="compact"
-                                :model-value="categoryID === id"
+                                :model-value="$categoryID === id"
                                 :label="category.name"
                                 hide-details
                             />
