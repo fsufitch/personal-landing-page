@@ -7,7 +7,6 @@ import { useJournal } from '@app/journal/journal';
 import { JournalCategory, JournalIndex } from '@proto/journal';
 import { readArticleAttachmentRaw, ArticleAttachmentRaw } from '@app/components/journal/service';
 import MarkdownRenderer from '@app/components/markdown/MarkdownRenderer.vue';
-import PageMetadataInjector from '@app/components/page-meta/PageMetadataInjector.vue';
 
 import { ArticleIndex } from '@proto/article';
 
@@ -55,26 +54,18 @@ watch(
             title: `${$article.value.title} - journal@fsufitch.home`,
             description: $article.value.blurb,
             pageType: 'article',
+            image: $article.value?.bannerImageFilename
+                ? $journal.value?.fileURL(articleID, $article.value.bannerImageFilename)
+                : undefined,
         };
     },
     { immediate: true },
 );
 
-const $pageMetaProps = computed(() => ({
-    title: $article.value?.title ?? '',
-    description: $article.value?.blurb ?? '',
-    image: $article.value?.bannerImageFilename
-        ? $journal.value?.fileURL(articleID, $article.value.bannerImageFilename)
-        : undefined,
-    pageType: 'article',
-}));
-
 const $display = useDisplay();
 </script>
 
 <template>
-    <PageMetadataInjector v-bind="$pageMetaProps" />
-
     <VRow class="justify-center">
         <VCol :cols="$display.smAndDown.value ? 12 : $display.md.value ? 10 : $display.lg.value ? 8 : 6">
             <VRow>

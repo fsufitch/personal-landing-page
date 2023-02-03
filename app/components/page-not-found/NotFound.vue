@@ -10,7 +10,6 @@ $pageMetadata.value = {
 </script>
 
 <template>
-    <PageMetadataInjector title="404 Not Found" description="This page is missing" />
     <VRow justify="center" align-content="center" class="fill-height">
         <VCol cols="12" sm="9" md="6">
             <VCard>
