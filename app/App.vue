@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import AppNavigation from '@app/components/AppNavigation.vue';
+
+const appReady = () => {
+    // When the Vue app is ready, remove the pre-vue stuff from the DOM so it does not interfere
+    document.querySelector('#pre-vue')?.remove();
+    console.log('Vue ready');
+};
 </script>
 
 <template>
-    <VApp>
+    <VApp @vnode-mounted="appReady">
         <VLayout>
             <AppNavigation />
             <VMain scrollable>
@@ -18,10 +24,5 @@ import AppNavigation from '@app/components/AppNavigation.vue';
 <style lang="scss">
 body {
     font-family: 'Libre Baskerville', serif;
-}
-
-#pre-vue {
-    // This is the "loading" content before the app actually loads, which should be hidden now
-    display: none;
 }
 </style>
