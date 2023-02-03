@@ -10,7 +10,6 @@ export const useMDAlert = (md: MarkdownIt) =>
             return !!matches;
         },
         render: (tokens: Token[], idx: number) => {
-            console.log('...', tokens[idx]);
             const matchedTokens = tokens[idx].info.trim().match(/^alert(?:\s(success|info|warning|error))?/);
             let alertArg = '';
             if (matchedTokens?.length == 2 && matchedTokens[1]) {

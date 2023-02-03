@@ -4,7 +4,7 @@ import AppNavigation from '@app/components/AppNavigation.vue';
 const appReady = () => {
     // When the Vue app is ready, remove the pre-vue stuff from the DOM so it does not interfere
     document.querySelector('#pre-vue')?.remove();
-    console.log('Vue ready');
+    console.info('Vue ready');
 };
 </script>
 

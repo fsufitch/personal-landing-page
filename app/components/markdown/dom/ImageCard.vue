@@ -53,7 +53,6 @@ const $journal = useJournal();
 
 const $src = computed(() => {
     let src = props.node.getAttribute('src') || '';
-    console.log('image src', src);
     if (!src) {
         return '';
     }
