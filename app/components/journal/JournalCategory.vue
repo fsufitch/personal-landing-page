@@ -51,7 +51,7 @@ watch(
         const articles = await Promise.all(articlesPromises);
         const uniqueArticles = Object.entries(Object.fromEntries(articles.map((obj) => [obj.id, obj.article])))
             .filter(([id]) => !!id)
-            .sort((a1, a2) => (a1[1].createdOn?.getTime() ?? 0) - (a2[1].createdOn?.getTime() ?? 0));
+            .sort((a1, a2) => (a2[1].createdOn?.getTime() ?? 0) - (a1[1].createdOn?.getTime() ?? 0));
         $displayArticles.value = uniqueArticles;
     },
     { immediate: true },
