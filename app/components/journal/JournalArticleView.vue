@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, defineAsyncComponent } from 'vue';
 import { useRoute } from 'vue-router';
 import { useDisplay } from 'vuetify/lib/framework.mjs';
 
 import { useJournal } from '@app/journal/journal';
 import { JournalCategory, JournalIndex } from '@proto/journal';
 import { readArticleAttachmentRaw, ArticleAttachmentRaw } from '@app/components/journal/service';
-import MarkdownRenderer from '@app/components/markdown/MarkdownRenderer.vue';
 
 import { ArticleIndex } from '@proto/article';
 
 import { usePageMetadata } from '@app/page-metadata';
-import { useLoading } from '@app/loading';
 
 const route = useRoute();
 const articleID = route.params?.articleID?.toString();
@@ -21,37 +19,33 @@ const $journalIndex = ref<JournalIndex>();
 const $article = ref<ArticleIndex | null>();
 const $categories = ref<[string, JournalCategory][]>([]);
 const $articleData = ref<ArticleAttachmentRaw>();
-
-const { state: $loading, setState: setLoading } = useLoading();
-
 const $meta = usePageMetadata();
+const $loading = ref<'loading' | 'ready' | 'error'>('loading');
+const $loadingError = ref('');
 
 watch(
     [$journal, () => articleID],
     async ([journal, articleID]) => {
         if (!journal) {
-            setLoading({ step: 'error', message: 'No journal loaded' });
+            $loading.value = 'error';
+            $loadingError.value = 'No journal could be loaded';
             return;
         }
 
         if (!articleID) {
-            setLoading({ step: 'error', message: 'No article found' });
+            $loading.value = 'error';
+            $loadingError.value = 'No article was found';
             return;
         }
-        setLoading({ step: 'loading' });
 
         $journalIndex.value = await journal.index();
-
         $article.value = await journal.article(articleID);
-
         $categories.value = Object.entries($journalIndex.value.categories)
             .filter(([, category]) => !category.hidden)
             .filter(([, category]) => category.articles.includes(articleID))
             .sort(([, c1], [, c2]) => (c1.name < c2.name ? -1 : c1.name > c2.name ? 1 : 0));
 
         $articleData.value = await readArticleAttachmentRaw(journal, articleID, 'body');
-
-        setTimeout(() => setLoading({ step: 'success' }), 3000);
         $meta.value = {
             title: `${$article.value.title} - journal@fsufitch.home`,
             description: $article.value.blurb,
@@ -60,9 +54,13 @@ watch(
                 ? $journal.value?.fileURL(articleID, $article.value.bannerImageFilename)
                 : undefined,
         };
+
+        $loading.value = 'ready';
     },
     { immediate: true },
 );
+
+const AsyncMarkdownRenderer = defineAsyncComponent(() => import('@app/components/markdown/MarkdownRenderer.vue'));
 
 const $display = useDisplay();
 </script>
@@ -71,14 +69,14 @@ const $display = useDisplay();
     <VRow class="justify-center">
         <VCol :cols="$display.smAndDown.value ? 12 : $display.md.value ? 10 : $display.lg.value ? 8 : 6">
             <VRow>
-                <VCol v-if="$loading.step === 'loading'" cols="12" md="auto">
+                <VCol v-if="$loading === 'loading'" cols="12" md="auto">
                     <h1>
                         Loading article...
-                        <VProgressCircular v-if="$loading.step === 'loading'" indeterminate />
+                        <VProgressCircular indeterminate />
                     </h1>
                 </VCol>
 
-                <VCol v-if="$loading.step === 'success'" cols="12" md="auto">
+                <VCol v-if="$loading === 'ready'" cols="12" md="auto">
                     <h1>{{ $article?.title }}</h1>
                     <p>
                         <RouterLink v-for="[id, category] in $categories" :key="id" :to="`/journal/c/${id}`">
@@ -88,7 +86,8 @@ const $display = useDisplay();
                         </RouterLink>
                     </p>
                 </VCol>
-                <VCol v-if="$loading.step === 'success'" :class="$display.mdAndUp.value ? 'text-right' : 'text-left'">
+
+                <VCol v-if="$loading === 'ready'" :class="$display.mdAndUp.value ? 'text-right' : 'text-left'">
                     <span class="text-caption text-disabled ma-1">
                         Posted: {{ $article?.createdOn?.toLocaleDateString() }}
                         {{ $article?.updatedOn ? `(Update: ${$article?.updatedOn.toLocaleString()})` : '' }}
@@ -98,13 +97,9 @@ const $display = useDisplay();
             </VRow>
             <VDivider class="ma-5" />
 
-            <VCard v-if="$loading.step === 'success'">
+            <VCard v-if="$loading === 'ready'">
                 <VCardText v-if="$articleData?.mimeType === 'text/markdown'" class="article-body">
-                    <MarkdownRenderer :content="$articleData?.data?.toString() || ''" />
-                </VCardText>
-                <VCardText v-else>
-                    Cannot render content of mimetype
-                    <code> {{ $articleData?.mimeType || '[unknown]' }} </code>.
+                    <AsyncMarkdownRenderer :content="$articleData?.data?.toString() || ''" />
                 </VCardText>
             </VCard>
         </VCol>

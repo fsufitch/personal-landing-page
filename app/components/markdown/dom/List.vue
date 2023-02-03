@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
 
-const ReElement = (await import('@app/components/markdown/ReElement.vue')).default;
+const ReElement = defineAsyncComponent(() => import('@app/components/markdown/ReElement.vue'));
 
 const props = defineProps<{ node: HTMLElement }>();
 const $start = computed(() => parseInt(props.node.getAttribute('start') || '1'));

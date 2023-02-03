@@ -7,11 +7,16 @@ const $C = computed(() => {
     const nodeName = props.node.nodeName.toLowerCase();
     if (!E[nodeName]) {
         console.warn('Unknown node', props.node);
+        return { component: nodeName, isCustomComponent: false };
     }
-    const component = E[nodeName] ? E[nodeName] : nodeName;
+
+    if (typeof E[nodeName] === 'string') {
+        return { component: E[nodeName], isCustomComponent: false };
+    }
+
     return {
-        component,
-        isCustomComponent: component !== new String(component).toString(), // True if `component` is a real component object, and not a mere string
+        component: E[nodeName],
+        isCustomComponent: true,
     };
 });
 

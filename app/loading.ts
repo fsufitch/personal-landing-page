@@ -7,10 +7,12 @@ export interface LoadingState {
     message?: string;
 }
 
+export type OnLoadingFunc = (state: LoadingState) => void;
+
 export const useLoading = () => {
     const $state = ref<LoadingState>({ step: 'not-started' });
 
-    const setState = (newState: LoadingState): void => {
+    const setState: OnLoadingFunc = (newState: LoadingState): void => {
         $state.value = newState;
     };
     const state = readonly($state);

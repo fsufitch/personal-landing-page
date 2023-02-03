@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import MarkdownIt from 'markdown-it';
 import MarkdownItEmoji from 'markdown-it-emoji';
-import { computed } from 'vue';
+import { watchEffect, ref } from 'vue';
 import ReElement from './ReElement.vue';
 
 import { useMDAlert } from './dom/Alert.vue';
@@ -17,25 +17,34 @@ interface Props {
     content: string;
 }
 const props = defineProps<Props>();
-const $renderedContent = computed(() => MD.render(props.content, {}));
 
-const $nodes = computed(() => {
-    const rawHTML = $renderedContent.value;
-    // console.debug('Raw HTML:', rawHTML);
-    const el = document.createElement('main');
-    el.innerHTML = rawHTML;
-    const nodeArray = Array.from(el.childNodes);
-    return nodeArray;
+const $loading = ref<'loading' | 'error' | 'ready'>('loading');
+const $loadError = ref<string>('');
+
+const $renderedNodes = ref<Node[]>([]);
+watchEffect(() => {
+    try {
+        const rawMarkdown = props.content;
+        const rawHTML = MD.render(rawMarkdown);
+        const container = document.createElement('main');
+        container.innerHTML = rawHTML;
+        $renderedNodes.value = Array.from(container.childNodes);
+        setTimeout(() => ($loading.value = 'ready'), 3000);
+    } catch (err) {
+        $renderedNodes.value = [];
+        console.error('Markdown render failure:', err);
+        $loading.value = 'error';
+        $loadError.value = `${err}`;
+    }
 });
 </script>
 
 <template>
-    <Suspense>
-        <ReElement v-for="(node, idx) of $nodes" :key="idx" :node="node" />
-        <template #fallback>
-            <VProgressCircular indeterminate />
-        </template>
-    </Suspense>
+    <template v-if="$loading === 'loading'"> Rendering markdown... </template>
+    <template v-if="$loading === 'ready'">
+        <ReElement v-for="(node, idx) of $renderedNodes" :key="idx" :node="node" />
+    </template>
+    <template v-if="$loading === 'error'"> Error rendering markdown: {{ $loadError }} </template>
 </template>
 
 <style>
