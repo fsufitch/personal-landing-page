@@ -32,30 +32,11 @@ const gitRef = async () => {
     return 'commit-unknown';
 };
 
-const hljsLanguages = async () => {
-    console.info('Loading HLJS language index');
-    const hljs = (await import('highlight.js')).default;
-    const languages = hljs.listLanguages();
-    console.info(`    ${languages.length} languages`);
-    return languages;
-};
-
 const vuetifyDefaultThemes = async () => {
     const { createVuetify: getVuetify } = await import('./app/styles/vuetify-loader');
     const vuetifyInstance = await getVuetify(true);
     return vuetifyInstance.theme.themes.value;
 };
-
-// const hljsLanguageAliases = async () => {
-//     const hljs = (await import('highlight.js')).default;
-//     const languages = hljs.listLanguages();
-//     return Object.fromEntries(
-//         languages.map((lang) => [
-//             `highlight.js/lib/language/${lang}`,
-//             `/node_modules/highlight.js/lib/language/${lang}.js`,
-//         ]),
-//     );
-// };
 
 const buildCommonConfig: () => Promise<UserConfig> = async () => ({
     appType: 'spa',
@@ -76,7 +57,6 @@ const buildCommonConfig: () => Promise<UserConfig> = async () => ({
         __VERSION__: JSON.stringify(packageJSON['version'] || '0.0.0'),
         __GITREF__: JSON.stringify(await gitRef()),
         __JOURNAL_BASE_URL__: JSON.stringify(process.env?.JOURNAL_BASE_URL ?? ''),
-        __HLJS_LANGUAGES__: JSON.stringify(await hljsLanguages()),
         __DEFAULT_THEMES__: JSON.stringify(await vuetifyDefaultThemes()),
     },
 
