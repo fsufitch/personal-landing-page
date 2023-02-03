@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import FilipJPG from './filip.jpg';
 import { ref } from 'vue';
-import AsyncContactInfo from './AsyncContactInfo.vue';
+import ContactInfoLoader from './ContactInfoLoader.vue';
 import { usePageMetadata } from '@app/page-metadata';
 
 const captchaPassed = ref(window.sessionStorage.getItem('aboutMeCaptchaPassed') || null);
@@ -103,9 +103,7 @@ $pageMetadata.value = {
                 </template>
 
                 <VCardText>
-                    <Suspense v-if="captchaPassed">
-                        <AsyncContactInfo />
-                    </Suspense>
+                    <ContactInfoLoader v-if="captchaPassed" />
 
                     <VForm v-if="!captchaPassed" @submit.prevent="captchaValidate">
                         <VTextField v-model.number="captchaSum"> {{ captchaX }} + {{ captchaY }} =&nbsp;</VTextField>

@@ -8,3 +8,8 @@ declare module '*.jpg' {
     const filePath: string;
     export default filePath;
 }
+
+declare module '*?raw' {
+    const contents: string;
+    export default contents;
+}

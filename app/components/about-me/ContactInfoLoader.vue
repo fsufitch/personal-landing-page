@@ -1,17 +1,33 @@
 <script setup lang="ts">
-const contactInfoEncoded = await import('./contact.json?raw')
-    .then((module) => module.default)
-    .then((rawJSON) => JSON.parse(rawJSON));
+import { ref } from 'vue';
 
-const location = atob(contactInfoEncoded?.location ?? btoa('UNKNOWN'));
-const emails = atob(contactInfoEncoded?.emails ?? btoa('UNKNOWN'))
-    .split(',')
-    .map((x) => x.trim())
-    .filter((x) => !!x);
-const phones = atob(contactInfoEncoded?.phones ?? btoa('UNKNOWN'))
-    .split(',')
-    .map((x) => x.trim())
-    .filter((x) => !!x);
+import { Buffer } from 'buffer';
+
+const $contactInfo = ref({
+    location: 'UNKNOWN',
+    emails: <string[]>[],
+    phones: <string[]>[],
+});
+
+import('./contact.json?raw')
+    .then((module) => module.default)
+    .then((rawJSON) => JSON.parse(rawJSON))
+    .then((contactInfo) => {
+        const UNKNOWN = Buffer.from('UNKNOWN').toString('base64');
+        const location = Buffer.from(contactInfo?.location ?? UNKNOWN, 'base64').toString();
+        const emails = Buffer.from(contactInfo?.emails ?? UNKNOWN, 'base64')
+            .toString()
+            .split(',')
+            .map((x) => x.trim())
+            .filter((x) => !!x);
+        const phones = Buffer.from(contactInfo?.phones ?? UNKNOWN, 'base64')
+            .toString()
+            .split(',')
+            .map((x) => x.trim())
+            .filter((x) => !!x);
+
+        $contactInfo.value = { location, emails, phones };
+    });
 </script>
 
 <template>
@@ -20,7 +36,7 @@ const phones = atob(contactInfoEncoded?.phones ?? btoa('UNKNOWN'))
             <!-- emails -->
 
             <VListItem
-                v-for="(email, idx) in emails"
+                v-for="(email, idx) in $contactInfo.emails"
                 :key="idx"
                 :prepend-icon="idx ? 'null' : 'mdi-email'"
                 :href="`mailto:${email}`"
@@ -35,7 +51,7 @@ const phones = atob(contactInfoEncoded?.phones ?? btoa('UNKNOWN'))
 
             <!-- phones -->
             <VListItem
-                v-for="(phone, idx) in phones"
+                v-for="(phone, idx) in $contactInfo.phones"
                 :key="idx"
                 :prepend-icon="idx ? 'null' : 'mdi-phone'"
                 :href="`tel:${phone}`"
@@ -49,7 +65,7 @@ const phones = atob(contactInfoEncoded?.phones ?? btoa('UNKNOWN'))
             <VListItem prepend-icon="mdi-map-marker">
                 <span class="text-blur">1234 Available On Request Blvd</span>
             </VListItem>
-            <VListItem prepend-icon="null"> {{ location }} </VListItem>
+            <VListItem prepend-icon="null"> {{ $contactInfo.location }} </VListItem>
         </VList>
     </VSheet>
 </template>
