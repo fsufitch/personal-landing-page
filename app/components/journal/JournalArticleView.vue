@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useDisplay } from 'vuetify/lib/framework.mjs';
 
@@ -11,6 +11,7 @@ import MarkdownRenderer from '@app/components/markdown/MarkdownRenderer.vue';
 import { ArticleIndex } from '@proto/article';
 
 import { usePageMetadata } from '@app/page-metadata';
+import { useLoading } from '@app/loading';
 
 const route = useRoute();
 const articleID = route.params?.articleID?.toString();
@@ -21,7 +22,7 @@ const $article = ref<ArticleIndex | null>();
 const $categories = ref<[string, JournalCategory][]>([]);
 const $articleData = ref<ArticleAttachmentRaw>();
 
-const $loadState = ref<{ loading?: boolean; ready?: boolean; error?: string }>({ loading: true });
+const { state: $loading, setState: setLoading } = useLoading();
 
 const $meta = usePageMetadata();
 
@@ -29,14 +30,15 @@ watch(
     [$journal, () => articleID],
     async ([journal, articleID]) => {
         if (!journal) {
-            $loadState.value = { error: 'No journal loaded' };
+            setLoading({ step: 'error', message: 'No journal loaded' });
             return;
         }
 
         if (!articleID) {
-            $loadState.value = { error: 'No article ID given' };
+            setLoading({ step: 'error', message: 'No article found' });
             return;
         }
+        setLoading({ step: 'loading' });
 
         $journalIndex.value = await journal.index();
 
@@ -49,7 +51,7 @@ watch(
 
         $articleData.value = await readArticleAttachmentRaw(journal, articleID, 'body');
 
-        $loadState.value = { ready: true };
+        setTimeout(() => setLoading({ step: 'success' }), 3000);
         $meta.value = {
             title: `${$article.value.title} - journal@fsufitch.home`,
             description: $article.value.blurb,
@@ -69,14 +71,14 @@ const $display = useDisplay();
     <VRow class="justify-center">
         <VCol :cols="$display.smAndDown.value ? 12 : $display.md.value ? 10 : $display.lg.value ? 8 : 6">
             <VRow>
-                <VCol v-if="$loadState.loading" cols="12" md="auto">
+                <VCol v-if="$loading.step === 'loading'" cols="12" md="auto">
                     <h1>
                         Loading article...
-                        <VProgressCircular v-if="$loadState.loading" indeterminate />
+                        <VProgressCircular v-if="$loading.step === 'loading'" indeterminate />
                     </h1>
                 </VCol>
 
-                <VCol v-if="$loadState.ready" cols="12" md="auto">
+                <VCol v-if="$loading.step === 'success'" cols="12" md="auto">
                     <h1>{{ $article?.title }}</h1>
                     <p>
                         <RouterLink v-for="[id, category] in $categories" :key="id" :to="`/journal/c/${id}`">
@@ -86,7 +88,7 @@ const $display = useDisplay();
                         </RouterLink>
                     </p>
                 </VCol>
-                <VCol v-if="$loadState.ready" :class="$display.mdAndUp.value ? 'text-right' : 'text-left'">
+                <VCol v-if="$loading.step === 'success'" :class="$display.mdAndUp.value ? 'text-right' : 'text-left'">
                     <span class="text-caption text-disabled ma-1">
                         Posted: {{ $article?.createdOn?.toLocaleDateString() }}
                         {{ $article?.updatedOn ? `(Update: ${$article?.updatedOn.toLocaleString()})` : '' }}
@@ -96,11 +98,9 @@ const $display = useDisplay();
             </VRow>
             <VDivider class="ma-5" />
 
-            <VCard v-if="$loadState.ready">
+            <VCard v-if="$loading.step === 'success'">
                 <VCardText v-if="$articleData?.mimeType === 'text/markdown'" class="article-body">
-                    <Suspense>
-                        <MarkdownRenderer :content="$articleData?.data?.toString() || ''" />
-                    </Suspense>
+                    <MarkdownRenderer :content="$articleData?.data?.toString() || ''" />
                 </VCardText>
                 <VCardText v-else>
                     Cannot render content of mimetype
