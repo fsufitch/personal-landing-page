@@ -84,9 +84,7 @@ const $display = useDisplay();
                 Journal
                 <small v-if="$category" class="text-disabled"> (Category: {{ $category?.name }}) </small>
             </h2>
-            <VSheet>
-                <h5 class="font-weight-light">... blog, mission log, or timestamped long-form essay collection</h5>
-            </VSheet>
+            <p>... blog, mission log, or timestamped long-form essay collection</p>
         </VCol>
         <VCol cols="auto" :class="`d-flex align-end ${$display.mdAndUp.value ? 'justify-end' : 'justify-center'}`">
             <VBtn id="categoryMenu" color="secondary">
