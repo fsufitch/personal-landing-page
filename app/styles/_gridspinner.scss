@@ -1,7 +1,7 @@
 @mixin gridspinner($color: gray, $edgeCount: 3, $n: 13) {
     $itemToMarginRatio: 0.75;
     $itemWH: calc(100% / $edgeCount * $itemToMarginRatio);
-    $itemMargin: calc((100% - ($edgeCount * $itemWH))/ $edgeCount / 2);
+    $itemMargin: calc((100% - ($edgeCount * $itemWH)) / $edgeCount / 2);
     $duration: 1s;
 
     display: flex;
@@ -13,7 +13,8 @@
     align-items: center;
     justify-items: center;
 
-    dot {
+    dot,
+    div.dot {
         width: $itemWH;
         height: $itemWH;
 

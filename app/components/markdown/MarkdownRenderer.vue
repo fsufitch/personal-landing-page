@@ -7,6 +7,8 @@ import ReElement from './ReElement.vue';
 import { useMDAlert } from './dom/Alert.vue';
 import { useMDImageCard } from './dom/ImageCard.vue';
 import { useAside } from './dom/Aside.vue';
+import GridSpinner from '@app/components/grid-spinner/GridSpinner.vue';
+import { useDisplay } from 'vuetify/lib/framework.mjs';
 
 let MD = new MarkdownIt('default').use(MarkdownItEmoji);
 MD = useMDAlert(MD);
@@ -29,7 +31,7 @@ watchEffect(() => {
         const container = document.createElement('main');
         container.innerHTML = rawHTML;
         $renderedNodes.value = Array.from(container.childNodes);
-        setTimeout(() => ($loading.value = 'ready'), 3000);
+        setTimeout(() => ($loading.value = 'ready'), 90000);
     } catch (err) {
         $renderedNodes.value = [];
         console.error('Markdown render failure:', err);
@@ -37,10 +39,21 @@ watchEffect(() => {
         $loadError.value = `${err}`;
     }
 });
+
+const $display = useDisplay();
 </script>
 
 <template>
-    <template v-if="$loading === 'loading'"> Rendering markdown... </template>
+    <template v-if="$loading === 'loading'">
+        <h2 class="text-center">Rendering Markdown...</h2>
+        <VRow>
+            <VSpacer />
+            <VCol :cols="$display.lgAndUp.value ? 4 : $display.smAndUp.value ? 4 : 8">
+                <GridSpinner />
+            </VCol>
+            <VSpacer />
+        </VRow>
+    </template>
     <template v-if="$loading === 'ready'">
         <ReElement v-for="(node, idx) of $renderedNodes" :key="idx" :node="node" />
     </template>
