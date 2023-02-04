@@ -26,7 +26,7 @@ const $link = computed(() =>
 </script>
 
 <template>
-    <a v-if="$link[0] === 'direct' && $link[1]" :href="$link[1]">
+    <a v-if="$link[0] === 'direct' && $link[1]" :href="$link[1]" target="_blank">
         <slot /><sup><VIcon icon="mdi-open-in-new" /></sup>
     </a>
 
@@ -36,7 +36,7 @@ const $link = computed(() =>
 
     <RouterLink v-else-if="$link[0] === 'route' && $link[1]" :to="$link[1]"> <slot /> </RouterLink>
 
-    <a v-else-if="$link[0] === 'attachment' && $link[1]" :href="$link[1]">
+    <a v-else-if="$link[0] === 'attachment' && $link[1]" :href="$link[1]" target="_blank">
         <slot /><sup><VIcon icon="mdi-cloud-download" /></sup>
     </a>
 
