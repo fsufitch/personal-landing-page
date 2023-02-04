@@ -31,7 +31,9 @@ watchEffect(() => {
         const container = document.createElement('main');
         container.innerHTML = rawHTML;
         $renderedNodes.value = Array.from(container.childNodes);
-        $loading.value = 'ready';
+        setTimeout(() => {
+            $loading.value = 'ready';
+        }, 250);
     } catch (err) {
         $renderedNodes.value = [];
         console.error('Markdown render failure:', err);
@@ -49,7 +51,7 @@ const $display = useDisplay();
         <VRow>
             <VSpacer />
             <VCol :cols="$display.lgAndUp.value ? 4 : $display.smAndUp.value ? 4 : 8">
-                <GridSpinner />
+                <GridSpinner style="width: 100%" />
             </VCol>
             <VSpacer />
         </VRow>

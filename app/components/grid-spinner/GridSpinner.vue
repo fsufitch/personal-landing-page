@@ -2,10 +2,10 @@
 import { createDots, DEFAULT_DOTS } from '@app/styles/gridspinner';
 import { useAttrs, ref, onMounted } from 'vue';
 import { useTheme } from 'vuetify/lib/framework.mjs';
-const props = defineProps<{ dots?: number; color?: string }>();
+const props = defineProps<{ dots?: string; color?: string }>();
 const theme = useTheme();
 
-const dots = props.dots || DEFAULT_DOTS;
+const dots = parseInt(props.dots || '0') || DEFAULT_DOTS;
 
 const color: string = !props.color
     ? theme.current.value.colors.primary
@@ -35,5 +35,6 @@ div.gridspinner {
     @include gridspinner(v-bind(color), v-bind(dots));
 
     aspect-ratio: 1;
+    background: transparent;
 }
 </style>

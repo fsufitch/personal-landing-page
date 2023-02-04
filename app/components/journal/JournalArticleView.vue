@@ -10,6 +10,7 @@ import { readArticleAttachmentRaw, ArticleAttachmentRaw } from '@app/components/
 import { ArticleIndex } from '@proto/article';
 
 import { usePageMetadata } from '@app/page-metadata';
+import GridSpinner from '../grid-spinner/GridSpinner.vue';
 
 const route = useRoute();
 const articleID = route.params?.articleID?.toString();
@@ -72,7 +73,7 @@ const $display = useDisplay();
                 <VCol v-if="$loading === 'loading'" cols="12" md="auto">
                     <h1>
                         Loading article...
-                        <VProgressCircular indeterminate />
+                        <GridSpinner style="height: 1em; vertical-align: middle" dots="3" />
                     </h1>
                 </VCol>
 

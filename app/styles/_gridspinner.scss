@@ -4,7 +4,7 @@
     $itemMargin: calc((100% - ($edgeCount * $itemWH)) / $edgeCount / 2);
     $duration: 1s;
 
-    display: flex;
+    display: inline-flex;
     padding: 0;
     margin: 0;
 
