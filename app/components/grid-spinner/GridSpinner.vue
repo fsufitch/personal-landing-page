@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { createDots } from '@app/styles/gridspinner';
+import { createDots, DEFAULT_DOTS } from '@app/styles/gridspinner';
 import { useAttrs, ref, onMounted } from 'vue';
 import { useTheme } from 'vuetify/lib/framework.mjs';
 const props = defineProps<{ dots?: number; color?: string }>();
 const theme = useTheme();
 
-const dots = props.dots || 5;
+const dots = props.dots || DEFAULT_DOTS;
 
 const color: string = !props.color
     ? theme.current.value.colors.primary

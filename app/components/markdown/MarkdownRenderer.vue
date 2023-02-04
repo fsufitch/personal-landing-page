@@ -31,7 +31,7 @@ watchEffect(() => {
         const container = document.createElement('main');
         container.innerHTML = rawHTML;
         $renderedNodes.value = Array.from(container.childNodes);
-        setTimeout(() => ($loading.value = 'ready'), 90000);
+        $loading.value = 'ready';
     } catch (err) {
         $renderedNodes.value = [];
         console.error('Markdown render failure:', err);

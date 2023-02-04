@@ -4,6 +4,8 @@ const calculateOffset = (index: number, size: number) => {
     return Math.random();
 };
 
+export const DEFAULT_DOTS = 7;
+
 export const createDots = (container: Element, edgeCount = 3) => {
     for (let i = 0; i < Math.pow(edgeCount, 2); i++) {
         const offset = calculateOffset(i, edgeCount).toFixed(2);
