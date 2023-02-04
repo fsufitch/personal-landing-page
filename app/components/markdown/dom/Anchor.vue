@@ -13,15 +13,8 @@ const $journalIndex = ref<JournalIndex>();
 watch($journal, async (journal) => ($journalIndex.value = await journal?.index()));
 
 const $href = computed(() => props.node.getAttribute('href') || '');
-const $directHref = computed(() => ($href.value && $href.value.match('^[a-z]+://') ? $href.value : ''));
-const $routerTo = computed(() => (!$directHref.value && $href.value.startsWith('/') ? $href.value : ''));
-const $attachmentHref = computed(() =>
-    !$directHref.value && !$routerTo.value && $articleID.value
-        ? $journal.value?.fileURL($articleID.value, $href.value)
-        : '',
-);
 
-const $link: [string, string] = computed(() =>
+const $link = computed(() =>
     $href.value.match('^[a-z]+://')
         ? ['direct', $href.value]
         : $href.value.startsWith('#')
