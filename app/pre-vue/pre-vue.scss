@@ -1,7 +1,8 @@
 /* Styles to load for the base index.html, before Vue is loaded */
 @use '@app/styles/gridspinner';
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -26,9 +27,9 @@ html, body {
     }
 
     div.spinner {
-        @include gridspinner.gridspinner(var(--prevue-colors-primary), var(--edge-count));
-
         width: 200px;
         height: 200px;
+
+        @include gridspinner.gridspinner(var(--prevue-colors-primary), var(--edge-count));
     }
 }
