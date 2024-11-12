@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import DiscordBoarBotImg from './discord-boar-bot.png';
 import ChocolateDoomImg from './chocolate-doom.png';
-import PrezTweetingImg from './modern-day-presidential.png';
 import ShipSpinningImg from './ship-spinning.png';
 import { usePageMetadata } from '@app/page-metadata';
+
+import { GITHUB_URL } from '@app/constants';
 
 usePageMetadata().value = {
     title: 'Projects - @fsufitch',
@@ -12,6 +13,19 @@ usePageMetadata().value = {
 </script>
 
 <template>
+    <VRow>
+        <VSpacer />
+        <VCol cols="12" lg="8" xl="6">
+            <VAlert>
+                <VIcon icon="mdi-github"></VIcon>
+                See more at my Github! <a :href="GITHUB_URL"> {{ GITHUB_URL }} </a>
+            </VAlert>
+        </VCol>
+        <VSpacer />
+    </VRow>
+
+    <VSpacer />
+
     <VRow>
         <VSpacer />
         <VCol cols="12" lg="8" xl="6">
@@ -84,42 +98,6 @@ usePageMetadata().value = {
                         </VCol>
                         <VSpacer />
                     </VRow>
-                </VCardText>
-            </VCard>
-        </VCol>
-        <VSpacer />
-    </VRow>
-
-    <VSpacer />
-
-    <VRow>
-        <VSpacer />
-        <VCol cols="12" lg="8" xl="6">
-            <VCard>
-                <VImg class="d-none d-md-block" :src="PrezTweetingImg" width="256px" style="float: right" />
-                <VCardTitle> Preztweeting.com </VCardTitle>
-                <VCardText>
-                    <VImg class="d-md-none mx-auto" :src="PrezTweetingImg" width="256px" />
-                    <p>
-                        Ship Spinning Inc. was a web based slot machine game built around
-                        <a href="https://eveonline.com" target="_blank">Eve Online<VIcon icon="mdi-open-in-new" /></a>,
-                        a massively-multiplayer online game. Ship Spinning connected with Eve via a complex XML API and
-                        created a system in which Eve Online players could use their in-game "credits" currency to
-                        activate a web-based animated slot machine, with which they could win in-game items prizes. The
-                        system integrated with other APIs, in order to measure and ensure good payouts and to better
-                        engage players. Over its lifetime, it provided entertainment for over 1000 players, and
-                        distributed prizes worth thousands of dollars (if converted from in-game currency).
-                    </p>
-                    <p>
-                        While it has no longer been maintained, its source code is still available online. Its user
-                        interface was a custom jQuery-based site. The server was built in Python, using the web2py
-                        framework and a SQLite database, and it was deployed on a virtual private server.
-                    </p>
-                    <p>
-                        <a href="https://github.com/fsufitch/eve-shipspinning" target="_blank">
-                            Check it out on Github! <VIcon icon="mdi-open-in-new" />
-                        </a>
-                    </p>
                 </VCardText>
             </VCard>
         </VCol>
