@@ -17,11 +17,6 @@ usePageMetadata().value = {
 </script>
 
 <template>
-    <VAlert class="ma-2" color="info">
-        <VIcon icon="mdi-github"></VIcon>
-        See more at my Github! <a :href="GITHUB_URL"> {{ GITHUB_URL }} </a>
-    </VAlert>
-
     <VRow>
         <VCol cols="12" md="6" class="d-flex flex-column">
             <ProjectCard class="ma-2" :image="FaviconImg" href="https://github.com/fsufitch/personal-landing-page">
@@ -164,4 +159,9 @@ usePageMetadata().value = {
             </ProjectCard>
         </VCol>
     </VRow>
+
+    <VAlert class="ma-2" color="info">
+        <VIcon icon="mdi-github"></VIcon>
+        See more at my Github! <a :href="GITHUB_URL"> {{ GITHUB_URL }} </a>
+    </VAlert>
 </template>
