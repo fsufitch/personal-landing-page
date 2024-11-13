@@ -165,7 +165,7 @@ const toggleTheme = () =>
             <VBtn
                 v-if="$navMode === 'desktop'"
                 variant="outlined"
-                color="info"
+                color="secondary"
                 :href="`https://github.com/fsufitch/personal-landing-page/tree/${commitRef}`"
                 target="_blank"
                 prepend-icon="mdi-git"

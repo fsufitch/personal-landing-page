@@ -1,11 +1,12 @@
 import type * as Vuetify from 'vuetify';
+import MATERIAL_THEME from './material-theme';
 
 type VuetifyOptions = NonNullable<Parameters<typeof Vuetify.createVuetify>[0]>;
 
 export const createVuetify = async (dryRun?: boolean) => {
     const options: VuetifyOptions = {};
 
-    options.theme = await getVuetifyThemeOption();
+    options.theme = { themes: getVuetifyThemes() };
 
     if (!dryRun) {
         options.components = await import('vuetify/components');
@@ -27,25 +28,19 @@ export const createVuetify = async (dryRun?: boolean) => {
 };
 
 // TODO: add nice theming here
-const getVuetifyThemeOption = async () => ({
-    themes: {
-        light: {
-            dark: false,
-            colors: {
-                primary: '#3f51b5',
-                secondary: '#b0bec5',
-                accent: '#8c9eff',
-                error: '#b71c1c',
-            },
-        },
-        dark: {
-            dark: true,
-            colors: {
-                primary: '#3f51b5',
-                secondary: '#b0bec5',
-                accent: '#8c9eff',
-                error: '#b71c1c',
-            },
-        },
+const getVuetifyThemes = (): Record<string, Vuetify.ThemeDefinition> => ({
+    light: {
+        dark: false,
+        colors: objectToDashCase(MATERIAL_THEME.schemes.light),
+    },
+    dark: {
+        dark: true,
+        colors: objectToDashCase(MATERIAL_THEME.schemes.dark),
     },
 });
+
+const stringToDashCase = (it: string) =>
+    it.replaceAll(/(([a-z](?=[^a-z]))|([A-Z])(?=[A-Z][^A-Z])|[0-9](?=[^0-9]))/g, '$1-').toLowerCase();
+
+const objectToDashCase = (it: Object) =>
+    Object.fromEntries(Object.entries(it).map(([k, v]) => [stringToDashCase(k), v]));

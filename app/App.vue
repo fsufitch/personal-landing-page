@@ -9,7 +9,7 @@ const appReady = () => {
 </script>
 
 <template>
-    <VApp @vnode-mounted="appReady">
+    <VApp @vue:mounted="appReady">
         <VLayout>
             <AppNavigation />
             <VMain scrollable>

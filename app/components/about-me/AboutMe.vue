@@ -60,6 +60,10 @@ $pageMetadata.value = {
                                 complex systems, understanding them deeply, and using that knowledge to improve them.
                             </p>
 
+                            <p>
+                                <VBtn variant="elevated" color="secondary"> Secondary </VBtn>
+                            </p>
+
                             <br />
 
                             <p><em>"Technology the right way"</em> is a lifestyle. Why not join me?</p>
