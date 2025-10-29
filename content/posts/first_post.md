@@ -8,6 +8,8 @@ title = 'First_post'
 
 asdf
 
+<!--more-->
+
 ## World
 
 mnabdsf

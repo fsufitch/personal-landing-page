@@ -8,6 +8,8 @@ languageCode = "en"
 enableRobotsTXT = true
 enableGitInfo = true
 
+enableEmoji = true
+
 [pagination]
   pagerSize = 10
 
@@ -43,9 +45,33 @@ enableGitInfo = true
   [markup.highlight]
     noClasses = false  # required by LoveIt’s CSS pipeline
 
+  [markup.goldmark.parser]
+  autoHeadingIDType = "github-ascii"
+
+  [markup.goldmark.renderer]
+    unsafe = true  # allow raw HTML in markdown
+
+  [markup.goldmark.extensions]
+  typographer = true
+  strikethrough = false  # strikethrough is broken by subscript, see: https://github.com/gohugoio/hugoDocs/commit/6467bda931c329e3ccbdcf222d031c18c38b967c
+  
+  [markup.goldmark.extensions.extras.delete]
+  enable = true
+
+  [markup.goldmark.extensions.extras.insert]
+  enable = true
+
+  [markup.goldmark.extensions.extras.mark]
+  enable = true
+
+  [markup.goldmark.extensions.extras.subscript]
+  enable = true
+
+  [markup.goldmark.extensions.extras.superscript]
+  enable = true
+
 [params]
   defaultTheme = "auto"
-
   title = "Filip's Corner"
 
   [params.app]
@@ -77,6 +103,8 @@ enableGitInfo = true
     RSS = true
 
   [params.page]
+    author = "Filip Sufitchi"
+    authorLink = "/about/"
     lightgallery = true
 
     [params.page.toc]
@@ -88,6 +116,3 @@ enableGitInfo = true
   [params.typeit]
     enable = true
     speed = 50
-
-[markup.goldmark.renderer]
-  unsafe = true
