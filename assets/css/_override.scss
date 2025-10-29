@@ -1,0 +1,75 @@
+/* =========================================================
+   LoveIt _overrides.scss — red-based, mild contrast
+   ========================================================= */
+
+/* ---------- Global colors ---------- */
+/* Light */
+$global-background-color: #f7f4f5; // warm off-white, easier on eyes than pure white
+$global-font-color: #1f1f23; // near-black for comfortable reading
+$global-font-secondary-color: #5b5e66;
+
+$global-link-color: #b0161c; // brand red for links
+$global-link-hover-color: #8e1418; // darker on hover for accessibility
+
+$global-border-color: #e6dfe1; // soft border tone
+
+$scrollbar-color: #b25b60;
+$scrollbar-hover-color: #c96a70;
+
+$selection-color: rgba(214, 31, 38, 0.16); // subtle red selection
+
+/* Dark */
+$global-background-color-dark: #131112; // warm near-black
+$global-font-color-dark: #e6e2e3; // soft light text (not pure white)
+$global-font-secondary-color-dark: #b9b3b5;
+
+$global-link-color-dark: #ff7a7a; // readable pink-red
+$global-link-hover-color-dark: #ff9a9a;
+
+$global-border-color-dark: #2a2224;
+
+$selection-color-dark: rgba(255, 87, 87, 0.22);
+
+/* ---------- Content accents ---------- */
+$blockquote-color: #e25561; // quote bar / accent (light)
+$blockquote-color-dark: #ff7f88; // quote bar / accent (dark)
+
+/* Pagination links adopt the same accent family */
+$pagination-link-color: #b0161c;
+$pagination-link-color-dark: #ff7a7a;
+/* Keep hover legible without jumping to pure black/white */
+$pagination-link-hover-color: #6a0e12;
+$pagination-link-hover-color-dark: #ffd1d1;
+
+/* ---------- Code (inline + blocks) ---------- */
+/* Inline code text color (matches accent, but slightly muted) */
+$code-color: #c43a3f;
+$code-color-dark: #ff8b6e;
+
+/* Backgrounds for code blocks and inline code */
+$code-background-color: #f1edef; // gentle warm gray
+$code-background-color-dark: #1d191a;
+
+/* Info line / metadata color (file names, language labels) */
+$code-info-color: #8b8688;
+$code-info-color-dark: #bcb6b8;
+
+/* ---------- Tables (subtle, to match surfaces) ---------- */
+$table-background-color: #f5f1f2;
+$table-background-color-dark: #1a1617;
+
+$table-thead-color: #eee7e9;
+$table-thead-color-dark: #1f1a1b;
+
+/* ---------- Optional: tweak selection/hover shades for cards, tags, etc. ----------
+   (Only if you want stronger brand presence across widgets.)
+
+// Buttons, badges, tag pills, etc. often derive from link colors; leaving those
+// to defaults keeps LoveIt’s balance. If you want stronger red accents, uncomment:
+
+// $tags-color:                    #b0161c ;
+// $tags-color-dark:               #ff7a7a ;
+
+*/
+
+/* End of overrides */
