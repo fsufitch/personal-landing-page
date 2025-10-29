@@ -1,0 +1,67 @@
+baseURL = "https://filip.sufitchi.name/"
+
+theme = "LoveIt"
+
+title = "Filip's Corner"
+languageCode = "en"
+
+enableRobotsTXT = true
+enableGitInfo = true
+
+[pagination]
+  pagerSize = 10
+
+[menu]
+  
+  [[menu.main]]
+    identifier = "about"
+    name = "About Me"
+    url = "/about/"
+    weight = 1
+  [[menu.main]]
+    identifier = "projects"
+    name = "Projects"
+    url = "/projects/"
+    weight = 2
+  [[menu.main]]
+    identifier = "posts"
+    name = "Blog"
+    url = "/blog/"
+    weight = 3
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    weight = 9
+
+[markup]
+  [markup.highlight]
+    noClasses = false  # required by LoveIt’s CSS pipeline
+
+[params]
+  defaultTheme = "auto"
+  title = "what"
+
+  [params.search]
+    enable = true
+    type = "lunr"
+
+  [params.home]
+    rss = 10
+    [params.home.profile]
+      enable = true
+      avatarURL = "/images/avatar.png"
+      title = "Filip Sufitchi"
+      subtitle = "Software Engineer • Maker • Nerd"
+      typeit = true
+      social = true
+
+  [params.social]
+    GitHub = "fsufitch"
+    Medium = "fsufitch"
+    Linkedin = "fsufitch"
+    # Email = "[email protected]"
+    RSS = true
+
+[markup.goldmark.renderer]
+  unsafe = true
