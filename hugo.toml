@@ -12,27 +12,32 @@ enableGitInfo = true
   pagerSize = 10
 
 [menu]
-  
+
   [[menu.main]]
     identifier = "about"
     name = "About Me"
     url = "/about/"
     weight = 1
   [[menu.main]]
+    identifier = "resume"
+    name = "Resumé"
+    url = "https://docs.google.com/document/d/16zpkvHbJF9cVp5u56MnsDBIVBk-Fuk6riZLXBhrElnc/edit?usp=sharing"
+    weight = 2
+  [[menu.main]]
     identifier = "projects"
     name = "Projects"
     url = "/projects/"
-    weight = 2
+    weight = 3
   [[menu.main]]
     identifier = "posts"
     name = "Blog"
     url = "/blog/"
-    weight = 3
-  [[menu.main]]
-    identifier = "tags"
-    name = "Tags"
-    url = "/tags/"
-    weight = 9
+    weight = 4
+  # [[menu.main]]
+  #   identifier = "tags"
+  #   name = "Tags"
+  #   url = "/tags/"
+  #   weight = 9
 
 [markup]
   [markup.highlight]
@@ -40,7 +45,15 @@ enableGitInfo = true
 
 [params]
   defaultTheme = "auto"
-  title = "what"
+
+  title = "Filip's Corner"
+
+  [params.app]
+    title = "Filip's Corner"
+    svgFavIcon = "/favicon.svg"
+
+  [params.header.title]
+    name = "Filip's Corner"
 
   [params.search]
     enable = true
@@ -50,7 +63,7 @@ enableGitInfo = true
     rss = 10
     [params.home.profile]
       enable = true
-      avatarURL = "/images/avatar.png"
+      avatarURL = "/images/avatar.jpg"
       title = "Filip Sufitchi"
       subtitle = "Software Engineer • Maker • Nerd"
       typeit = true
@@ -62,6 +75,19 @@ enableGitInfo = true
     Linkedin = "fsufitch"
     # Email = "[email protected]"
     RSS = true
+
+  [params.page]
+    lightgallery = true
+
+    [params.page.toc]
+      enable = false
+
+    [params.page.share]
+      enable = true
+
+  [params.typeit]
+    enable = true
+    speed = 50
 
 [markup.goldmark.renderer]
   unsafe = true

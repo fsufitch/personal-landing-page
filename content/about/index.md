@@ -2,12 +2,13 @@
 date = '2025-10-29T16:33:55-04:00'
 draft = false
 title = 'About Me'
+lightgallery = true
 +++
 
 {{< row "1fr 1fr" >}}
 
 {{< col >}}
-{{< image src="./filip.jpg" alt="Me" style="max-width: 33%" >}}
+{{< image src="./filip.jpg" alt="Portrait" style="max-width: 33%" >}}
 {{< /col >}}
 
 {{< col >}}
